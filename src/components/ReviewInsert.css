@@ -1,0 +1,20 @@
+.star {
+    background: none;
+    border: none;
+    color: grey;
+    cursor: pointer;
+}
+
+.star.gold {
+    color: gold;
+}
+
+.star:hover,
+.star:hover {
+    color: gold;
+}
+
+.textarea {
+    width: 100%;
+    height: auto;
+}

@@ -1,21 +1,22 @@
+import {createBrowserRouter} from "react-router-dom";
+import Review from "./components/Review";
+import ReviewInsert from "./components/ReviewInsert";
+import Community from "./components/Community";
+
 const router = createBrowserRouter([
 
-    // {
-    //   path : '/',
-    //   element : <App />,
-    // },
-    // {
-    //   path : '/signUp',
-    //   element : <Signup />,
-    // },
-    // {
-    //   path : '/category',
-    //   element : <UserCategoryType />,
-    // },
-    // {
-    //   path : '/main',
-    //   element : <Main />,
-    // },
+    {
+      path : '/review',
+      element : <Review />,
+    },
+    {
+      path : '/reviewInsert',
+      element : <ReviewInsert />,
+    },
+    {
+      path : '/community',
+      element : <Community />,
+    }
     // {
     //   path : '/myClass',
     //   element : <MyClass />,

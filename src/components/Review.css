@@ -1,0 +1,124 @@
+/*className 를 고를땐 앞에 . 를 찍고*/
+.center{
+  width: 500px;
+  margin : 0 auto;
+  padding: 20px;
+}
+
+/*<body> 태그를 고를땐 그냥 body*/
+/* 기본 세팅 : body 0으로 해주고 시작 */
+body{
+  margin: 0;
+  padding: 0;
+  background: #eff3f3;
+}
+
+
+.infoMent{
+  margin: 48px 24px 0 96px;
+}
+
+.infoTopMent{
+  /*가로*/
+  display: flex;
+  /*위아래 정렬*/
+  align-items: center;
+  /*gap은 flex를 한 놈들끼리 띄우는거야*/
+  gap: 10px;
+}
+
+.title{
+  font-weight: 500;
+  font-size: 24px;
+  margin-top: 9px;
+  line-height: 32px;
+  letter-spacing: -.02em;
+}
+
+.title_description{
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: -.02em;
+  color: #878787;
+}
+
+.category{
+  padding: 34px 0 34px 0px;
+  display: flex;
+  /*gap: 10px;*/
+  flex-wrap: wrap; /* 항목이 다음 줄로 넘어가도록 허용 */
+
+
+}
+
+.categoryItem{
+  font-size: 14px;
+  padding: 2px 12px!important;
+  color: #389e0d;
+  background: #f6ffed;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.card{
+  padding: 24px;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  width: calc(100% / 2 - 10px);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.story{
+  align-items: center;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+}
+/**/
+.story_profile{
+  font-size: 14px;
+  display: block;
+  color: rgba(0,0,0,.45);
+}
+
+.card_img{
+  /*width: 80px;*/
+  border-radius: 50%;
+  padding-right: 16px;
+}
+
+.story_comment{
+  padding-top: 8px;
+  font-size: 15px;
+  color: rgba(0,0,0,.75)!important;
+}
+
+.card_wrap{
+  display: flex;
+  flex-wrap: wrap;
+  gap : 10px;
+}
+
+.insertButton{
+  color: #975dff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  user-select: none;
+  background: none;
+  border: none;
+
+}
+.insertButton:hover {
+  color:  #a998c7 /* 마우스를 올렸을 때 글자색 변경 */
+}
+.button_container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+

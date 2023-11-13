@@ -1,4 +1,3 @@
-import Center from "./Center";
 import {useState} from "react";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -21,7 +20,7 @@ const ReviewInsert = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const storeId = 1; // 예시 스토어 아이디
+        const storeId = 10; // 예시 스토어 아이디
         const memberId = 1; // 예시 멤버 아이디
 
         const formData = new FormData();
@@ -38,7 +37,7 @@ const ReviewInsert = () => {
         });
         console.log(reviewRating)
         try {
-            const res = await axios.post(`http://localhost:8080/api/v1/review/store/${storeId}/member/${memberId}`, formData, {
+            const res = await axios.post(`http://localhost:8080/api/v1/reviews/stores/${storeId}/members/${memberId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -53,7 +52,7 @@ const ReviewInsert = () => {
     }
 
     return (
-        <Center>
+        <div className="review-box">
             <form onSubmit={handleSubmit}>
                 <div className="rating">
             <div style={{paddingRight: '0', margin: '0 auto'}}></div>
@@ -95,7 +94,7 @@ const ReviewInsert = () => {
                 </div>
                 <button type="submit">리뷰 남기기</button>
             </form>
-        </Center>
+        </div>
     )
 }
 

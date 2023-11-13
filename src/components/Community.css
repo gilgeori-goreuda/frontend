@@ -1,0 +1,51 @@
+/* Community.css */
+.community {
+    max-width: 800px; /* 페이스북 포스트 폭과 비슷하게 설정 */
+    margin: auto;
+    background-color: #fff;
+    padding: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.user-profile-picture {
+    width: 40px; /* 프로필 이미지 크기 */
+    height: 40px;
+    border-radius: 50%; /* 원형으로 만들기 */
+    margin-right: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.review {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px; /* 리뷰 간의 간격 */
+    background-color: #fff;
+    border-radius: 10px; /* 살짝 둥근 모서리 */
+}
+
+.review-content {
+    display: flex;
+    flex-direction: column;
+    /*margin-bottom: 15px;*/
+}
+
+.image-slider {
+    display: flex;
+    overflow-x: auto; /* 가로 스크롤 */
+    margin-bottom: 10px; /* 이미지 슬라이더와 내용 사이 간격 */
+}
+
+.review-image {
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px; /* 이미지 간의 간격 */
+    border-radius: 4px; /* 살짝 둥근 모서리 */
+}

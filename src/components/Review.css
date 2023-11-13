@@ -1,6 +1,6 @@
 /*className 를 고를땐 앞에 . 를 찍고*/
 .center{
-  width: 500px;
+  min-width: 500px;
   margin : 0 auto;
   padding: 20px;
 }

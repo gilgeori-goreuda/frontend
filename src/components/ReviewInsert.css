@@ -18,3 +18,9 @@
     width: 100%;
     height: auto;
 }
+
+.review-box {
+    min-width: 500px;
+    margin : 0 auto;
+    padding: 30px;
+}

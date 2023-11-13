@@ -2,6 +2,8 @@ import {createBrowserRouter} from "react-router-dom";
 import Review from "./components/Review";
 import ReviewInsert from "./components/ReviewInsert";
 import Community from "./components/Community";
+import Login from "./Login";
+import KakaoCallBack from "./KakaoCallBack";
 
 const router = createBrowserRouter([
 
@@ -16,15 +18,15 @@ const router = createBrowserRouter([
     {
       path : '/community',
       element : <Community />,
-    }
-    // {
-    //   path : '/myClass',
-    //   element : <MyClass />,
-    // },
-    // {
-    //   path : '/myPage',
-    //   element : <MyPage />,
-    // },
+    },
+    {
+      path : '/login',
+      element : <Login />,
+    },
+    {
+      path : '/oauth/kakao/callback',
+      element : <KakaoCallBack />,
+    },
     // {
     //   path : '/classDetail',
     //   element : <ClassDetail />,

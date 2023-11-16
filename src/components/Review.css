@@ -9,7 +9,7 @@
 /* 기본 세팅 : body 0으로 해주고 시작 */
 body{
   margin: 0;
-  padding: 0;
+  padding: 10;
   background: #eff3f3;
 }
 
@@ -120,5 +120,61 @@ body{
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  padding: 15px;
 }
 
+/**/
+
+/* Review.css */
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* 리뷰 간 간격 */
+}
+
+.review-box {
+  border: 1px solid #ccc; /* 테두리 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  padding: 15px; /* 내부 여백 */
+  background-color: white; /* 배경색 */
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* 헤더와 본문 사이 간격 */
+  margin-top: 5px;
+}
+
+.review-header img {
+  width: 50px; /* 프로필 이미지 크기 */
+  height: 50px;
+  border-radius: 50%; /* 원형 이미지 */
+  margin-right: 10px; /* 이미지와 텍스트 간 간격 */
+}
+
+.review-body {
+  margin-bottom: 10px; /* 본문과 푸터 사이 간격 */
+}
+
+.review-body img {
+  max-width: 50%; /* 이미지 최대 너비 */
+  height: auto; /* 이미지 높이 자동 조정 */
+  margin-top: 5px; /* 이미지 간 간격 */
+}
+
+.review-footer {
+  font-size: 0.9em; /* 푸터 글꼴 크기 */
+  color: #666; /* 푸터 글꼴 색상 */
+}
+
+.review-rating img {
+  width: 30px;
+  height: 30px;
+}
+
+.review-count img {
+  width: 30px;
+  height: 30px;
+}

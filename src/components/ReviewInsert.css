@@ -20,7 +20,15 @@
 }
 
 .review-box {
-    min-width: 500px;
+    width: 500px;
+    /*min-width: 500px;*/
     margin : 0 auto;
     padding: 30px;
+}
+
+.image-preview img {
+    width: 100px; /* 이미지 크기 조정 */
+    height: 100px;
+    margin: 5px;
+    object-fit: cover; /* 이미지가 너무 크거나 작을 때 콘텐츠 비율을 유지 */
 }

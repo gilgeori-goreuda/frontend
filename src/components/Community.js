@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Center from "./Center";
 import './Community.css'
+import thumbsUp from "../img/thumbs_up.png";
 
 const Community = () => {
     const [reviews, setReviews] = useState([]);
@@ -9,30 +10,37 @@ const Community = () => {
     const [totalPage, setTotalPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(()=>{
-        axios.get('http://localhost:8080/api/v1/community/reviews', {
-        }).then((res) => {
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/v1/community/reviews', {}).then((res) => {
             if (res.status == 200) {
                 setTotalPage(res.data.pageInfo.totalSize / 5)
-
-
             }
         }).catch((err) => {
         })
         getPageData()
-    },[])
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log({page, totalPage})
-        if( page < totalPage ){
+        if (page < totalPage) {
             getPageData(page)
 
-        }else{
+        } else {
             // getPageData(page)
         }
-    },[page])
+    }, [page])
 
-    const handleScroll =  () => {
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/v1/community/reviews', {}).then((res) => {
+            if (res.status == 200) {
+                setTotalPage(res.data.pageInfo.totalSize / 5)
+            }
+        }).catch((err) => {
+        })
+        getPageData()
+    }, [])
+
+    const handleScroll = () => {
         // 스크롤 위치 계산
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const windowHeight = window.innerHeight;
@@ -42,11 +50,11 @@ const Community = () => {
         if (scrollTop + windowHeight >= documentHeight * 0.8) {
             // setTimeout을 사용하여 1초 후에 setPage를 호출
             window.removeEventListener('scroll', handleScroll);
-            setPage(prevState => prevState +1);
+            setPage(prevState => prevState + 1);
         }
     };
 
-    const getPageData = (page)=>{
+    const getPageData = (page) => {
         setIsLoading(true);
         axios.get('http://localhost:8080/api/v1/community/reviews', {
             params: {
@@ -55,9 +63,10 @@ const Community = () => {
             }
         }).then((res) => {
             if (res.status == 200) {
-                if(totalPage===0)
+                if (totalPage === 0)
                     setTotalPage(res.data.pageInfo.totalPages)
                 const newData = res.data.reviews;
+                console.log(res.data.reviews);
                 setReviews(prevData => [...prevData, ...newData])
 
             }
@@ -78,29 +87,45 @@ const Community = () => {
                 <div className="reviews">
                     {reviews && reviews.length > 0 ? (
                         reviews.map((review, index) => (
-                            <div key={review.reviewId+ review.memberId} className="review">
-                                {/*<img src={review.profilePicture} alt="User" className="user-profile-picture"/>*/}
-                                {/*<div className="user-name">{review.nickname}</div>*/}
-                                {/*<h2>{review.title}/!*<span>{index}</span>*!/</h2>*/}
-                                <div className="review-content">
-                                    {review.imageUrls && review.imageUrls.length > 0 ?
-                                        <div className="image-slider">
-                                            <div style={{display : 'flex'}}>
-                                                {review.imageUrls.map((item, idx) => (
+                            <div key={review.reviewId + review.memberId} className="review">
+                                <div className="review-header">
+                                    <div key={review.member.memberId}>
+                                        <div>
+                                            <img src={review.member.profileImageUrl} alt="Profile Image"/>
+                                        </div>
+                                    </div>
+                                    <div key={review.member.memberId}>
+                                        <div>
+                                            <p>{review.member.nickname}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="review-body">
+                                    <div className="review-content">
+                                        {review.imageUrls && review.imageUrls.length > 0 ?
+                                            <div className="image-slider">
+                                                <div style={{display: 'flex'}}>
+                                                    {review.imageUrls.map((item, idx) => (
                                                         <img
-                                                            style={{display : idx < 4 ? 'block' : 'none'}}
-                                                            key={review.reviewId+" "+idx}
+                                                            style={{display: idx < 4 ? 'block' : 'none'}}
+                                                            key={review.reviewId + " " + idx}
                                                             src={item}
                                                             alt={`Review Image ${index}`}
                                                             className="review-image"/>
-                                                ))}
-                                          </div>
-                                        </div>
-                                     : <p></p>}
-                                    <p>{review.content}</p>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            : <p></p>}
+                                        <p>{review.content}</p>
 
+                                    </div>
                                 </div>
-
+                                <div className="review-content">
+                                    <div className="review-count" style={{ display: 'flex' }}>
+                                        <img src={thumbsUp} alt="Thumbs up" style={{ marginRight: '10px' }} />
+                                        <span>{review.likeCount}</span>
+                                    </div>
+                                </div>
                             </div>
                         ))
                     ) : (

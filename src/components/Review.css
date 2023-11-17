@@ -9,7 +9,7 @@
 /* 기본 세팅 : body 0으로 해주고 시작 */
 body{
   margin: 0;
-  padding: 10;
+  /*padding: 20%;*/
   background: #eff3f3;
 }
 

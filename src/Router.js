@@ -1,3 +1,9 @@
+import {createBrowserRouter} from "react-router-dom";
+import MyPage from "./components/myPage/MyPage";
+import MyPagePreferences from "./components/myPage/MyPagePreferences";
+import MyPageReviews from "./components/myPage/MyPageReviews";
+import StoreDetail from "./components/myPage/StoreDetail";
+
 const router = createBrowserRouter([
 
     // {
@@ -20,10 +26,26 @@ const router = createBrowserRouter([
     //   path : '/myClass',
     //   element : <MyClass />,
     // },
-    // {
-    //   path : '/myPage',
-    //   element : <MyPage />,
-    // },
+     {
+       path : '/myPage',
+       element : <MyPage />,
+     },
+
+    {
+       path : '/MyPagePreferences',
+        element : <MyPagePreferences />,
+    },
+
+    {
+        path : '/MyPageReviews',
+        element : <MyPageReviews />,
+    },
+
+    {
+        path : '/StoreDetail',
+        element : <StoreDetail />,
+    },
+
     // {
     //   path : '/classDetail',
     //   element : <ClassDetail />,

@@ -4,6 +4,7 @@ import ReviewInsert from "./components/ReviewInsert";
 import Community from "./components/Community";
 import Login from "./Login";
 import KakaoCallBack from "./KakaoCallBack";
+import Comment from "./components/Comment";
 
 const router = createBrowserRouter([
 
@@ -27,13 +28,13 @@ const router = createBrowserRouter([
       path : '/oauth/kakao/callback',
       element : <KakaoCallBack />,
     },
+    {
+      path : '/Comment',
+      element : <Comment />,
+    },
     // {
-    //   path : '/classDetail',
-    //   element : <ClassDetail />,
-    // },
-    // {
-    //   path : '/auth',
-    //   element : <TeacherMiddleWare />,
+    //   path : '/commentDetail',
+    //   element : <CommentDetail />,
     // },
     // {
     //   path : '/authSignup',

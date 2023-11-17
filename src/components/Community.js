@@ -2,13 +2,67 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Center from "./Center";
 import './Community.css'
-import thumbsUp from "../img/thumbs_up.png";
+import thumbsUp from "../img/like_heart.png";
+import comment from '../img/comment.png'
+import close from '../img/close.png'
+import './Modal.css'
+
+const Modal = ({show, onClose, comments, submitComment, newComment, setNewComment}) => {
+    return (
+        <div className={show ? "modal display-block" : "modal display-none"}>
+            <section className="modal-main">
+                <div className="modal-close-button">
+                    <img src={close} onClick={onClose} alt="Close"/>
+                </div>
+
+                <div className="comments-container">
+                    {comments.map(comment => (
+                        <div key={comment.id} className="comment">
+                            <img src={comment.profileImageUrl} alt="Profile" className="comment-profile-img"/>
+                            <div className="comment-content">
+                                <p className="comment-author">{comment.nickname}</p>
+                                <p>{comment.content}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="comment-form">
+                    <input
+                        type="text"
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="댓글을 입력해보세요."
+                    />
+                    <button onClick={submitComment}>댓글 달기</button>
+                </div>
+            </section>
+        </div>
+    );
+};
 
 const Community = () => {
     const [reviews, setReviews] = useState([]);
     const [page, setPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState("");
+    const [commentInputs, setCommentInputs] = useState({});
+
+    const [showModal, setShowModal] = useState(false);
+    const [selectedComments, setSelectedComments] = useState([]);
+    const [selectedReviewId, setSelectedReviewId] = useState(null);
+
+    const openModal = async (reviewId) => {
+        setSelectedReviewId(reviewId);
+        const res = await axios.get(`http://localhost:8080/api/v1/reviews/${reviewId}/comments`);
+        setSelectedComments(res.data.reviewComments);
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/community/reviews', {}).then((res) => {
@@ -80,6 +134,55 @@ const Community = () => {
         });
     }
 
+    // 댓글 입력 처리
+    const handleCommentChange = (reviewId, value) => {
+        setCommentInputs(prev => ({...prev, [reviewId]: value}));
+    };
+    const submitComment = async (reviewId) => {
+        if (!newComment.trim()) {
+            console.log("Comment is empty");
+            return; // 빈 댓글은 제출하지 않음
+        }
+        console.log("Submitting comment:", newComment);
+        try {
+            const memberId = 1;  // 예시 memberId, 실제로는 로그인한 사용자의 ID를 사용
+            const res = await
+                axios.post(`http://localhost:8080/api/v1/reviews/${selectedReviewId}/members/${memberId}/comments`,
+                    newComment
+                ,{headers:
+                            {"Content-Type": "application/json;charset=utf-8"}
+                });
+            if (res.status === 200) {
+                console.log("Comment posted successfully");
+                setNewComment("");
+                fetchComments(selectedReviewId); //댓글 목록 다시 불러오기
+            }
+        } catch (error) {
+            console.error("Error posting comment", error);
+        }
+        handleCommentChange(reviewId, "");
+    }
+
+    // 댓글 데이터를 불러오는 함수
+    const fetchComments = async (reviewId) => {
+        try {
+            const res = await axios.get(`http://localhost:8080/api/v1/reviews/${reviewId}/comments`);
+            console.log(res.data)
+            if (res.status === 200) {
+                setComments(prev => ({...prev, [reviewId]: res.data.reviewComments}));
+            }
+        } catch (error) {
+            console.error("Error fetching comments", error);
+        }
+    };
+
+// 각 리뷰에 대한 댓글 불러오기
+    useEffect(() => {
+        reviews.forEach(review => {
+            fetchComments(review.reviewId);
+        });
+    }, [reviews]);
+
     return (
         <Center>
             <div className="community">
@@ -117,13 +220,20 @@ const Community = () => {
                                             </div>
                                             : <p></p>}
                                         <p>{review.content}</p>
-
                                     </div>
+
                                 </div>
                                 <div className="review-content">
-                                    <div className="review-count" style={{ display: 'flex' }}>
-                                        <img src={thumbsUp} alt="Thumbs up" style={{ marginRight: '10px' }} />
+                                    <div className="review-count" style={{display: 'flex'}}>
+                                        <img src={thumbsUp} alt="Thumbs up" style={{marginRight: '10px'}}/>
                                         <span>{review.likeCount}</span>
+
+                                        <div className="comment-button">
+                                            <img src={comment}
+                                                 onClick={() => openModal(review.reviewId)}
+                                                 View Comments/>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -132,6 +242,13 @@ const Community = () => {
                         <p>No reviews found</p>
                     )}
                 </div>
+                <Modal
+                    show={showModal}
+                    onClose={closeModal}
+                    comments={selectedComments}
+                    submitComment={submitComment}
+                    newComment={newComment}
+                    setNewComment={setNewComment}/>
             </div>
         </Center>
     )

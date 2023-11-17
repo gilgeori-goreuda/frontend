@@ -1,0 +1,87 @@
+/* Modal.css */
+.modal {
+    position: fixed; /* 모달을 페이지 상에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-main {
+    background-color: white;
+    padding: 20px;
+    width: 60%;
+    height: 60%;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.display-block {
+    display: flex; /* 모달을 표시 */
+}
+
+.display-none {
+    display: none; /* 모달을 숨김 */
+}
+
+/* Modal.css */
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee; /* 댓글 사이의 구분선 */
+    padding-bottom: 10px; /* 구분선과 댓글 내용 사이의 간격 */
+}
+
+.comment:last-child {
+    border-bottom: none; /* 마지막 댓글의 구분선 제거 */
+}
+
+.comment-profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.comment-content {
+    flex-grow: 1;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-form {
+    display: flex;
+    margin-top: 20px;
+}
+
+.comment-form input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.comment-form button {
+    /* 버튼 스타일 */
+}
+
+
+.modal-close-button img {
+    top: 10px;
+    left: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+.comments-container {
+    border: 1px solid #ddd; /* 테두리 색상 설정 */
+    padding: 10px;
+    margin-bottom: 20px; /* 댓글 입력 폼과의 간격 */
+    max-height: 300px; /* 컨테이너 최대 높이 */
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤바 표시 */
+}

@@ -18,7 +18,7 @@ const Review = () => {
 
 
     useEffect(() => {
-        const fetchreviews = async () => {
+        const fetchReviews = async () => {
             try {
                 const res = await ReviewService.getReviewsByStoreId(storeId);
 
@@ -31,7 +31,7 @@ const Review = () => {
             }
         };
 
-        fetchreviews();
+        fetchReviews();
     }, [storeId]);
 
     const StarRating = ({ rating }) => {
@@ -59,7 +59,7 @@ const Review = () => {
                     <h1>리뷰</h1>
                 </div>
                 <div className="button_container">
-                    <button onClick={ReviewInsert} className="insertButton">리뷰 쓰기</button>
+                    <button onClick={ReviewInsert} className="insertButton">✏️ 리뷰 쓰기</button>
                 </div>
                 <div className="reviews">
                     {Array.isArray(reviews) && reviews.map((review, index) => (

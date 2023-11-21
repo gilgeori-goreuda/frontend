@@ -1,9 +1,24 @@
+import { createBrowserRouter } from "react-router-dom";
+import MainMap from "./components/map/MainMap";
+import AddressSearch from "./components/Search/AddressSearch";
+import AddressSearchMap from "./components/map/AddressSearchMap";
+
+
 const router = createBrowserRouter([
 
     // {
-    //   path : '/',
-    //   element : <App />,
+    //     path: '/',
+    //     element: <App />,
     // },
+    {
+        path: '/api/v1/search/address',
+        element: <AddressSearchMap />,
+    },
+    {
+        path: '/addressSearch',
+        element: <AddressSearch />,
+    },
+
     // {
     //   path : '/signUp',
     //   element : <Signup />,

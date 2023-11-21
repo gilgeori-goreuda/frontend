@@ -29,13 +29,13 @@ const router = createBrowserRouter([
       element : <Login />,
     },
     {
-      path : '/oauth/kakao/callback',
+      path : 'oauth2/callback/kakao',
       element : <KakaoCallBack />,
     },
-    {
-      path : '/Comment',
-      element : <Comment />,
-    },
+    // {
+    //   path : '/Comment',
+    //   element : <Comment />,
+    // },
     // {
     //   path : '/commentDetail',
     //   element : <CommentDetail />,

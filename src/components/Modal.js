@@ -3,7 +3,7 @@ import close from "../img/close.png";
 
 const Modal = ({show, onClose, comments, submitComment, newComment, setNewComment}) => {
 
-
+    console.log(comments)
 
     return (
         <div className={show ? "modal display-block" : "modal display-none"}>

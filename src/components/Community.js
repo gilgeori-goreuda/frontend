@@ -14,9 +14,9 @@ const Community = () => {
     const [page, setPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [commentInputs, setCommentInputs] = useState({});
+    const [sortOption, setSortOption] = useState('createdAt');
 
     const [showModal, setShowModal] = useState(false);
     const [selectedComments, setSelectedComments] = useState([]);
@@ -36,12 +36,20 @@ const Community = () => {
     };
 
 
+    // 정렬 옵션 변경 핸들러
+    const handleSortChange = (newSortOption) => {
+        setSortOption(newSortOption);
+        setPage(0); // 페이지를 초기화
+        setReviews([]); // 기존 리뷰 데이터 초기화
+        getPageData(0, newSortOption); // 변경된 정렬 옵션으로 데이터 가져오기
+    };
+
     const handleLikeOrHateClick = async (reviewId, preferenceType) => {
         try {
             const accessToken = localStorage.getItem('accessToken');
             const url = `http://localhost:8080/api/v1/preferences/reviews/${reviewId}/${preferenceType}`;
             const res = await axios.post(url, {}, {
-                headers: { 'Authorization': `Bearer ${accessToken}` }
+                headers: {'Authorization': `Bearer ${accessToken}`}
             });
 
             if (res.status === 200) {
@@ -75,7 +83,7 @@ const Community = () => {
                     newHateCount = review.userPreference === 'HATE' ? review.hateCount - 1 : review.hateCount;
                 }
 
-                return { ...review, likeCount: newLikeCount, hateCount: newHateCount, userPreference: newPreference };
+                return {...review, likeCount: newLikeCount, hateCount: newHateCount, userPreference: newPreference};
             }
             return review;
         }));
@@ -84,20 +92,10 @@ const Community = () => {
     const saveUserActionLocally = (reviewId, preferenceType) => {
         //  로컬 저장소에 사용자의 좋아요/싫어요 액션을 저장하는 로직
         const actions = JSON.parse(localStorage.getItem('userActions')) || [];
-        actions.push({ reviewId, preferenceType });
+        actions.push({reviewId, preferenceType});
         localStorage.setItem('userActions', JSON.stringify(actions));
     };
 
-
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/community/reviews', {}).then((res) => {
-            if (res.status == 200) {
-                setTotalPage(res.data.pageInfo.totalSize / 5)
-            }
-        }).catch((err) => {
-        })
-        getPageData()
-    }, [])
 
     useEffect(() => {
         console.log({page, totalPage})
@@ -133,12 +131,13 @@ const Community = () => {
         }
     };
 
-    const getPageData = (page) => {
+    const getPageData = (page, sort = sortOption) => {
         setIsLoading(true);
         axios.get('http://localhost:8080/api/v1/community/reviews', {
             params: {
                 size: 5,
-                page: page
+                page: page,
+                sort: sort
             }
         }).then((res) => {
             if (res.status == 200) {
@@ -208,6 +207,12 @@ const Community = () => {
             <div className="community">
                 <h1>Community</h1>
                 <div className="reviews">
+                    <div>
+                        <select onChange={(e) => handleSortChange(e.target.value)}>
+                            <option value="createdAt">최신순</option>
+                            <option value="likeCount">좋아요 많은 순</option>
+                        </select>
+                    </div>
                     {reviews && reviews.length > 0 ? (
                         reviews.map((review, index) => (
                             <div key={index} className="review">
@@ -264,7 +269,6 @@ const Community = () => {
                                                  onClick={() => openModal(review.reviewId)}
                                                  View Comments/>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

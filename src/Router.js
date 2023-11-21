@@ -1,3 +1,8 @@
+
+
+import MainMap from "./components/map/MainMap";
+import AddressSearch from "./components/Search/AddressSearch";
+import AddressSearchMap from "./components/map/AddressSearchMap";
 import {createBrowserRouter} from "react-router-dom";
 import Review from "./components/Review";
 import ReviewInsert from "./components/ReviewInsert";
@@ -9,6 +14,7 @@ import MyPage from "./components/myPage/MyPage";
 import MyPagePreferences from "./components/myPage/MyPagePreferences";
 import MyPageReviews from "./components/myPage/MyPageReviews";
 import StoreDetail from "./components/myPage/StoreDetail";
+
 
 const router = createBrowserRouter([
 
@@ -33,8 +39,30 @@ const router = createBrowserRouter([
       element : <KakaoCallBack />,
     },
     // {
+
+    //     path: '/',
+    //     element: <App />,
+    // },
+    {
+        path: '/api/v1/search/address',
+        element: <AddressSearchMap />,
+    },
+    {
+        path: '/addressSearch',
+        element: <AddressSearch />,
+    },
+
+    // {
+    //   path : '/signUp',
+    //   element : <Signup />,
+    // },
+    // {
+    //   path : '/category',
+    //   element : <UserCategoryType />,
+
     //   path : '/Comment',
     //   element : <Comment />,
+
     // },
     // {
     //   path : '/commentDetail',

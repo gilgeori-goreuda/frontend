@@ -4,7 +4,11 @@ import ReviewInsert from "./components/ReviewInsert";
 import Community from "./components/Community";
 import Login from "./Login";
 import KakaoCallBack from "./KakaoCallBack";
-
+import Comment from "./components/Comment";
+import MyPage from "./components/myPage/MyPage";
+import MyPagePreferences from "./components/myPage/MyPagePreferences";
+import MyPageReviews from "./components/myPage/MyPageReviews";
+import StoreDetail from "./components/myPage/StoreDetail";
 
 const router = createBrowserRouter([
 
@@ -35,6 +39,40 @@ const router = createBrowserRouter([
     // {
     //   path : '/commentDetail',
     //   element : <CommentDetail />,
+    //   path : '/main',
+    //   element : <Main />,
+    // },
+    // {
+    //   path : '/myClass',
+    //   element : <MyClass />,
+    // },
+     {
+       path : '/myPage',
+       element : <MyPage />,
+     },
+
+    {
+       path : '/MyPagePreferences',
+        element : <MyPagePreferences />,
+    },
+
+    {
+        path : '/MyPageReviews',
+        element : <MyPageReviews />,
+    },
+
+    {
+        path : '/StoreDetail',
+        element : <StoreDetail />,
+    },
+
+    // {
+    //   path : '/classDetail',
+    //   element : <ClassDetail />,
+    // },
+    // {
+    //   path : '/auth',
+    //   element : <TeacherMiddleWare />,
     // },
     // {
     //   path : '/authSignup',

@@ -31,11 +31,11 @@
     border-radius: 10px; /* 살짝 둥근 모서리 */
 }
 
-.review-content {
-    display: flex;
-    flex-direction: column;
-    /*margin-bottom: 15px;*/
-}
+/*.review-content {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    !*margin-bottom: 15px;*!*/
+/*}*/
 
 .image-slider {
     display: flex;
@@ -45,12 +45,23 @@
 
 .review-image {
     max-width: 100%;
-    height: auto;
+    height: 200%;
     margin-right: 10px; /* 이미지 간의 간격 */
     border-radius: 4px; /* 살짝 둥근 모서리 */
+    object-fit: cover; /* 컨테이너에 맞게 이미지 조정 */
+
 }
 
 .comment-button {
-    margin-left: 10px; /* 왼쪽에 10px 간격 추가 */
+    margin-left: 15px; /* 왼쪽에 10px 간격 추가 */
     cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+.review-count {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.review-hate {
+    margin-left: 10px;
 }

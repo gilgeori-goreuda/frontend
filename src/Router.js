@@ -1,6 +1,3 @@
-
-
-import MainMap from "./components/map/MainMap";
 import AddressSearch from "./components/Search/AddressSearch";
 import AddressSearchMap from "./components/map/AddressSearchMap";
 import {createBrowserRouter} from "react-router-dom";
@@ -9,7 +6,6 @@ import ReviewInsert from "./components/ReviewInsert";
 import Community from "./components/Community";
 import Login from "./Login";
 import KakaoCallBack from "./KakaoCallBack";
-import Comment from "./components/Comment";
 import MyPage from "./components/myPage/MyPage";
 import MyPagePreferences from "./components/myPage/MyPagePreferences";
 import MyPageReviews from "./components/myPage/MyPageReviews";
@@ -19,114 +15,53 @@ import StoreDetail from "./components/myPage/StoreDetail";
 const router = createBrowserRouter([
 
     {
-      path : '/review',
-      element : <Review />,
+        path: '/review',
+        element: <Review/>,
     },
     {
-      path : '/reviewInsert',
-      element : <ReviewInsert />,
+        path: '/reviewInsert',
+        element: <ReviewInsert/>,
     },
     {
-      path : '/community',
-      element : <Community />,
+        path: '/community',
+        element: <Community/>,
     },
     {
-      path : '/login',
-      element : <Login />,
+        path: '/login',
+        element: <Login/>,
     },
     {
-      path : 'oauth2/callback/kakao',
-      element : <KakaoCallBack />,
+        path: 'oauth2/callback/kakao',
+        element: <KakaoCallBack/>,
     },
-    // {
-
-    //     path: '/',
-    //     element: <App />,
-    // },
     {
         path: '/api/v1/search/address',
-        element: <AddressSearchMap />,
+        element: <AddressSearchMap/>,
     },
     {
         path: '/addressSearch',
-        element: <AddressSearch />,
-    },
-
-    // {
-    //   path : '/signUp',
-    //   element : <Signup />,
-    // },
-    // {
-    //   path : '/category',
-    //   element : <UserCategoryType />,
-
-    //   path : '/Comment',
-    //   element : <Comment />,
-
-    // },
-    // {
-    //   path : '/commentDetail',
-    //   element : <CommentDetail />,
-    //   path : '/main',
-    //   element : <Main />,
-    // },
-    // {
-    //   path : '/myClass',
-    //   element : <MyClass />,
-    // },
-     {
-       path : '/myPage',
-       element : <MyPage />,
-     },
-
-    {
-       path : '/MyPagePreferences',
-        element : <MyPagePreferences />,
+        element: <AddressSearch/>,
     },
 
     {
-        path : '/MyPageReviews',
-        element : <MyPageReviews />,
+        path: '/myPage',
+        element: <MyPage/>,
     },
 
     {
-        path : '/StoreDetail',
-        element : <StoreDetail />,
+        path: '/MyPagePreferences',
+        element: <MyPagePreferences/>,
     },
 
-    // {
-    //   path : '/classDetail',
-    //   element : <ClassDetail />,
-    // },
-    // {
-    //   path : '/auth',
-    //   element : <TeacherMiddleWare />,
-    // },
-    // {
-    //   path : '/authSignup',
-    //   element : <TeacherSignup />,
-    // },
-    // {
-    //   path : '/createCommunity',
-    //   element : <CreateCommunity />,
-    // },
-    // {
-    //   path : '/createSchedule',
-    //   element : <CreateSchedule />,
-    // },
-    // {
-    //   path : '/createBoard',
-    //   element : <CreateBoard />,
-    // },
-    // {
-    //   path : '/createAlbum',
-    //   element : <CreateAlbum />,
-    // },
-    // {
-    //   path : '/modifyInfo',
-    //   element : <ModifyInfo />,
-    // },
+    {
+        path: '/MyPageReviews',
+        element: <MyPageReviews/>,
+    },
 
+    {
+        path: '/StoreDetail',
+        element: <StoreDetail/>,
+    },
 ]);
 
 export default router;

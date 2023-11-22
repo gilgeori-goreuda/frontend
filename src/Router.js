@@ -14,6 +14,7 @@ import MyPage from "./components/myPage/MyPage";
 import MyPagePreferences from "./components/myPage/MyPagePreferences";
 import MyPageReviews from "./components/myPage/MyPageReviews";
 import StoreDetail from "./components/myPage/StoreDetail";
+import Main from "./components/main/Main";
 
 
 const router = createBrowserRouter([
@@ -92,6 +93,11 @@ const router = createBrowserRouter([
     {
         path : '/StoreDetail',
         element : <StoreDetail />,
+    },
+
+    {
+        path : '/main',
+        element : <Main />,
     },
 
     // {

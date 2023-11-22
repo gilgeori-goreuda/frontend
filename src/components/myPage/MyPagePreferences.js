@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Center from "./Center";
 import axios from 'axios';
-import '../../styles/MyPagePreferences.css';
 
 // 총 몇개 찜했는지도 보여주고 싶다.
 // 카테고리별로 나눠도 좋을 거 같음(푸드트럭/포장마차)

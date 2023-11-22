@@ -1,0 +1,26 @@
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    opacity: 1;
+    visibility: visible;
+
+    /* margin-bottom: 20px */
+}
+
+.headerBox {
+    margin: 0 auto;
+    max-width: 480px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 48px;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    /* margin-bottom: 20px; */
+}

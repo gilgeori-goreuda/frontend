@@ -68,6 +68,13 @@ const AddressSearch = () => {
             } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
                 alert('검색 결과가 없습니다.');
                 setPlaces([]);
+                let paginationEl = document.getElementById('pagination'),
+                    fragment = document.createDocumentFragment(),
+                    i;
+                while (paginationEl.hasChildNodes()) {
+                    paginationEl.removeChild(paginationEl.lastChild);
+                }
+
             }
         };
         const options = {
@@ -111,33 +118,43 @@ const AddressSearch = () => {
 
     return (
         <div>
-            <form className="inputForm" onSubmit={handleSubmit}>
-                <input autoFocus className='inputText' placeholder="검색어를 입력하세요" title="예시: 건대입구역" onChange={onChange} value={InputText} />
-                <button className='searchButton' onClick={() => onClickNowAddressHandler()} type="submit">검색</button>
-            </form>
-            <div id="result-list">
-                {Places.map((item, i) => (
-                    // <Link className='decoRemove' key={i}
-                    //     to={`/api/v1/search/address?lat=${item.y}&lng=${item.x}&street_address=${item.address_name}`}>
-                    <Link className='decoRemove' to={createDynamicPath(item)} key={i}>
-                        <div className="result-item">
-                            <h5 style={{ textDecoration: 'none' }}>{item.place_name}</h5>
-                            {item.road_address_name ? (
-                                <div>
-                                    <span><b className='road_address'>도로명</b> {item.road_address_name}</span>
-                                    <span><b className='just_address'>지번</b> {item.address_name}</span>
-                                    {/* <span>경도: {item.x}</span><br /> */}
-                                    {/* <span>위도: {item.y}</span> */}
-                                </div>
-                            ) : (
-                                <span><b className='just_address'>지번</b>{item.address_name}</span>
-                            )}
-                        </div>
-                    </Link>
-                ))}
-                <div id="pagination"></div>
+            <div className='searchList'>
+                {/* <div className='headerBar'> */}
+                <div className='searchbar'>
+                    <div class="searchbar-left">
+                        <a href="#" className="btn-back">
+                        </a>
+                    </div>
+                    <form className="searchInputForm" onSubmit={handleSubmit}>
+                        <input autoFocus className='searchInputText' placeholder="구, 동, 건물명, 역 등으로 검색" title="예시: 건대입구역" onChange={onChange} value={InputText} />
+                        <button className='searchButton' onClick={() => onClickNowAddressHandler()} type="submit">검색</button>
+                    </form>
+                </div>
+                {/* </div> */}
+                <div id="result-list">
+                    {Places.length != 0 ? Places.map((item, i) => (
+                        // <Link className='decoRemove' key={i}
+                        //     to={`/api/v1/search/address?lat=${item.y}&lng=${item.x}&street_address=${item.address_name}`}>
+                        <Link className='decoRemove' to={createDynamicPath(item)} key={i}>
+                            <div className="result-item">
+                                <h5 style={{ textDecoration: 'none' }}>{item.place_name}</h5>
+                                {item.road_address_name ? (
+                                    <div>
+                                        <span><b className='road_address'>도로명</b> {item.road_address_name}</span>
+                                        <span><b className='just_address'>지번</b> {item.address_name}</span>
+                                        {/* <span>경도: {item.x}</span><br /> */}
+                                        {/* <span>위도: {item.y}</span> */}
+                                    </div>
+                                ) : (
+                                    <span><b className='just_address'>지번</b>{item.address_name}</span>
+                                )}
+                            </div>
+                        </Link>
+                    )) : <p className='notContentsText'>검색어를 입력해 주세요.</p>}
+                    <div id="pagination"></div>
+                </div>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Center from "./Center";
 import './Review.css';
 import starFilled from '../img/star_filled2.png';
@@ -34,15 +34,15 @@ const Review = () => {
         fetchReviews();
     }, [storeId]);
 
-    const StarRating = ({rating}) => {
+    const StarRating = ({ rating }) => {
         const totalStars = 5;
         let stars = [];
 
         for (let i = 1; i <= totalStars; i++) {
             if (i <= rating) {
-                stars.push(<img key={i} src={starFilled} alt={`Star ${i}`}/>);
+                stars.push(<img key={i} src={starFilled} alt={`Star ${i}`} />);
             } else {
-                stars.push(<img key={i} src={starEmpty} alt={`Star ${i}`}/>);
+                stars.push(<img key={i} src={starEmpty} alt={`Star ${i}`} />);
             }
         }
         return <div>{stars}</div>;
@@ -67,7 +67,7 @@ const Review = () => {
                             <div className="review-header">
                                 <div key={review.member.memberId}>
                                     <div>
-                                        <img src={review.member.profileImageUrl} alt="Profile Image"/>
+                                        <img src={review.member.profileImageUrl} alt="Profile Image" />
                                     </div>
                                 </div>
                                 <div key={review.member.memberId}>
@@ -76,18 +76,18 @@ const Review = () => {
                                     </div>
                                 </div>
                                 <div className="review-rating">
-                                    <StarRating rating={review.reviewRating}/>
+                                    <StarRating rating={review.reviewRating} />
                                 </div>
                             </div>
                             <div className="review-body">
                                 <div className="review-content">
                                     <div className="image-slider">
-                                        <div style={{display: 'flex'}}>
+                                        <div style={{ display: 'flex' }}>
                                             {review.imageUrls && review.imageUrls.map((imageUrl, idx) => (
                                                 <img
                                                     key={idx}
                                                     src={imageUrl}
-                                                    alt={`Review Image ${idx}`}/>
+                                                    alt={`Review Image ${idx}`} />
                                             ))}
                                         </div>
                                     </div>
@@ -95,8 +95,8 @@ const Review = () => {
                                 <p>{review.content}</p>
                             </div>
                             <div className="review-content">
-                                <div className="review-count" style={{display: 'flex'}}>
-                                    <img src={thumbsUp} alt="Thumbs up" style={{marginRight: '10px'}}/>
+                                <div className="review-count" style={{ display: 'flex' }}>
+                                    <img src={thumbsUp} alt="Thumbs up" style={{ marginRight: '10px' }} />
                                     <span>{review.likeCount}</span>
                                 </div>
                             </div>

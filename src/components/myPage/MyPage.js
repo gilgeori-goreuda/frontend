@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Center from "./Center";
 import axios from 'axios';
-import '../../styles/styles.css';
+// import '../../styles/styles.css';
 
 const MyPage = () => {
     const navigate = useNavigate();

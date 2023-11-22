@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import Center from "./components/Center";
 import './CallBack.css'
@@ -32,14 +32,12 @@ const KakaoCallBack = () => {
 
     return (
         <div className="LoginHandeler">
-            <Center>
-                <div className="loding">
-                    <p>로그인 중입니다.</p>
-                    <p>잠시만 기다려주세요.</p>
-                    <div className="spinner"></div>
+            <div className="loding">
+                <p>로그인 중입니다.</p>
+                <p>잠시만 기다려주세요.</p>
+                <div className="spinner"></div>
 
-                </div>
-            </Center>
+            </div>
         </div>
     );
 }

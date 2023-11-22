@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import axios from "axios";
-import Center from "./components/Center";
 import './CallBack.css'
 
 const KakaoCallBack = () => {

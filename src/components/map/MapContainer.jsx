@@ -90,7 +90,6 @@ const MapContainer = ({ searchPlace }) => {
                 }}
             ></div>
             <div id="result-list">
-                <p>{Places.length}</p>
                 {Places.map((item, i) => (
                     console.log(item),
                     <div key={i} style={{ marginTop: '20px' }}>

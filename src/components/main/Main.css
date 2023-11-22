@@ -1,0 +1,24 @@
+.place {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px; /* 리뷰 간의 간격 */
+    background-color: #fff;
+    border-radius: 10px; /* 살짝 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.main {
+    max-width: 800px; /* 페이스북 포스트 폭과 비슷하게 설정 */
+    margin: auto;
+    background-color: #fff;
+    padding: 15px;
+}
+
+.place img {
+    max-width: 800px; /* 페이스북 포스트 폭과 비슷하게 설정 */
+    margin: auto;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 15px; /* 모서리를 더 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}

@@ -19,11 +19,10 @@
     height: auto;
 }
 
-.review-box {
-    width: 500px;
-    /*min-width: 500px;*/
+.reviewInsert-box {
+    width: 100%;
     margin : 0 auto;
-    padding: 30px;
+    padding: 10px;
 }
 
 .image-preview img {
@@ -31,4 +30,28 @@
     height: 100px;
     margin: 5px;
     object-fit: cover; /* 이미지가 너무 크거나 작을 때 콘텐츠 비율을 유지 */
+}
+
+.reviewInsert-header {
+    height: 100%;
+}
+
+.riveiwInsert-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reviewInsert-custom-button {
+    /*background-image: url('/src/img/reviewInsertButton.png'); !* 메모지 이미지의 URL *!*/
+    background-size: cover; /* 이미지 크기를 버튼 크기에 맞춤 */
+    background-color: pink;
+    border: none; /* 기본 테두리 제거 */
+    color: black; /* 텍스트 색상 */
+    font-size: 16px; /* 텍스트 크기 */
+    width: 150px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding: 10px; /* 안쪽 여백 */
+    cursor: pointer; /* 마우스 오버 시 커서 변경 */
 }

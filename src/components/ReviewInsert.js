@@ -5,6 +5,7 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
 import './ReviewInsert.css'
 import { useNavigate } from "react-router-dom";
+import uploadPhoto from '../img/uploadPhoto.png'
 
 const ReviewInsert = () => {
     const nav = useNavigate();
@@ -77,19 +78,32 @@ const ReviewInsert = () => {
         }
     }
 
-    return (
-        <div className="review-box">
+    return (<div className='reviewInsert-header'>
+        <div className="reviewInsert-box">
             <form onSubmit={handleSubmit}>
                 <div className="rating">
                     <div style={{ paddingRight: '0', margin: '0 auto' }}></div>
-                    <div>
+                    <div style={{ margin: '10px' }}>
                         <div><h1>리뷰</h1></div>
                     </div>
-                    <div>
-                        <div><h3>사진추가</h3></div>
+                    <div style={{ margin: '30px' }}></div>
+                    <div style={{ margin: '10px' }}>
+                        <h5>사진추가</h5>
                     </div>
                     <div>
-                        <input type="file" multiple onChange={handleFileChange} />
+                        <input
+                            type="file"
+                            id="fileInput"
+                            multiple
+                            style={{ display: 'none' }}
+                            onChange={handleFileChange} />
+                        <label
+                            htmlFor="fileInput">
+                            <img
+                                src={uploadPhoto}
+                                style={{ width: '80px', height: '80px' }}
+                            />
+                        </label>
                     </div>
                     <div className="image-preview">
                         {previewImages.map((image, index) => (
@@ -97,7 +111,7 @@ const ReviewInsert = () => {
                         ))}
                     </div>
 
-                    <div style={{ margin: '80px' }}></div>
+                    <div style={{ margin: '30px' }}></div>
                     <div>평점</div>
                     {[...Array(5)].map((star, index) => {
                         index += 1;
@@ -124,9 +138,12 @@ const ReviewInsert = () => {
                         onChange={(e) => setReviewContent(e.target.value)}
                     />
                 </div>
-                <button type="submit">리뷰 남기기</button>
+                <div className="riveiwInsert-button-container">
+                    <button type="submit" class="reviewInsert-custom-button">리뷰 남기기 ❤️</button>
+                </div>
             </form>
         </div>
+    </div>
     )
 }
 

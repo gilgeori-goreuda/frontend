@@ -1,6 +1,3 @@
-
-
-import MainMap from "./components/map/MainMap";
 import AddressSearch from "./components/Search/AddressSearch";
 import AddressSearchMap from "./components/map/AddressSearchMap";
 import { createBrowserRouter } from "react-router-dom";
@@ -13,6 +10,7 @@ import MyPage from "./components/myPage/MyPage";
 import MyPagePreferences from "./components/myPage/MyPagePreferences";
 import MyPageReviews from "./components/myPage/MyPageReviews";
 import StoreDetail from "./components/myPage/StoreDetail";
+import Main from "./components/main/Main";
 
 
 const router = createBrowserRouter([
@@ -37,11 +35,6 @@ const router = createBrowserRouter([
     path: 'oauth2/callback/kakao',
     element: <KakaoCallBack />,
   },
-  // {
-
-  //     path: '/',
-  //     element: <App />,
-  // },
   {
     path: '/api/v1/search/address',
     element: <AddressSearchMap />,
@@ -51,28 +44,6 @@ const router = createBrowserRouter([
     element: <AddressSearch />,
   },
 
-  // {
-  //   path : '/signUp',
-  //   element : <Signup />,
-  // },
-  // {
-  //   path : '/category',
-  //   element : <UserCategoryType />,
-
-  //   path : '/Comment',
-  //   element : <Comment />,
-
-  // },
-  // {
-  //   path : '/commentDetail',
-  //   element : <CommentDetail />,
-  //   path : '/main',
-  //   element : <Main />,
-  // },
-  // {
-  //   path : '/myClass',
-  //   element : <MyClass />,
-  // },
   {
     path: '/myPage',
     element: <MyPage />,
@@ -92,39 +63,10 @@ const router = createBrowserRouter([
     path: '/StoreDetail',
     element: <StoreDetail />,
   },
-
-  // {
-  //   path : '/classDetail',
-  //   element : <ClassDetail />,
-  // },
-  // {
-  //   path : '/auth',
-  //   element : <TeacherMiddleWare />,
-  // },
-  // {
-  //   path : '/authSignup',
-  //   element : <TeacherSignup />,
-  // },
-  // {
-  //   path : '/createCommunity',
-  //   element : <CreateCommunity />,
-  // },
-  // {
-  //   path : '/createSchedule',
-  //   element : <CreateSchedule />,
-  // },
-  // {
-  //   path : '/createBoard',
-  //   element : <CreateBoard />,
-  // },
-  // {
-  //   path : '/createAlbum',
-  //   element : <CreateAlbum />,
-  // },
-  // {
-  //   path : '/modifyInfo',
-  //   element : <ModifyInfo />,
-  // },
+  {
+    path: '/main',
+    element: <Main />,
+  },
 
 ]);
 

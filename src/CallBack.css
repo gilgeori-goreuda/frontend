@@ -7,11 +7,11 @@
     text-align: center;
 }
 
-body{
-    margin: 0;
-    /*padding: 20%;*/
-    background: #eff3f3;
-}
+/*body{*/
+/*    margin: 0;*/
+/*    padding: 20%;*/
+/*    background: #eff3f3;*/
+/*}*/
 
 .spinner {
     border: 4px solid rgba(255, 255, 255, 0.3);

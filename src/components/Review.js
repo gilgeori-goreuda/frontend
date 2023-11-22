@@ -103,15 +103,8 @@ const Review = () => {
                             </div>
                             <div style={{display: 'flex',justifyContent: 'center'}}>
                                 {review.content}
-
                             </div>
                         </div>
-                        {/*<div className="review-content">*/}
-                        {/*    <div className="review-count" style={{display: 'flex'}}>*/}
-                        {/*        <img src={thumbsUp} alt="Thumbs up" style={{marginRight: '10px'}}/>*/}
-                        {/*        <span>{review.likeCount}</span>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
                     </div>
                 ))}
             </div>

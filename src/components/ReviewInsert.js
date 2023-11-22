@@ -5,6 +5,7 @@ import {faStar as farStar} from '@fortawesome/free-regular-svg-icons';
 import {faStar as fasStar} from '@fortawesome/free-solid-svg-icons';
 import './ReviewInsert.css'
 import {useNavigate} from "react-router-dom";
+import uploadPhoto from '../img/uploadPhoto.png'
 
 const ReviewInsert = () => {
     const nav = useNavigate();
@@ -77,45 +78,58 @@ const ReviewInsert = () => {
         }
     }
 
-    return (
-        <div className="review-box">
-            <form onSubmit={handleSubmit}>
-                <div className="rating">
-                    <div style={{paddingRight: '0', margin: '0 auto'}}></div>
-                    <div>
-                        <div><h1>리뷰</h1></div>
-                    </div>
-                    <div>
-                        <div><h3>사진추가</h3></div>
-                    </div>
-                    <div>
-                        <input type="file" multiple onChange={handleFileChange}/>
-                    </div>
-                    <div className="image-preview">
-                        {previewImages.map((image, index) => (
-                            <img key={index} src={image} alt="Preview"/>
-                        ))}
-                    </div>
+    return (<div className='reviewInsert-header'>
+            <div className="reviewInsert-box">
+                <form onSubmit={handleSubmit}>
+                    <div className="rating">
+                        <div style={{paddingRight: '0', margin: '0 auto'}}></div>
+                        <div style={{margin: '10px'}}>
+                            <div><h1>리뷰</h1></div>
+                        </div>
+                        <div style={{margin: '30px'}}></div>
+                        <div style={{margin: '10px'}}>
+                            <h5>사진추가</h5>
+                        </div>
+                        <div>
+                            <input
+                                type="file"
+                                id="fileInput"
+                                multiple
+                                style={{display: 'none'}}
+                                onChange={handleFileChange}/>
+                            <label
+                                htmlFor="fileInput">
+                                <img
+                                    src={uploadPhoto}
+                                    style={{width: '80px', height: '80px'}}
+                                />
+                            </label>
+                        </div>
+                        <div className="image-preview">
+                            {previewImages.map((image, index) => (
+                                <img key={index} src={image} alt="Preview"/>
+                            ))}
+                        </div>
 
-                    <div style={{margin: '80px'}}></div>
-                    <div>평점</div>
-                    {[...Array(5)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                                type="button"
-                                key={index}
-                                className={index <= reviewRating ? 'star gold' : 'star'}
-                                onClick={() => setRating(index)}
-                            >
-                                <FontAwesomeIcon icon={index <= reviewRating ? fasStar : farStar}/>
-                            </button>
-                        );
-                    })}
-                </div>
-                <div style={{margin: '30px'}}></div>
-                <div> 가게를 방문한 후기를 남겨주세요 💕</div>
-                <div>
+                        <div style={{margin: '30px'}}></div>
+                        <div>평점</div>
+                        {[...Array(5)].map((star, index) => {
+                            index += 1;
+                            return (
+                                <button
+                                    type="button"
+                                    key={index}
+                                    className={index <= reviewRating ? 'star gold' : 'star'}
+                                    onClick={() => setRating(index)}
+                                >
+                                    <FontAwesomeIcon icon={index <= reviewRating ? fasStar : farStar}/>
+                                </button>
+                            );
+                        })}
+                    </div>
+                    <div style={{margin: '30px'}}></div>
+                    <div> 가게를 방문한 후기를 남겨주세요 💕</div>
+                    <div>
                 <textarea
                     rows="16"
                     style={{width: '100%'}}
@@ -123,9 +137,12 @@ const ReviewInsert = () => {
                     value={reviewContent}
                     onChange={(e) => setReviewContent(e.target.value)}
                 />
-                </div>
-                <button type="submit">리뷰 남기기</button>
-            </form>
+                    </div>
+                    <div className="riveiwInsert-button-container">
+                        <button type="submit" class="reviewInsert-custom-button">리뷰 남기기 ❤️</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

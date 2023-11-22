@@ -4,10 +4,9 @@ import Center from "./Center";
 import './Community.css'
 import thumbsUp from "../img/like_heart.png";
 import comment from '../img/comment.png'
-import close from '../img/close.png'
+import thumbsDoun from '../img/thumbsDoun.png'
 import './Modal.css'
 import Modal from "./Modal";
-
 
 
 const Community = () => {
@@ -15,13 +14,14 @@ const Community = () => {
     const [page, setPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [commentInputs, setCommentInputs] = useState({});
+    const [sortOption, setSortOption] = useState('createdAt');
 
     const [showModal, setShowModal] = useState(false);
     const [selectedComments, setSelectedComments] = useState([]);
     const [selectedReviewId, setSelectedReviewId] = useState(null);
+
 
     const openModal = async (reviewId) => {
         setSelectedReviewId(reviewId);
@@ -35,15 +35,67 @@ const Community = () => {
         setShowModal(false);
     };
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/community/reviews', {}).then((res) => {
-            if (res.status == 200) {
-                setTotalPage(res.data.pageInfo.totalSize / 5)
+
+    // 정렬 옵션 변경 핸들러
+    const handleSortChange = (newSortOption) => {
+        setSortOption(newSortOption);
+        setPage(0); // 페이지를 초기화
+        setReviews([]); // 기존 리뷰 데이터 초기화
+        getPageData(0, newSortOption); // 변경된 정렬 옵션으로 데이터 가져오기
+    };
+
+    const handleLikeOrHateClick = async (reviewId, preferenceType) => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            const url = `http://localhost:8080/api/v1/preferences/reviews/${reviewId}/${preferenceType}`;
+            const res = await axios.post(url, {}, {
+                headers: {'Authorization': `Bearer ${accessToken}`}
+            });
+
+            if (res.status === 200) {
+                const selectedReview = reviews.find(review => review.reviewId === reviewId);
+                const currentPreference = selectedReview.userPreference;
+                const newPreference = currentPreference === preferenceType.toUpperCase() ? 'NONE' : preferenceType.toUpperCase();
+                // updateReviewPreferenceOnServer(reviewId, newPreference);
+                updateReviewPreference(reviewId, newPreference);
+                saveUserActionLocally(reviewId, newPreference);
+
             }
-        }).catch((err) => {
-        })
-        getPageData()
-    }, [])
+        } catch (error) {
+            console.error(`${preferenceType} 오류`, error);
+        }
+    };
+
+    const updateReviewPreference = async (reviewId, newPreference) => {
+        setReviews(reviews.map(review => {
+            if (review.reviewId === reviewId) {
+                let newLikeCount = review.likeCount;
+                let newHateCount = review.hateCount;
+
+                if (newPreference === 'LIKE') {
+                    newLikeCount = review.userPreference === 'HATE' ? review.likeCount + 1 : (review.userPreference === 'LIKE' ? review.likeCount - 1 : review.likeCount + 1);
+                    newHateCount = review.userPreference === 'HATE' ? review.hateCount - 1 : review.hateCount;
+                } else if (newPreference === 'HATE') {
+                    newLikeCount = review.userPreference === 'LIKE' ? review.likeCount - 1 : review.likeCount;
+                    newHateCount = review.userPreference === 'LIKE' ? review.hateCount + 1 : (review.userPreference === 'HATE' ? review.hateCount - 1 : review.hateCount + 1);
+                } else { // newPreference === 'NONE'
+                    newLikeCount = review.userPreference === 'LIKE' ? review.likeCount - 1 : review.likeCount;
+                    newHateCount = review.userPreference === 'HATE' ? review.hateCount - 1 : review.hateCount;
+                }
+
+                return {...review, likeCount: newLikeCount, hateCount: newHateCount, userPreference: newPreference};
+            }
+            return review;
+        }));
+    };
+
+    const saveUserActionLocally = (reviewId, preferenceType) => {
+        //  로컬 저장소에 사용자의 좋아요/싫어요 액션을 저장하는 로직
+        const actions = JSON.parse(localStorage.getItem('userActions')) || [];
+        actions.push({reviewId, preferenceType});
+        localStorage.setItem('userActions', JSON.stringify(actions));
+    };
+
 
     useEffect(() => {
         console.log({page, totalPage})
@@ -79,12 +131,13 @@ const Community = () => {
         }
     };
 
-    const getPageData = (page) => {
+    const getPageData = (page, sort = sortOption) => {
         setIsLoading(true);
         axios.get('http://localhost:8080/api/v1/community/reviews', {
             params: {
                 size: 5,
-                page: page
+                page: page,
+                sort: sort
             }
         }).then((res) => {
             if (res.status == 200) {
@@ -118,18 +171,29 @@ const Community = () => {
         }
 
         try {
-            const memberId = 1;  // 예시 memberId, 실제로는 로그인한 사용자의 ID를 사용
             const res = await
-                axios.post(`http://localhost:8080/api/v1/reviews/${selectedReviewId}/members/${memberId}/comments`,
+                axios.post(`http://localhost:8080/api/v1/reviews/${selectedReviewId}/comments`,
                     newComment
                     , {
                         headers:
-                            {"Content-Type": "application/json;charset=utf-8"}
+                            {
+                                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                                "Content-Type": "application/json;charset=utf-8"
+                            }
                     });
             if (res.status === 200) {
                 console.log("Comment posted successfully");
                 setNewComment("");
-                fetchComments(selectedReviewId); //댓글 목록 다시 불러오기
+
+                //댓글 목록 다시 불러오기
+                axios.get(`http://localhost:8080/api/v1/reviews/${selectedReviewId}/comments`).then((res) => {
+
+                    // res.data.reviewComments
+                    setSelectedComments(res.data.reviewComments);
+
+                }).catch((err) => {
+
+                })
             }
         } catch (error) {
             console.error("Error posting comment", error);
@@ -137,32 +201,18 @@ const Community = () => {
         handleCommentChange(reviewId, "");
     }
 
-    // 댓글 데이터를 불러오는 함수
-    const fetchComments = async (reviewId) => {
-        try {
-            const res = await axios.get(`http://localhost:8080/api/v1/reviews/${reviewId}/comments`);
-            console.log(res.data)
-            if (res.status === 200) {
-
-                setComments(prev => ({...prev, [reviewId]: res.data.reviewComments}));
-            }
-        } catch (error) {
-            console.error("Error fetching comments", error);
-        }
-    };
-
-// 각 리뷰에 대한 댓글 불러오기
-    useEffect(() => {
-        reviews.forEach(review => {
-            fetchComments(review.reviewId);
-        });
-    }, [reviews]);
 
     return (
         <Center>
             <div className="community">
                 <h1>Community</h1>
                 <div className="reviews">
+                    <div>
+                        <select onChange={(e) => handleSortChange(e.target.value)}>
+                            <option value="createdAt">최신순</option>
+                            <option value="likeCount">좋아요 많은 순</option>
+                        </select>
+                    </div>
                     {reviews && reviews.length > 0 ? (
                         reviews.map((review, index) => (
                             <div key={index} className="review">
@@ -179,7 +229,7 @@ const Community = () => {
                                     </div>
                                 </div>
                                 <div className="review-body">
-                                    <div className="review-content">
+                                    <div>
                                         {review.imageUrls && review.imageUrls.length > 0 ?
                                             <div className="image-slider">
                                                 <div style={{display: 'flex'}}>
@@ -198,17 +248,27 @@ const Community = () => {
                                     </div>
 
                                 </div>
-                                <div className="review-content">
+                                <div>
                                     <div className="review-count" style={{display: 'flex'}}>
-                                        <img src={thumbsUp} alt="Thumbs up" style={{marginRight: '10px'}}/>
-                                        <span>{review.likeCount}</span>
+                                        <div><img src={thumbsUp}
+                                                  alt="Thumbs up"
+                                                  style={{marginRight: '10px'}}
+                                                  onClick={() => handleLikeOrHateClick(review.reviewId, 'like')}/>
+                                            <span>{review.likeCount}</span>
+                                        </div>
+                                        <div className="review-hate">
+                                            <img src={thumbsDoun}
+                                                 alt="Thumbs doun"
+                                                 style={{marginRight: '10px'}}
+                                                 onClick={() => handleLikeOrHateClick(review.reviewId, 'hate')}/>
+                                            <span>{review.hateCount}</span>
+                                        </div>
 
                                         <div className="comment-button">
                                             <img src={comment}
                                                  onClick={() => openModal(review.reviewId)}
                                                  View Comments/>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

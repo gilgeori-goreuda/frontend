@@ -50,8 +50,7 @@ const ReviewInsert = () => {
         const newImageUrls = imageUrls.map(filename => baseImageUrl + filename);
 
 
-        const storeId = 10; // 예시 스토어 아이디
-        const memberId = 1; // 예시 멤버 아이디
+        const storeId = 1; // 예시 스토어 아이디
 
         // 리뷰 데이터 준비
         const reviewData = {
@@ -62,8 +61,9 @@ const ReviewInsert = () => {
 
         try {
             // 리뷰 데이터 서버로 전송
-            const res = await axios.post(`http://localhost:8080/api/v1/reviews/stores/${storeId}/members/${memberId}`, reviewData, {
+            const res = await axios.post(`http://localhost:8080/api/v1/reviews/stores/${storeId}`, reviewData, {
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-Type': 'application/json'
                 }
             });

@@ -148,41 +148,42 @@ const AddressSearchMap = () => {
         initialSlide: 0, // 처음 보여질 슬라이드 번호
         // slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li 
         infinite: true, 	//무한 반복 옵션	 
-        slidesToShow: 6,		// 한 화면에 보여질 컨텐츠 개수
+        slidesToShow: 3,		// 한 화면에 보여질 컨텐츠 개수
         slidesToScroll: 6,		//스크롤 한번에 움직일 컨텐츠 개수
         speed: 200,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
         arrows: true, 		// 옆으로 이동하는 화살표 표시 여부
         dots: false, 		// 스크롤바 아래 점으로 페이지네이션 여부      
-        prevArrow: <CustomPrevArrow />,  // 이전 화살표 컴포넌트 설정
-        nextArrow: <CustomNextArrow />,
+        // prevArrow: <CustomPrevArrow />,  // 이전 화살표 컴포넌트 설정
+        // nextArrow: <CustomNextArrow />,
         pauseOnHover: true,		// 슬라이드 이동시 마우스 호버하면 슬라이더 멈추게 설정
         vertical: false,		// 세로 방향 슬라이드 옵션        
         dotsClass: "slick-dots", 	//아래 나오는 페이지네이션(점) css class 지정
-        draggable: false, 	//드래그 가능 여부 
+        draggable: true, 	//드래그 가능 여부 
 
         responsive: [
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
                     infinite: true,
-                    dots: true
+                    // dots: true
                 }
             },
             {
                 breakpoint: 600,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    infinite: true,
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    infinite: true,
                 }
             }
         ]
@@ -190,11 +191,21 @@ const AddressSearchMap = () => {
 
     return (
         <>
-            <h1>{addressLat}</h1>
-            <h1>{addressLng}</h1>
-            <Link to={`/addressSearch`}>검색하기</Link>
-            <button id='nowAddress' onClick={() => onClickNowAddressHandler()}>현재위치</button>
-            {/* {geolocation.latitude && geolocation.longitude ? (
+            <div className='searchMapBody'>
+                {/* <h1>{addressLat}</h1>
+            <h1>{addressLng}</h1> */}
+                <div>
+                    <button id='nowAddress' onClick={() => onClickNowAddressHandler()}></button>
+                </div>
+                <Link to={`/addressSearch`} className='searchLinkButtonDiv'>
+                    <p className='searchLink'>
+                        <button className='searchLinkButton'>
+                            검색
+                        </button>
+                    </p>
+
+                </Link>
+                {/* {geolocation.latitude && geolocation.longitude ? (
                 <>
                     <ul>
                         <li>Latitude: {geolocation.latitude}</li>
@@ -202,149 +213,149 @@ const AddressSearchMap = () => {
                     </ul>
                 </>
             ) : null} */}
-            {/* 현재위치 버튼 클릭했을때만 나타나게 하려고 */}
-            {/* <div>
+                {/* 현재위치 버튼 클릭했을때만 나타나게 하려고 */}
+                {/* <div>
                 {searchCategory}
             </div> */}
 
-            <Slider {...settings}>
-                {Object.entries(category).map(([key, value]) => (
-                    <div key={key}>
-                        <p id='pointerAdd' className={`pointerAdd ${searchCategory === key ? 'category-choice' : ''}`}
-                            onClick={() => onClickSearchCategoryHandler(key)}>
-                            {value}
-                        </p>
-                    </div>
-                ))}
-            </Slider>
+                <Slider {...settings} className='categoryBar'>
+                    {Object.entries(category).map(([key, value]) => (
+                        <div className='categoryButton' key={key}>
+                            <p className={`pointerAdd ${searchCategory === key ? 'category-choice' : ''}`}
+                                onClick={() => onClickSearchCategoryHandler(key)}>
+                                {value}
+                            </p>
+                        </div>
+                    ))}
+                </Slider>
 
 
 
-            <Map    // 지도를 표시할 Container
-                id="map"
-                center={{
-                    // 지도의 중심좌표
-                    // lat: 37.54054639529186,
-                    // lng: 127.06899088709292,
-                    lat: addressLat,
-                    lng: addressLng,
-                }}
-                style={{
-                    // 지도의 크기
-                    width: "100%",
-                    height: "80vh",
-                }}
-                level={3} // 지도의 확대 레벨
-                draggable={draggable} // 드래그 사용
-                zoomable={zoomable} // 지도 줌 사용
-                onCenterChanged={(map) => {
-                    // console.log("Center Changed: ", map.getCenter().getLat(), map.getCenter().getLng());
-                    // console.log(map);
-                    setaddressLat(map.getCenter().getLat());
-                    setaddressLng(map.getCenter().getLng());
+                <Map    // 지도를 표시할 Container
+                    id="map"
+                    center={{
+                        // 지도의 중심좌표
+                        // lat: 37.54054639529186,
+                        // lng: 127.06899088709292,
+                        lat: addressLat,
+                        lng: addressLng,
+                    }}
+                    style={{
+                        // 지도의 크기
+                        width: "100%",
+                        height: "85vh",
+                    }}
+                    level={3} // 지도의 확대 레벨
+                    draggable={draggable} // 드래그 사용
+                    zoomable={zoomable} // 지도 줌 사용
+                    onCenterChanged={(map) => {
+                        // console.log("Center Changed: ", map.getCenter().getLat(), map.getCenter().getLng());
+                        // console.log(map);
+                        setaddressLat(map.getCenter().getLat());
+                        setaddressLng(map.getCenter().getLng());
 
-                    // 좌표 주소로 변환
-                    setChgAdLat(map.getCenter().getLat());
-                    setChgAdLng(map.getCenter().getLng());
-                    const callback = (result, status) => {
-                        if (status === kakao.maps.services.Status.OK) {
-                            const arr = { ...result };
-                            // const _arr = arr[0].address.region_2depth_name;
-                            // console.log(arr[0].address.address_name);  // 지번 주소
-                            // console.log(arr[0].road_address.address_name);  // 도로명 주소
-                            setAddressName(arr[0].address.address_name);
-                            setRoadAddressName(!!arr[0].road_address ? arr[0].road_address.address_name : "");
-                        } else {
-                            setAddressName("주소정보가 유효하지 않습니다.");
-                            setRoadAddressName("주소정보가 유효하지 않습니다.");
-                        }
-                    }
-                    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback); // 
-                }
-                } // 중심좌표 이동시 이벤트 사용
-            >
-
-
-
-                {geolocation.latitude && geolocation.longitude ? (
-                    <>
-                        <MapMarker
-                            // key={`${position.title}-${position.latlng}`}
-                            // position={position.latlng} // 마커를 표시할 위치
-                            position={{ lat: geolocation.latitude, lng: geolocation.longitude }} // 위와 같은코드
-                            image={{
-                                src: "https://cdn-icons-png.flaticon.com/128/10875/10875653.png", // 마커 이미지의 주소입니다.
-                                size: {
-                                    width: 24,
-                                    height: 35
-                                }, // 마커 이미지의 크기입니다
-                            }}
-                            title="지도의 중심입니다." // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                            clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-                            onClick={() => {
-                                // console.log(position.latlng.lat, position.latlng.lng);
-                                // onClickInfoHandler("open", index);
-                            }}
-                        ></MapMarker>
-                    </>
-                ) : null}
-                {/* 현재위치 버튼 클릭했을때만 나타나게 하려고 */}
-
-                {console.log(all)}
-
-                {all.map((position, index) => {
-                    // console.log(position);
-                    let imgType = "";
-                    if (position.storeType == "FOOD_STALL") {
-                        imgType = "https://cdn-icons-png.flaticon.com/128/5977/5977373.png";
-                    } else {
-                        imgType = "https://cdn-icons-png.flaticon.com/128/7566/7566122.png";
-                    }
-                    return (
-                        <MapMarker
-                            key={index}
-                            // position={position.latlng} // 마커를 표시할 위치
-                            position={{ lat: position.lat, lng: position.lng }} // 위와 같은코드
-
-                            image={{
-                                src: imgType,
-                                size: {
-                                    width: 25,  // 뷰포트 너비의 10%
-                                    height: 25, // 뷰포트 높이의 10%
-                                },
-                            }}
-                            title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                            clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-                            onClick={() => {
-                                // console.log(position.lat, position.lng);
-                                onClickInfoHandler("open", index);
-                            }}
-                        >
-                            {isOpen && markerIdx == index && (
-                                <div style={{ minWidth: "150px" }}>
-                                    <img
-                                        alt="close"
-                                        width="14"
-                                        height="13"
-                                        src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
-                                        style={{
-                                            position: "absolute",
-                                            right: "5px",
-                                            top: "5px",
-                                            cursor: "pointer",
-                                        }}
-                                        onClick={() => setIsOpen(false)}
-                                    />
-                                    <div style={{ padding: "5px", color: "#000" }}> {position.name}</div>
-                                </div>
-                            )
+                        // 좌표 주소로 변환
+                        setChgAdLat(map.getCenter().getLat());
+                        setChgAdLng(map.getCenter().getLng());
+                        const callback = (result, status) => {
+                            if (status === kakao.maps.services.Status.OK) {
+                                const arr = { ...result };
+                                // const _arr = arr[0].address.region_2depth_name;
+                                // console.log(arr[0].address.address_name);  // 지번 주소
+                                // console.log(arr[0].road_address.address_name);  // 도로명 주소
+                                setAddressName(arr[0].address.address_name);
+                                setRoadAddressName(!!arr[0].road_address ? arr[0].road_address.address_name : "");
+                            } else {
+                                setAddressName("주소정보가 유효하지 않습니다.");
+                                setRoadAddressName("주소정보가 유효하지 않습니다.");
                             }
-                        </MapMarker>
-                    );
-                })}
-            </Map >
+                        }
+                        geocoder.coord2Address(coord.getLng(), coord.getLat(), callback); // 
+                    }
+                    } // 중심좌표 이동시 이벤트 사용
+                >
 
 
+
+                    {geolocation.latitude && geolocation.longitude ? (
+                        <>
+                            <MapMarker
+                                // key={`${position.title}-${position.latlng}`}
+                                // position={position.latlng} // 마커를 표시할 위치
+                                position={{ lat: geolocation.latitude, lng: geolocation.longitude }} // 위와 같은코드
+                                image={{
+                                    src: "https://cdn-icons-png.flaticon.com/128/10875/10875653.png", // 마커 이미지의 주소입니다.
+                                    size: {
+                                        width: 24,
+                                        height: 35
+                                    }, // 마커 이미지의 크기입니다
+                                }}
+                                title="지도의 중심입니다." // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                                clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+                                onClick={() => {
+                                    // console.log(position.latlng.lat, position.latlng.lng);
+                                    // onClickInfoHandler("open", index);
+                                }}
+                            ></MapMarker>
+                        </>
+                    ) : null}
+                    {/* 현재위치 버튼 클릭했을때만 나타나게 하려고 */}
+
+                    {console.log(all)}
+
+                    {all.map((position, index) => {
+                        // console.log(position);
+                        let imgType = "";
+                        if (position.storeType == "FOOD_STALL") {
+                            imgType = "https://cdn-icons-png.flaticon.com/128/5977/5977373.png";
+                        } else {
+                            imgType = "https://cdn-icons-png.flaticon.com/128/7566/7566122.png";
+                        }
+                        return (
+                            <MapMarker
+                                key={index}
+                                // position={position.latlng} // 마커를 표시할 위치
+                                position={{ lat: position.lat, lng: position.lng }} // 위와 같은코드
+
+                                image={{
+                                    src: imgType,
+                                    size: {
+                                        width: 25,  // 뷰포트 너비의 10%
+                                        height: 25, // 뷰포트 높이의 10%
+                                    },
+                                }}
+                                title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                                clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+                                onClick={() => {
+                                    // console.log(position.lat, position.lng);
+                                    onClickInfoHandler("open", index);
+                                }}
+                            >
+                                {isOpen && markerIdx == index && (
+                                    <div style={{ minWidth: "150px" }}>
+                                        <img
+                                            alt="close"
+                                            width="14"
+                                            height="13"
+                                            src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
+                                            style={{
+                                                position: "absolute",
+                                                right: "5px",
+                                                top: "5px",
+                                                cursor: "pointer",
+                                            }}
+                                            onClick={() => setIsOpen(false)}
+                                        />
+                                        <div style={{ padding: "5px", color: "#000" }}> {position.name}</div>
+                                    </div>
+                                )
+                                }
+                            </MapMarker>
+                        );
+                    })}
+                </Map >
+
+            </div>
         </>
     )
 };

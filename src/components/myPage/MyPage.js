@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Center from "./Center";
 import axios from 'axios';
-import '../../styles/styles.css';
+// import '../../styles/styles.css';
 
 const MyPage = () => {
     const navigate = useNavigate();
@@ -37,24 +36,22 @@ const MyPage = () => {
 
     return (
         <div className="App">
-            <Center>
+            <div>
                 <div>
-                    <div>
-                        <h1>{member ? `안녕하세요, ${member.nickname}님!` : ''}</h1>
-                        {member && (
-                            <div>
-                                <img src={member.profileImageUrl} alt="프로필 이미지" />
-                                <p>{`등급: ${member.memberLevel}`}</p>
-                                <p>{`가입 날짜: ${member.createdAt.toLocaleDateString()}`}</p>
-                            </div>
-                        )}
-                    </div>
-                    <div className="button_container">
-                        {/* 필요한 버튼 추가 */}
-                        <button onClick={MyPageSelect} className="selectButton">조회</button>
-                    </div>
+                    <h1>{member ? `안녕하세요, ${member.nickname}님!` : ''}</h1>
+                    {member && (
+                        <div>
+                            <img src={member.profileImageUrl} alt="프로필 이미지" />
+                            <p>{`등급: ${member.memberLevel}`}</p>
+                            <p>{`가입 날짜: ${member.createdAt.toLocaleDateString()}`}</p>
+                        </div>
+                    )}
                 </div>
-            </Center>
+                <div className="button_container">
+                    {/* 필요한 버튼 추가 */}
+                    <button onClick={MyPageSelect} className="selectButton">조회</button>
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Center from "./Center";
 import axios from 'axios';
-import '../../styles/MyPagePreferences.css';
 
 // 총 몇개 찜했는지도 보여주고 싶다.
 // 카테고리별로 나눠도 좋을 거 같음(푸드트럭/포장마차)
@@ -35,36 +33,34 @@ const MyPagePreferences = () => {
 
     return (
         <div className="App">
-            <Center>
-                <div className="container">
-                    <h1>{member.nickname ? `${member.nickname}님!` : ''}</h1>
+            <div className="container">
+                <h1>{member.nickname ? `${member.nickname}님!` : ''}</h1>
+                <ul>
+                    <li>{member.memberId}</li>
+                </ul>
+                <div>
+                    <h1>나의 찜</h1>
                     <ul>
-                        <li>{member.memberId}</li>
-                    </ul>
-                    <div>
-                        <h1>나의 찜</h1>
-                        <ul>
-                            {preferencesList.map((item, index) => (
-                                <li key={item.preferenceId + " " + index}>
-                                    <div>
-                                        <p>가게 이름: {item.preferredStoreInfo.storeName}</p>
-                                        <p>가게 타입: {item.preferredStoreInfo.storeType}</p>
-                                        <p>가게 이미지: {item.preferredStoreInfo.storeImageUrl}</p>
-                                        <p>가게 평점: {item.preferredStoreInfo.storeRating}</p>
-                                        <p>찜한 날짜: {item.preferredStoreInfo.createdAt}</p>
+                        {preferencesList.map((item, index) => (
+                            <li key={item.preferenceId + " " + index}>
+                                <div>
+                                    <p>가게 이름: {item.preferredStoreInfo.storeName}</p>
+                                    <p>가게 타입: {item.preferredStoreInfo.storeType}</p>
+                                    <p>가게 이미지: {item.preferredStoreInfo.storeImageUrl}</p>
+                                    <p>가게 평점: {item.preferredStoreInfo.storeRating}</p>
+                                    <p>찜한 날짜: {item.preferredStoreInfo.createdAt}</p>
 
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="button-container">
-                        <button onClick={handleGoBack} className="goBackButton">
-                            <span className="goBackIcon">&lt;</span>
-                        </button>
-                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-            </Center>
+                <div className="button-container">
+                    <button onClick={handleGoBack} className="goBackButton">
+                        <span className="goBackIcon">&lt;</span>
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };

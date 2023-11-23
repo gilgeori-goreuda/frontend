@@ -121,7 +121,7 @@ const AddressSearch = () => {
             <div className='searchList'>
                 {/* <div className='headerBar'> */}
                 <div className='searchbar'>
-                    <div class="searchbar-left">
+                    <div className="searchbar-left">
                         <a href="#" className="btn-back">
                         </a>
                     </div>

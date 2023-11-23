@@ -9,6 +9,7 @@ import MyPage from "./components/myPage/MyPage";
 import MyPagePreferences from "./components/myPage/MyPagePreferences";
 import MyPageReviews from "./components/myPage/MyPageReviews";
 import StoreDetail from "./components/myPage/StoreDetail";
+import StoreCreate from "./components/myPage/StoreCreate";
 
 const router = createBrowserRouter([
 
@@ -64,6 +65,11 @@ const router = createBrowserRouter([
     {
         path : '/StoreDetail',
         element : <StoreDetail />,
+    },
+
+    {
+      path : '/StoreCreate',
+      element : <StoreCreate />,
     },
 
     // {

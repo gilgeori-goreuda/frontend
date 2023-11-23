@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Center from "./Center";
 import axios from 'axios';
 
 const StoreDetail = () => {
     const navigate = useNavigate();
     const [store, setStore] = useState({});
-    const storeId = 1;
+    const storeId = 3;
     const memberId = 1;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const storeResponse = await axios.get(`http://localhost:8080/api/v1/stores/${storeId}`);
+                const storeResponse = await axios.get(`http://localhost:8080/api/v1/stores/${storeId}`, {
+                    params: {
+                        lng: 122,
+                        lat: 37
+                    }
+                });
+
                 setStore(storeResponse.data);
                 console.log("ㅇㅇ", storeResponse.data);
             } catch (error) {
@@ -25,7 +30,6 @@ const StoreDetail = () => {
 
     return (
         <div className="App">
-            <Center>
                 <div className="container">
                     <h1>{store.name ? `${store.name}님!` : ''}</h1>
                     <ul>
@@ -36,8 +40,7 @@ const StoreDetail = () => {
                         <li>{store.createdAt}</li>
                         <li>{store.detailLocation}</li>
                         <li>{store.foodCategories && store.foodCategories.join(', ')}</li>
-                        <li>{store.imageUrl}</li>
-                        <li>{store.lastModifiedMemberNickname}</li>
+                        <img src={store.imageUrl}/>
                         <li>{store.lat}</li>
                         <li>{store.lng}</li>
                         <li>{store.openTime}</li>
@@ -49,7 +52,6 @@ const StoreDetail = () => {
                         <li>{store.distanceFromMember}</li>
                     </ul>
                 </div>
-            </Center>
         </div>
     );
 };

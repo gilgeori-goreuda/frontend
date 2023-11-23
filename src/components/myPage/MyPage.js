@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Center from "./Center";
 import axios from 'axios';
-import '../../styles/styles.css';
 
 const MyPage = () => {
     const navigate = useNavigate();
@@ -37,7 +35,6 @@ const MyPage = () => {
 
     return (
         <div className="App">
-            <Center>
                 <div>
                     <div>
                         <h1>{member ? `안녕하세요, ${member.nickname}님!` : ''}</h1>
@@ -54,7 +51,6 @@ const MyPage = () => {
                         <button onClick={MyPageSelect} className="selectButton">조회</button>
                     </div>
                 </div>
-            </Center>
         </div>
     );
 };

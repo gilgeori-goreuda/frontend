@@ -4,7 +4,6 @@ import Center from "./Center";
 import './Community.css'
 import thumbsUp from "../img/like_heart.png";
 import comment from '../img/comment.png'
-import close from '../img/close.png'
 import './Modal.css'
 import Modal from "./Modal";
 

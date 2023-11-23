@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Center from "./Center";
 import axios from 'axios';
-import '../../styles/MyPagePreferences.css';
 
 // 총 몇개 찜했는지도 보여주고 싶다.
 // 카테고리별로 나눠도 좋을 거 같음(푸드트럭/포장마차)
@@ -11,8 +9,9 @@ const MyPagePreferences = () => {
     const [member, setMember] = useState({});
     const [preferencesList, setPreferencesList] = useState([]);
 
-    const storeId = 1;
-    const memberId = 1;
+    const storeId = 2;
+    const memberId = 2;
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,7 +34,6 @@ const MyPagePreferences = () => {
 
     return (
         <div className="App">
-            <Center>
                 <div className="container">
                     <h1>{member.nickname ? `${member.nickname}님!` : ''}</h1>
                     <ul>
@@ -64,7 +62,6 @@ const MyPagePreferences = () => {
                         </button>
                     </div>
                 </div>
-            </Center>
         </div>
     );
 };

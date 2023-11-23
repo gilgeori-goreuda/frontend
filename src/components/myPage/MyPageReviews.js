@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Center from "./Center";
 import axios from 'axios';
 
 const MyPageReviews = () => {
@@ -32,7 +31,6 @@ const MyPageReviews = () => {
 
     return (
         <div className="App">
-            <Center>
                 <div className="container">
                     <h1>{member.nickname ? `${member.nickname}님!` : ''}</h1>
                     <ul>
@@ -62,7 +60,6 @@ const MyPageReviews = () => {
                         </button>
                     </div>
                 </div>
-            </Center>
         </div>
     );
 };

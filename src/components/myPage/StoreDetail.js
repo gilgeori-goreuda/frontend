@@ -47,6 +47,7 @@ const StoreDetail = () => {
                     <li>{store.distanceFromMember}</li>
                 </ul>
             </div>
+            <Review/>
         </div>
     );
 };

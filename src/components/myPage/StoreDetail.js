@@ -4,24 +4,21 @@ import Review from "../Review";
 import {Api} from "../../common/api/ApiSearch";
 import './StoreDetail.css'
 import storeImage from './storeImg/fishBread.jpeg'
-
 const StoreDetail = () => {
     const navigate = useNavigate();
     const [store, setStore] = useState({});
+    // const storeId = 1;
+    const memberId = 1;
     const param = useParams();
-
     useEffect(() => {
         console.log(param)
         const fetchData = async () => {
             try {
-                const storeResponse = await axios.get(`http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/stores/${storeId}`, {
-                    params: {
-                        lng: 122,
-                        lat: 37
-                    }
-                });
-
-                setStore(storeResponse.data);
+                const storeResponse = await Api(`/api/v1/stores/`
+                    + `${param.storeId}?lat=37.123123&lng=127.123123`
+                    , "GET"
+                );
+                setStore(storeResponse);
             } catch (error) {
                 console.log(error.response?.data);
             }
@@ -29,7 +26,6 @@ const StoreDetail = () => {
         if (param.storeId)
             fetchData();
     }, [param]);
-
     const StoreImage = ({imageUrl}) => {
         const defaultImageUrl = storeImage;
         const backgroundImageUrl = imageUrl || defaultImageUrl;
@@ -40,7 +36,6 @@ const StoreDetail = () => {
             </div>
         );
     };
-
     const StoreInfo = ({name, categories, reviewCount, rating}) => (
         <div className="store-info">
             <h1>{name}</h1>
@@ -63,7 +58,6 @@ const StoreDetail = () => {
             </div>
         </div>
     );
-
     const StoreDetails = ({address, openingHours}) => (
         <div className="store-details">
             <h3 >상세정보</h3>
@@ -74,8 +68,6 @@ const StoreDetail = () => {
             <div style={{ margin: '30px' }}></div>
         </div>
     );
-
-
     return (
         <div className="App">
             <div className="container">
@@ -90,9 +82,7 @@ const StoreDetail = () => {
                     address={store.streetAddress}
                     openingHours={store.openTime + ' - ' + store.closeTime}
                 />
-
                 <ul>
-
                     <li>{store.businessDates}</li>
                     <li>{store.createdAt}</li>
                     <li>{store.detailLocation}</li>
@@ -103,12 +93,10 @@ const StoreDetail = () => {
                     <li>{store.owner && store.owner.nickname}</li>
                     <li>{store.purchaseType}</li>
                     <li>{store.totalVisitCount}</li>
-
                 </ul>
             </div>
             <Review storeId={param.storeId}/>
         </div>
     );
 };
-
 export default StoreDetail;

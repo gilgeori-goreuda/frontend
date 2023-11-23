@@ -9,13 +9,14 @@ const MyPagePreferences = () => {
     const [member, setMember] = useState({});
     const [preferencesList, setPreferencesList] = useState([]);
 
-    const storeId = 1;
-    const memberId = 1;
+    const storeId = 2;
+    const memberId = 2;
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const preferencesResponse = await axios.get(`http://localhost:8080/api/v1/members/${memberId}/preferences`);
+                const preferencesResponse = await axios.get(`http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/members/${memberId}/preferences`);
                 setPreferencesList(preferencesResponse.data.preferences);
                 console.log("dd", preferencesResponse.data);
 
@@ -33,34 +34,34 @@ const MyPagePreferences = () => {
 
     return (
         <div className="App">
-            <div className="container">
-                <h1>{member.nickname ? `${member.nickname}님!` : ''}</h1>
-                <ul>
-                    <li>{member.memberId}</li>
-                </ul>
-                <div>
-                    <h1>나의 찜</h1>
+                <div className="container">
+                    <h1>{member.nickname ? `${member.nickname}님!` : ''}</h1>
                     <ul>
-                        {preferencesList.map((item, index) => (
-                            <li key={item.preferenceId + " " + index}>
-                                <div>
-                                    <p>가게 이름: {item.preferredStoreInfo.storeName}</p>
-                                    <p>가게 타입: {item.preferredStoreInfo.storeType}</p>
-                                    <p>가게 이미지: {item.preferredStoreInfo.storeImageUrl}</p>
-                                    <p>가게 평점: {item.preferredStoreInfo.storeRating}</p>
-                                    <p>찜한 날짜: {item.preferredStoreInfo.createdAt}</p>
-
-                                </div>
-                            </li>
-                        ))}
+                        <li>{member.memberId}</li>
                     </ul>
+                    <div>
+                        <h1>나의 찜</h1>
+                        <ul>
+                            {preferencesList.map((item, index) => (
+                                <li key={item.preferenceId + " " + index}>
+                                    <div>
+                                        <p>가게 이름: {item.preferredStoreInfo.storeName}</p>
+                                        <p>가게 타입: {item.preferredStoreInfo.storeType}</p>
+                                        <p>가게 이미지: {item.preferredStoreInfo.storeImageUrl}</p>
+                                        <p>가게 평점: {item.preferredStoreInfo.storeRating}</p>
+                                        <p>찜한 날짜: {item.preferredStoreInfo.createdAt}</p>
+
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="button-container">
+                        <button onClick={handleGoBack} className="goBackButton">
+                            <span className="goBackIcon">&lt;</span>
+                        </button>
+                    </div>
                 </div>
-                <div className="button-container">
-                    <button onClick={handleGoBack} className="goBackButton">
-                        <span className="goBackIcon">&lt;</span>
-                    </button>
-                </div>
-            </div>
         </div>
     );
 };

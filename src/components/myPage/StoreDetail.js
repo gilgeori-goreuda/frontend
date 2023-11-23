@@ -8,19 +8,20 @@ import storeImage from './storeImg/fishBread.jpeg'
 const StoreDetail = () => {
     const navigate = useNavigate();
     const [store, setStore] = useState({});
-    // const storeId = 1;
-    const memberId = 1;
     const param = useParams();
 
     useEffect(() => {
         console.log(param)
         const fetchData = async () => {
             try {
-                const storeResponse = await Api(`/api/v1/stores/`
-                    + `${param.storeId}?lat=37.123123&lng=127.123123`
-                    , "GET"
-                );
-                setStore(storeResponse);
+                const storeResponse = await axios.get(`http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/stores/${storeId}`, {
+                    params: {
+                        lng: 122,
+                        lat: 37
+                    }
+                });
+
+                setStore(storeResponse.data);
             } catch (error) {
                 console.log(error.response?.data);
             }

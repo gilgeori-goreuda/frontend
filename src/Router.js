@@ -11,62 +11,70 @@ import MyPagePreferences from "./components/myPage/MyPagePreferences";
 import MyPageReviews from "./components/myPage/MyPageReviews";
 import StoreDetail from "./components/myPage/StoreDetail";
 import Main from "./components/main/Main";
+import Template from "./components/Sticky/Template";
 
 
 const router = createBrowserRouter([
-
-  {
-    path: '/review',
-    element: <Review />,
-  },
-  {
-    path: '/reviewInsert',
-    element: <ReviewInsert />,
-  },
-  {
-    path: '/community',
-    element: <Community />,
-  },
   {
     path: '/login',
     element: <Login />,
   },
   {
-    path: 'oauth2/callback/kakao',
-    element: <KakaoCallBack />,
-  },
-  {
-    path: '/api/v1/search/address',
-    element: <AddressSearchMap />,
-  },
-  {
-    path: '/addressSearch',
-    element: <AddressSearch />,
-  },
+    path: "/",
+    element: <Template />,
+    children: [
+      {
+        path: '/review',
+        element: <Review />,
+      },
+      {
+        path: '/reviewInsert',
+        element: <ReviewInsert />,
+      },
+      {
+        path: '/community',
+        element: <Community />,
+      },
+      {
+        path: 'oauth2/callback/kakao',
+        element: <KakaoCallBack />,
+      },
+      {
+        path: '/api/v1/search/address',
+        element: <AddressSearchMap />,
+      },
+      {
+        path: '/addressSearch',
+        element: <AddressSearch />,
+      },
 
-  {
-    path: '/myPage',
-    element: <MyPage />,
-  },
+      {
+        path: '/myPage',
+        element: <MyPage />,
+      },
 
-  {
-    path: '/MyPagePreferences',
-    element: <MyPagePreferences />,
-  },
+      {
+        path: '/MyPagePreferences',
+        element: <MyPagePreferences />,
+      },
 
-  {
-    path: '/MyPageReviews',
-    element: <MyPageReviews />,
-  },
+      {
+        path: '/MyPageReviews',
+        element: <MyPageReviews />,
+      },
 
-  {
-    path: '/StoreDetail',
-    element: <StoreDetail />,
-  },
-  {
-    path: '/main',
-    element: <Main />,
-  },
+      {
+        path: '/StoreDetail',
+        element: <StoreDetail />,
+      },
+      {
+        path: '/main',
+        element: <Main />,
+      },
+
+    ]
+  }
+
 
 ]);
 

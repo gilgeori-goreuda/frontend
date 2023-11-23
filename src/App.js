@@ -8,11 +8,11 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <MyHeader></MyHeader>
-      <div style={{ paddingTop: '48px', paddingBottom: '48px' }}>
-        <RouterProvider router={router} />
-      </div>
-      <MyFooter></MyFooter>
+      {/* <MyHeader></MyHeader> */}
+
+      <RouterProvider router={router} />
+
+      {/* <MyFooter></MyFooter> */}
     </div>
   );
 }

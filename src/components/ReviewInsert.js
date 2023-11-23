@@ -138,7 +138,7 @@ const ReviewInsert = () => {
                     />
                 </div>
                 <div className="riveiwInsert-button-container">
-                    <button type="submit" class="reviewInsert-custom-button">리뷰 남기기 ❤️</button>
+                    <button type="submit" className="reviewInsert-custom-button">리뷰 남기기 ❤️</button>
                 </div>
             </form>
         </div>

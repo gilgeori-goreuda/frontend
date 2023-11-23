@@ -11,7 +11,7 @@ const StoreDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const storeResponse = await axios.get(`http://localhost:8080/api/v1/stores/${storeId}`, {
+                const storeResponse = await axios.get(`http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/stores/${storeId}`, {
                     params: {
                         lng: 122,
                         lat: 37

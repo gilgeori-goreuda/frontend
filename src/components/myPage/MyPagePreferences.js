@@ -16,7 +16,7 @@ const MyPagePreferences = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const preferencesResponse = await axios.get(`http://localhost:8080/api/v1/members/${memberId}/preferences`);
+                const preferencesResponse = await axios.get(`http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/members/${memberId}/preferences`);
                 setPreferencesList(preferencesResponse.data.preferences);
                 console.log("dd", preferencesResponse.data);
 

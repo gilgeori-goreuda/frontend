@@ -10,6 +10,10 @@ import MyPageReviews from "./components/myPage/MyPageReviews";
 import StoreDetail from "./components/myPage/StoreDetail";
 import StoreCreate from "./components/myPage/StoreCreate";
 import Main from "./components/main/Main";
+import AddressSearchMap from './components/map/AddressSearchMap';
+import AddressSearch from "./components/Search/AddressSearch";
+
+
 
 
 const router = createBrowserRouter([
@@ -49,22 +53,22 @@ const router = createBrowserRouter([
   },
 
     {
-       path : '/MyPagePreferences',
+       path : '/myPagePreferences',
         element : <MyPagePreferences />,
     },
 
     {
-        path : '/MyPageReviews',
+        path : '/myPageReviews',
         element : <MyPageReviews />,
     },
 
     {
-        path : '/StoreDetail',
+        path : '/storeDetail',
         element : <StoreDetail />,
     },
 
     {
-      path : '/StoreCreate',
+      path : '/storeCreate',
       element : <StoreCreate />,
     },
 

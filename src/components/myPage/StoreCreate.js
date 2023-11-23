@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import uploadPhoto from "../../img/uploadPhoto.png";
 
 const StoreCreate = () => {
     const navigate = useNavigate();
+    const [selectedFile, setSelectedFile] = useState(null); // 이미지 파일 하나만 선택하도록 수정
 
     const [store, setStore] = useState({
         name: "",
@@ -12,9 +14,9 @@ const StoreCreate = () => {
         openTime: "",
         closeTime: "",
         purchaseType: "현금, 카드, 계좌이체",
-        // imageUrl: "",
-        lat: 90.2121,
-        lng: 74.6262,
+        imageUrl: "",
+        lat: 87.2187,
+        lng: 777.2996,
         streetAddress: "서울특별시 서초구 서초3동",
         foodCategories: {
             foodCategories: []
@@ -22,7 +24,33 @@ const StoreCreate = () => {
     });
 
     const categories = ["붕어빵", "호떡", "타코야끼", "계란빵", "떡볶이", "순대", "오뎅", "와플", "김밥", "꼬치", "땅콩빵", "군고구마", "토스트", "달고나", "군옥수수", "탕후루", "튀김"];
-    const daysOfWeek = ["일","월","화","수","목","금","토"];
+    const daysOfWeek = [
+        { eng: "sunday", kor: "일요일" },
+        { eng: "monday", kor: "월요일" },
+        { eng: "tuesday", kor: "화요일" },
+        { eng: "wednesday", kor: "수요일" },
+        { eng: "thursday", kor: "목요일" },
+        { eng: "friday", kor: "금요일" },
+        { eng: "saturday", kor: "토요일" }
+    ];
+
+    const uploadImage = async (file) => {
+        const formData = new FormData();
+        formData.append('images', file);
+
+        try {
+            const res = await axios.post('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/images', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            return res.data.imageNames[0];
+        } catch (error) {
+            console.error('Image upload error', error);
+            return null;
+        }
+    };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -50,17 +78,33 @@ const StoreCreate = () => {
             };
         });
     };
-
+    console.log(store)
     const handleBusinessDatesChange = (day) => {
-        // 요일을 체크하거나 언체크할 때 호출
         setStore((prevStore) => {
             const isDayIncluded = prevStore.businessDates.includes(day);
+            let updatedBusinessDates;
 
-            const updatedBusinessDates = isDayIncluded
-                ? prevStore.businessDates.split(', ').filter(d => d !== day).join(', ') // 요일이 포함되어 있다면 해당 요일을 제거
-                : `${prevStore.businessDates}, ${day}`; // 요일이 포함되어 있지 않다면 추가
+            if (isDayIncluded) {
+                // 요일이 이미 선택된 경우 제거
+                updatedBusinessDates = prevStore.businessDates
+                    .split(',')
+                    .map(d => d.trim())
+                    .filter(d => d !== day)
+                    .join(',');
+            } else {
+                // 요일이 선택되지 않은 경우 추가
+                updatedBusinessDates = prevStore.businessDates
+                    ? `${prevStore.businessDates.trim()}, ${day}`
+                    : day;
+            }
 
-            console.log(day);
+            // 모든 요일 선택 또는 해제
+            const allDaysSelected = daysOfWeek.every(({ kor }) => updatedBusinessDates.includes(kor));
+            if (allDaysSelected) {
+                updatedBusinessDates = ''; // 모든 요일이 선택된 경우 공백으로 초기화
+            } else if (updatedBusinessDates === '') {
+                updatedBusinessDates = daysOfWeek.map(({ kor }) => kor).join(', '); // 모든 요일이 해제된 경우 모든 요일 선택
+            }
 
             return {
                 ...prevStore,
@@ -101,21 +145,34 @@ const StoreCreate = () => {
         });
     };
 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+    };
+
     const handleSubmit = async () => {
+        const baseImageUrl = "https://dz68kixxhuu4k.cloudfront.net/";
+
         try {
-            // 주소 정보 합치기
-            // const fullAddress = `${store.largeAddress} ${store.mediumAddress} ${store.smallAddress}`;
-            const fullAddress = "ehesddddddd123";
+            let imageUrrl = store.imageUrl;
+            if (selectedFile) {
+                const uploadedImageUrl = await uploadImage(selectedFile);
+                imageUrrl = baseImageUrl + uploadedImageUrl;
+            }
+
             const dataToSend = {
                 ...store,
-                fullAddress: fullAddress,
+                imageUrl: imageUrrl
             };
 
+            const accessToken = localStorage.getItem('accessToken');
             const response = await axios.post('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/stores', dataToSend, {
                 headers: {
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 }
             });
+
             console.log("Store 등록 성공:", response.data);
             // navigate('/success'); // 예시: 등록 성공 시 success 페이지로 이동
         } catch (error) {
@@ -131,6 +188,27 @@ const StoreCreate = () => {
                     <label>가게명</label>
                     <input type="text" name="name" value={store.name} onChange={handleInputChange} placeholder="예시: 가게 이름" />
                 </div>
+                <div>
+                    <input
+                        type="file"
+                        id="fileInput"
+                        style={{ display: 'none' }}
+                        onChange={handleFileChange}
+                    />
+                    <label htmlFor="fileInput">
+                        <img
+                            src={uploadPhoto}
+                            style={{ width: '80px', height: '80px' }}
+                            alt="Upload"
+                        />
+                    </label>
+                </div>
+                <div className="image-preview">
+                    {selectedFile && (
+                        <img src={URL.createObjectURL(selectedFile)} alt="Preview" />
+                    )}
+                </div>
+
                 <div className="input-group">
                     <label>가게형태</label>
                     <label>
@@ -154,17 +232,18 @@ const StoreCreate = () => {
                         포장마차
                     </label>
                 </div>
+
                 <div className="input-group">
                     <label>출몰시기(선택)</label>
                     {daysOfWeek.map((day) => (
-                        <label key={day}>
+                        <label key={day.eng}>
                             <input
                                 type="checkbox"
                                 name="businessDates"
-                                checked={store.businessDates.includes(day)}
-                                onChange={() => handleBusinessDatesChange(day)}
+                                checked={store.businessDates.includes(day.eng)}
+                                onChange={() => handleBusinessDatesChange(day.eng)}
                             />
-                            {day}
+                            {day.kor}
                         </label>
                     ))}
                 </div>

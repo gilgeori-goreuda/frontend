@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Review from "../Review";
 
 const StoreDetail = () => {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ const StoreDetail = () => {
                     <li>{store.distanceFromMember}</li>
                 </ul>
             </div>
-            <Review/>
+            <Review />
         </div>
     );
 };

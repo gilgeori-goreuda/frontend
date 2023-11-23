@@ -108,7 +108,12 @@ const Community = () => {
     }, [page])
 
     useEffect(() => {
-        axios.get('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/community/reviews', {}).then((res) => {
+        axios.get('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/community/reviews', {
+            headers:
+                {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+        }).then((res) => {
             if (res.status == 200) {
                 setTotalPage(res.data.pageInfo.totalSize / 5)
             }

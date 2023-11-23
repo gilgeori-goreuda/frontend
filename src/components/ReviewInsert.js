@@ -22,8 +22,10 @@ const ReviewInsert = () => {
         });
 
         try {
-            const res = await axios.post('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/images', formData, {
+            const res = await axios.post(
+                'http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/images', formData, {
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });
@@ -71,7 +73,7 @@ const ReviewInsert = () => {
                 setRating(0);
                 setReviewContent('');
                 setSelectedFiles([]);
-                nav('/review')
+                nav(`/main`)
         } catch (error) {
             console.log(error.response?.data);
         }
@@ -131,7 +133,7 @@ const ReviewInsert = () => {
                 <div>
                     <textarea
                         rows="16"
-                        style={{ width: '100%' }}
+                        style={{ width: '95%' }}
                         placeholder="리뷰를 입력하세요"
                         value={reviewContent}
                         onChange={(e) => setReviewContent(e.target.value)}

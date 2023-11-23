@@ -1,0 +1,35 @@
+.store-image {
+    background-size: cover;
+    background-position: center;
+    /*border: 1px solid #ccc; !* 테두리 *!*/
+    border-radius: 2px; /* 모서리 둥글게 */
+    height: 200px;
+}
+
+.store-info {
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    padding: 20px; /* 내부 여백 */
+    background-color: white; /* 배경색 */
+    margin: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.store-details {
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    padding: 20px; /* 내부 여백 */
+    background-color: white; /* 배경색 */
+    margin: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+}
+
+.review-and-rating {
+    display: flex; /* Flex 레이아웃 사용 */
+    align-items: center; /* 아이템들을 세로 중앙 정렬 */
+    gap: 20px; /* 아이템 간격 */
+    justify-content: center; /* 가로 중앙 정렬 */
+}

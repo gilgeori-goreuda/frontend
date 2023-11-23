@@ -1,0 +1,183 @@
+/* .App {
+    margin: 1rem;
+}
+
+.App .inputForm {
+    margin: 1rem;
+}
+
+.App>div {
+    display: flex;
+    width: 100%;
+} */
+
+
+.searchbar {
+    border-bottom: 3px solid #e5e5e5;
+    margin: 0 auto;
+    max-width: 480px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 48px;
+    width: 100%;
+    background: #fff;
+}
+
+.searchbar-left {
+    width: 9%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.btn-back {
+    background: url(https://cdn-icons-png.flaticon.com/128/3114/3114883.png) 50% 50% no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 60%;
+    height: 80%;
+    display: block;
+    text-indent: -999em;
+    /* 텍스트를 화면 밖으로 숨김 */
+    overflow: hidden;
+    margin-right: 6px;
+    flex: none;
+}
+
+.App .searchInputForm {
+    width: 70%;
+    height: 3.5vh;
+    position: relative;
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+.App .searchInputText {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 18px;
+    height: 36px;
+    background: rgba(240, 239, 239, 0.7);
+    font-size: 16px;
+    padding-left: 44px;
+    padding-right: 44px;
+    font-weight: 500;
+}
+
+.App .searchButton {
+    cursor: pointer;
+    border: none;
+    height: 3.8vh;
+    background: url(https://cdn-icons-png.flaticon.com/128/711/711319.png) 50% 50% no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    text-indent: -999em;
+    overflow: hidden;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-30%);
+}
+
+
+
+
+#result-list {
+    width: 95%;
+    height: 78vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    position: relative;
+}
+
+
+.notContentsText {
+    /* padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    font-size: 18px;
+
+}
+
+.road_address,
+.just_address {
+    display: inline-block;
+    /* vertical-align: top; */
+    border: 1px solid #d9d9dc;
+    margin: 0.5px 4px 0 0;
+    padding: 0 4px;
+    font-weight: 600;
+    font-size: 0.7em;
+    color: rgba(var(--gray40), 1);
+}
+
+
+
+.decoRemove {
+    text-decoration: none;
+    color: black;
+}
+
+.decoRemove span {
+    color: rgb(67, 66, 66);
+}
+
+.result-item {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+
+
+.result-item:hover {
+    background-color: #f9f9f9;
+}
+
+.result-item h5 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+}
+
+.result-item span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#pagination {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+#pagination a {
+    color: black;
+    font-size: 1.2em;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+#pagination a.on {
+    color: lightblue;
+    font-weight: bold;
+}
+
+#pagination a:hover {
+    color: #0066cc;
+}

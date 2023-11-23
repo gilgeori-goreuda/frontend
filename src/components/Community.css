@@ -1,6 +1,6 @@
 /* Community.css */
 .community {
-    max-width: 800px; /* 페이스북 포스트 폭과 비슷하게 설정 */
+    max-width: 600px; /* 페이스북 포스트 폭과 비슷하게 설정 */
     margin: auto;
     background-color: #fff;
     padding: 15px;
@@ -31,26 +31,50 @@
     border-radius: 10px; /* 살짝 둥근 모서리 */
 }
 
-.review-content {
-    display: flex;
-    flex-direction: column;
-    /*margin-bottom: 15px;*/
-}
+/*.review-content {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    !*margin-bottom: 15px;*!*/
+/*}*/
 
-.image-slider {
+.community-image-slider {
     display: flex;
+    width: 420px;
     overflow-x: auto; /* 가로 스크롤 */
     margin-bottom: 10px; /* 이미지 슬라이더와 내용 사이 간격 */
 }
 
-.review-image {
+.community-review-image {
     max-width: 100%;
-    height: auto;
+    height: 200%;
     margin-right: 10px; /* 이미지 간의 간격 */
-    border-radius: 4px; /* 살짝 둥근 모서리 */
+    border-radius: 10px; /* 살짝 둥근 모서리 */
+    object-fit: cover; /* 컨테이너에 맞게 이미지 조정 */
+
 }
 
 .comment-button {
-    margin-left: 10px; /* 왼쪽에 10px 간격 추가 */
+    margin-left: 15px; /* 왼쪽에 10px 간격 추가 */
     cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+.review-count {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.review-hate {
+    margin-left: 10px;
+}
+
+.community-review-body {
+    max-width: 60%;
+    max-height: 50%;
+    margin-top: 0;
+}
+
+.community-review-body img{
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: 0;
 }

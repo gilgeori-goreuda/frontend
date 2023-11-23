@@ -22,3 +22,74 @@
     background: #fff;
     border-top: 1px solid #f9f9f9;
 }
+
+.FooterBox>.LinkBox {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.SearchNav {
+    cursor: pointer;
+    border: none;
+    height: 3.8vh;
+    background: url(https://cdn-icons-png.flaticon.com/128/149/149852.png) 50% 50% no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    /* 텍스트를 화면 밖으로 숨김 */
+    text-indent: -999em;
+    overflow: hidden;
+}
+
+.CommunityNav {
+    cursor: pointer;
+    border: none;
+    height: 3.8vh;
+    background: url(https://cdn-icons-png.flaticon.com/128/12461/12461639.png) 50% 50% no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    /* 텍스트를 화면 밖으로 숨김 */
+    text-indent: -999em;
+    overflow: hidden;
+}
+
+.AddStoreNav {
+    cursor: pointer;
+    border: none;
+    height: 3.8vh;
+    background: url(https://cdn-icons-png.flaticon.com/128/11299/11299721.png) 50% 50% no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    /* 텍스트를 화면 밖으로 숨김 */
+    text-indent: -999em;
+    overflow: hidden;
+}
+
+.MyPageNav {
+    cursor: pointer;
+    border: none;
+    height: 3.8vh;
+    background: url(https://cdn-icons-png.flaticon.com/128/1144/1144760.png) 50% 50% no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    /* 텍스트를 화면 밖으로 숨김 */
+    text-indent: -999em;
+    overflow: hidden;
+}

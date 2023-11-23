@@ -2,13 +2,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Review.css';
-import starFilled from '../img/star_filled2.png';
-import starEmpty from '../img/Star-empty.png';
-import thumbsUp from '../img/thumbs_up.png';
 import seeMore from '../img/see_more.png'
 
 import './Community.css'
 import ReviewService from "./ReviewService";
+import StarRating from "./StarRating";
 
 const Review = () => {
     const nav = useNavigate();
@@ -46,19 +44,7 @@ const Review = () => {
 
     const showLoadMoreButton = currentPage < totalPages;
 
-    const StarRating = ({ rating }) => {
-        const totalStars = 5;
-        let stars = [];
 
-        for (let i = 1; i <= totalStars; i++) {
-            if (i <= rating) {
-                stars.push(<img key={i} src={starFilled} alt={`Star ${i}`} />);
-            } else {
-                stars.push(<img key={i} src={starEmpty} alt={`Star ${i}`} />);
-            }
-        }
-        return <div>{stars}</div>;
-    };
 
     const ReviewInsert = () => {
         nav(`/reviewInsert?`)
@@ -85,11 +71,8 @@ const Review = () => {
                                 <p>{review.member.nickname}</p>
                             </div>
                         </div>
-                        <div className="review-content">
-                            <div className="review-count" style={{ display: 'flex' }}>
-                                <img src={thumbsUp} alt="Thumbs up" style={{ marginRight: '10px' }} />
-                                <span>{review.likeCount}</span>
-                            </div>
+                        <div className="review-rating">
+                            <StarRating rating={review.reviewRating}/>
                         </div>
                     </div>
                     <div className="review-body">

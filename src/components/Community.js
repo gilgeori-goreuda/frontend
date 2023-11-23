@@ -5,6 +5,7 @@ import thumbsUp from "../img/like_heart.png";
 import comment from '../img/comment.png'
 import thumbsDoun from '../img/thumbsDoun.png'
 import Modal from "./Modal";
+import StarRating from "./StarRating";
 
 
 const Community = () => {
@@ -223,6 +224,9 @@ const Community = () => {
                                     <div>
                                         <p>{review.member.nickname}</p>
                                     </div>
+                                </div>
+                                <div className="review-rating">
+                                    <StarRating rating={review.reviewRating}/>
                                 </div>
                             </div>
                             <div className="community-review-body" style={{justifyContent: 'center'}}>

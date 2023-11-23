@@ -6,7 +6,7 @@ const MyFooter = () => {
         <div>
             <footer id='footer'>
                 <div className='FooterBox'>
-                    여기는 푸터다
+                    Footer
                 </div>
             </footer>
         </div>

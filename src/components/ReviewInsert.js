@@ -6,6 +6,7 @@ import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
 import './ReviewInsert.css'
 import { useNavigate } from "react-router-dom";
 import uploadPhoto from '../img/uploadPhoto.png'
+import {Api} from "../common/api/ApiSearch";
 
 const ReviewInsert = () => {
     const nav = useNavigate();
@@ -21,8 +22,10 @@ const ReviewInsert = () => {
         });
 
         try {
-            const res = await axios.post('http://localhost:8080/images', formData, {
+            const res = await axios.post(
+                'http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/images', formData, {
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });
@@ -61,20 +64,18 @@ const ReviewInsert = () => {
         };
 
         try {
-            // 리뷰 데이터 서버로 전송
-            const res = await axios.post(`http://localhost:8080/api/v1/reviews/stores/${storeId}`, reviewData, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+            const res = await Api(`/api/v1/reviews/stores/`
+                + `${storeId}`
+                , "POST",
+                reviewData
+            );
             console.log(res.data);
-            setRating(0);
-            setReviewContent('');
-            setSelectedFiles([]);
-            nav('/review')
-        } catch (err) {
-            // console.error('There was an error!', err);
+                setRating(0);
+                setReviewContent('');
+                setSelectedFiles([]);
+                nav(`/main`)
+        } catch (error) {
+            console.log(error.response?.data);
         }
     }
 
@@ -132,14 +133,14 @@ const ReviewInsert = () => {
                 <div>
                     <textarea
                         rows="16"
-                        style={{ width: '100%' }}
+                        style={{ width: '95%' }}
                         placeholder="리뷰를 입력하세요"
                         value={reviewContent}
                         onChange={(e) => setReviewContent(e.target.value)}
                     />
                 </div>
                 <div className="riveiwInsert-button-container">
-                    <button type="submit" class="reviewInsert-custom-button">리뷰 남기기 ❤️</button>
+                    <button type="submit" className="reviewInsert-custom-button">리뷰 남기기 ❤️</button>
                 </div>
             </form>
         </div>

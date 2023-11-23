@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api/v1/reviews';
-const storeId = 1;
-const reviewId = 1;
+const API_BASE_URL = 'http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/reviews';
 
 const ReviewService = {
     getReviewsByStoreId: (storeId, currentPage, pageSize = 5) => {

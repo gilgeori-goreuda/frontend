@@ -24,10 +24,7 @@ const AddressSearch = () => {
     const [Places, setPlaces] = useState([]);
 
     const [nowAddress, setNowAddress] = useState(false);
-    // const onClickNowAddressHandler = () => {
-    //     setNowAddress(true);
-    //     console.log(nowAddress);
-    // }
+
     const [getMlat, setGetMlat] = useState('');
     const [getMlng, setGetMlng] = useState('');
     const geolocation = useGeolocation({}, (location) => {
@@ -121,7 +118,7 @@ const AddressSearch = () => {
             <div className='searchList'>
                 {/* <div className='headerBar'> */}
                 <div className='searchbar'>
-                    <div class="searchbar-left">
+                    <div className="searchbar-left">
                         <a href="#" className="btn-back">
                         </a>
                     </div>

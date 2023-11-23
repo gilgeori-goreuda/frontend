@@ -24,10 +24,7 @@ const AddressSearch = () => {
     const [Places, setPlaces] = useState([]);
 
     const [nowAddress, setNowAddress] = useState(false);
-    // const onClickNowAddressHandler = () => {
-    //     setNowAddress(true);
-    //     console.log(nowAddress);
-    // }
+
     const [getMlat, setGetMlat] = useState('');
     const [getMlng, setGetMlng] = useState('');
     const geolocation = useGeolocation({}, (location) => {

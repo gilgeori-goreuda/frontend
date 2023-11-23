@@ -16,7 +16,7 @@ const KakaoCallBack = () => {
 
     const sendAuthorizationCode = async (code) => {
         try {
-            const res = await axios.post('http://localhost:8080/login/kakao', {
+            const res = await axios.post('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/login/kakao', {
                 code: code
             });
             // 여기서 res로 받은 액세스 토큰 저장

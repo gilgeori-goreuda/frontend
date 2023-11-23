@@ -5,6 +5,7 @@ import thumbsUp from "../img/like_heart.png";
 import comment from '../img/comment.png'
 import thumbsDoun from '../img/thumbsDoun.png'
 import Modal from "./Modal";
+import StarRating from "./StarRating";
 
 
 const Community = () => {
@@ -23,7 +24,8 @@ const Community = () => {
 
     const openModal = async (reviewId) => {
         setSelectedReviewId(reviewId);
-        const res = await axios.get(`http://localhost:8080/api/v1/reviews/${reviewId}/comments`);
+        const res = await axios.get(
+            `http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/reviews/${reviewId}/comments`);
         setSelectedComments(res.data.reviewComments);
 
         setShowModal(true);
@@ -45,7 +47,7 @@ const Community = () => {
     const handleLikeOrHateClick = async (reviewId, preferenceType) => {
         try {
             const accessToken = localStorage.getItem('accessToken');
-            const url = `http://localhost:8080/api/v1/preferences/reviews/${reviewId}/${preferenceType}`;
+            const url = `http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/preferences/reviews/${reviewId}/${preferenceType}`;
             const res = await axios.post(url, {}, {
                 headers: {'Authorization': `Bearer ${accessToken}`}
             });
@@ -106,7 +108,7 @@ const Community = () => {
     }, [page])
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/community/reviews', {}).then((res) => {
+        axios.get('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/community/reviews', {}).then((res) => {
             if (res.status == 200) {
                 setTotalPage(res.data.pageInfo.totalSize / 5)
             }
@@ -131,7 +133,7 @@ const Community = () => {
 
     const getPageData = (page, sort = sortOption) => {
         setIsLoading(true);
-        axios.get('http://localhost:8080/api/v1/community/reviews', {
+        axios.get('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/community/reviews', {
             params: {
                 size: 5,
                 page: page,
@@ -170,7 +172,7 @@ const Community = () => {
 
         try {
             const res = await
-                axios.post(`http://localhost:8080/api/v1/reviews/${selectedReviewId}/comments`,
+                axios.post(`http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/reviews/${selectedReviewId}/comments`,
                     newComment
                     , {
                         headers:
@@ -184,7 +186,7 @@ const Community = () => {
                 setNewComment("");
 
                 //댓글 목록 다시 불러오기
-                axios.get(`http://localhost:8080/api/v1/reviews/${selectedReviewId}/comments`).then((res) => {
+                axios.get(`http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/reviews/${selectedReviewId}/comments`).then((res) => {
 
                     // res.data.reviewComments
                     setSelectedComments(res.data.reviewComments);
@@ -223,6 +225,9 @@ const Community = () => {
                                     <div>
                                         <p>{review.member.nickname}</p>
                                     </div>
+                                </div>
+                                <div className="review-rating">
+                                    <StarRating rating={review.reviewRating}/>
                                 </div>
                             </div>
                             <div className="community-review-body" style={{justifyContent: 'center'}}>

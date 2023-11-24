@@ -1,0 +1,142 @@
+.container {
+    max-width: 480px;
+    margin: 0 auto;
+    background-color: #fff;
+    width: 100%;
+    position: relative;
+    min-height: 100vh;
+    box-shadow: 0 0 20px #0000000d;
+    padding: 20px;
+}
+
+.input-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.block {
+    display: block !important;
+}
+
+.mgt-10 {
+    margin-top: 10px;
+}
+
+.input-radio {
+    display: flex !important;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-wrap input[type="radio"] {
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+}
+
+.input-wrap .store-type-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-wrap .store-type-group label {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.image-preview img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+    margin-left: 20px;
+    width: 20px;
+    height: 15px;
+}
+
+.radio-group,
+.input-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.input-checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex-direction: row;
+    margin-right: 10px;
+    display: flex !important;
+}
+
+.radio-group label,
+.input-wrap label {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 10px;
+}
+
+.food-category-group div {
+    display: inline-block;
+    align-items: center;
+    width :115px;
+    height: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-right: 0px;
+}
+
+.food-category-group input[type="checkbox"] {
+    margin-right: 5px;
+}

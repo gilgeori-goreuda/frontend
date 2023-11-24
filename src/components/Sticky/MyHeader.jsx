@@ -22,7 +22,7 @@ const MyHeader = () => {
         // history.push('/'); // 로그아웃 후 이동할 페이지 경로
     };
     const [nowAddress, setNowAddress] = useState(true);
-
+    console.log(nowAddress);
     const [getMlat, setGetMlat] = useState('');
     const [getMlng, setGetMlng] = useState('');
     const geolocation = useGeolocation({}, (location) => {
@@ -52,9 +52,7 @@ const MyHeader = () => {
                         <Link className='homeNav' to={'/'} >Home</Link>
                     </div>
                     <div className='LinkBox'>
-                        {/* <Link className='mapNav' to={'/'} >Map</Link> */}
-                        {/* <Link className='mapNav' to={createDynamicPath()} onClick={() => onClickNowAddressHandler()}></Link> */}
-                        <button className='mapNav' onClick={onClickNowAddressHandler}>Logout</button>
+                        <button className='mapNav' onClick={onClickNowAddressHandler}>Map</button>
                     </div>
                     <div className='LinkBox'>
                         <button className='logoutNav' onClick={openModal}>Logout</button>

@@ -23,6 +23,7 @@
     background: #fff;
     border-bottom: 1px solid #fff;
     /* margin-bottom: 20px; */
+    border-bottom: 2px solid gray;
 }
 
 /* 각각의 div는 동일한 비율로 넓어지게 설정 */

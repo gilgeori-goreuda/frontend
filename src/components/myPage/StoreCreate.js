@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import uploadPhoto from "../../img/uploadPhoto.png";
+import './StoreCreate.css'
 
 const StoreCreate = () => {
     const navigate = useNavigate();
@@ -15,23 +16,23 @@ const StoreCreate = () => {
         closeTime: "",
         purchaseType: "현금, 카드, 계좌이체",
         imageUrl: "",
-        lat: 87.2187,
-        lng: 777.2996,
+        lat: 11.2187,
+        lng: 11.2996,
         streetAddress: "서울특별시 서초구 서초3동",
         foodCategories: {
             foodCategories: []
         }
     });
 
-    const categories = ["붕어빵", "호떡", "타코야끼", "계란빵", "떡볶이", "순대", "오뎅", "와플", "김밥", "꼬치", "땅콩빵", "군고구마", "토스트", "달고나", "군옥수수", "탕후루", "튀김"];
+    const categories = ["붕어빵", "호떡", "와플", "김밥", "순대", "오뎅", "타코야끼", "떡볶이", "꼬치", "땅콩빵", "군고구마", "토스트", "달고나", "군옥수수", "탕후루", "튀김"];
     const daysOfWeek = [
-        { eng: "sunday", kor: "일요일" },
-        { eng: "monday", kor: "월요일" },
-        { eng: "tuesday", kor: "화요일" },
-        { eng: "wednesday", kor: "수요일" },
-        { eng: "thursday", kor: "목요일" },
-        { eng: "friday", kor: "금요일" },
-        { eng: "saturday", kor: "토요일" }
+        { eng: "sunday", kor: "일" },
+        { eng: "monday", kor: "월" },
+        { eng: "tuesday", kor: "화" },
+        { eng: "wednesday", kor: "수" },
+        { eng: "thursday", kor: "목" },
+        { eng: "friday", kor: "금" },
+        { eng: "saturday", kor: "토" }
     ];
 
     const uploadImage = async (file) => {
@@ -79,24 +80,36 @@ const StoreCreate = () => {
         });
     };
     console.log(store)
+    const makeBusinessDate=(isDayIncluded,prevStore,day)=>{
+        return isDayIncluded? prevStore.businessDates
+            .split(',')
+            .map(d => d.trim())
+            .filter(d => d !== day)
+            .join(','): prevStore.businessDates
+            ? `${prevStore.businessDates.trim()}, ${day}`
+            : day;
+    }
     const handleBusinessDatesChange = (day) => {
         setStore((prevStore) => {
             const isDayIncluded = prevStore.businessDates.includes(day);
-            let updatedBusinessDates;
+            let updatedBusinessDates= makeBusinessDate(isDayIncluded, prevStore, day);
 
-            if (isDayIncluded) {
+            // if (isDayIncluded) {
                 // 요일이 이미 선택된 경우 제거
-                updatedBusinessDates = prevStore.businessDates
-                    .split(',')
-                    .map(d => d.trim())
-                    .filter(d => d !== day)
-                    .join(',');
-            } else {
-                // 요일이 선택되지 않은 경우 추가
-                updatedBusinessDates = prevStore.businessDates
-                    ? `${prevStore.businessDates.trim()}, ${day}`
-                    : day;
-            }
+                // updatedBusinessDates = makeBusinessDate(isDayIncluded, prevStore, day);
+                    // isDayIncluded? prevStore.businessDates
+                    // .split(',')
+                    // .map(d => d.trim())
+                    // .filter(d => d !== day)
+                    // .join(','): prevStore.businessDates
+                    // ? `${prevStore.businessDates.trim()}, ${day}`
+                    // : day;
+            // } else {
+            //     // 요일이 선택되지 않은 경우 추가
+            //     updatedBusinessDates = prevStore.businessDates
+            //         ? `${prevStore.businessDates.trim()}, ${day}`
+            //         : day;
+            // }
 
             // 모든 요일 선택 또는 해제
             const allDaysSelected = daysOfWeek.every(({ kor }) => updatedBusinessDates.includes(kor));
@@ -154,15 +167,15 @@ const StoreCreate = () => {
         const baseImageUrl = "https://dz68kixxhuu4k.cloudfront.net/";
 
         try {
-            let imageUrrl = store.imageUrl;
+            let imageUrl = store.imageUrl;
             if (selectedFile) {
                 const uploadedImageUrl = await uploadImage(selectedFile);
-                imageUrrl = baseImageUrl + uploadedImageUrl;
+                imageUrl = baseImageUrl + uploadedImageUrl;
             }
 
             const dataToSend = {
                 ...store,
-                imageUrl: imageUrrl
+                imageUrl: imageUrl
             };
 
             const accessToken = localStorage.getItem('accessToken');
@@ -184,7 +197,7 @@ const StoreCreate = () => {
         <div className="container">
             <h1>가게등록</h1>
             <form>
-                <div className="input-group">
+                <div className="input-wrap">
                     <label>가게명</label>
                     <input type="text" name="name" value={store.name} onChange={handleInputChange} placeholder="예시: 가게 이름" />
                 </div>
@@ -209,34 +222,33 @@ const StoreCreate = () => {
                     )}
                 </div>
 
-                <div className="input-group">
+                <div className="input-wrap block">
                     <label>가게형태</label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="storeType"
-                            value="푸드트럭"
-                            checked={store.storeType === "푸드트럭"}
-                            onChange={handleStoreTypeChange}
-                        />
-                        푸드트럭
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="storeType"
-                            value="포장마차"
-                            checked={store.storeType === "포장마차"}
-                            onChange={handleStoreTypeChange}
-                        />
+                        <div className="input-radio mgt-10">
+                            <input
+                                type="radio"
+                                name="storeType"
+                                value="푸드트럭"
+                                checked={store.storeType === "푸드트럭"}
+                                onChange={handleStoreTypeChange}
+                            />
+                        <div>푸드트럭
+                            <input type="radio"
+                                name="storeType"
+                                value="포장마차"
+                                checked={store.storeType === "포장마차"}
+                                onChange={handleStoreTypeChange}
+                            />
                         포장마차
-                    </label>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="input-group">
+                <div className="input-wrap block">
                     <label>출몰시기(선택)</label>
+                    <div className="input-radio">
                     {daysOfWeek.map((day) => (
-                        <label key={day.eng}>
+                        <div key={day.eng}>
                             <input
                                 type="checkbox"
                                 name="businessDates"
@@ -244,11 +256,14 @@ const StoreCreate = () => {
                                 onChange={() => handleBusinessDatesChange(day.eng)}
                             />
                             {day.kor}
-                        </label>
+                        </div>
+
                     ))}
+
+                    </div>
                 </div>
 
-                <div className="input-group">
+                <div className="input-wrap">
                     <label>영업 시작 시간</label>
                     <input
                         type="time"
@@ -258,7 +273,7 @@ const StoreCreate = () => {
                     />
                 </div>
 
-                <div className="input-group">
+                <div className="input-wrap">
                     <label>영업 종료 시간</label>
                     <input
                         type="time"
@@ -268,9 +283,9 @@ const StoreCreate = () => {
                     />
                 </div>
 
-                <div className="input-group">
+                <div className="input-wrap block">
                     <label>결제방식</label>
-                    <label>
+                    <div className="input-radio">
                         <input
                             type="radio"
                             name="purchaseType"
@@ -279,8 +294,7 @@ const StoreCreate = () => {
                             onChange={handlePaymentMethodChange}
                         />
                         현금
-                    </label>
-                    <label>
+
                         <input
                             type="radio"
                             name="purchaseType"
@@ -289,8 +303,7 @@ const StoreCreate = () => {
                             onChange={handlePaymentMethodChange}
                         />
                         카드
-                    </label>
-                    <label>
+
                         <input
                             type="radio"
                             name="purchaseType"
@@ -299,23 +312,63 @@ const StoreCreate = () => {
                             onChange={handlePaymentMethodChange}
                         />
                         계좌이체
-                    </label>
+                    </div>
                 </div>
 
-                <div className="input-group">
+                <div className="input-checkbox block">
                     <label>음식 카테고리</label>
-                    {categories.map(category => (
-                        <label key={category}>
-                            <input
-                                type="checkbox"
-                                name="foodCategories"
-                                checked={store.foodCategories.foodCategories.includes(category)}
-                                onChange={() => handleFoodCategoriesChange(category)}
-                            />
-                            {category}
-                        </label>
-
-                    ))}
+                    <div className="food-category-group">
+                        {categories.slice(0, 4).map((category, index) => (
+                            <div key={category}>
+                                <input
+                                    type="checkbox"
+                                    name="foodCategories"
+                                    checked={store.foodCategories.foodCategories.includes(category)}
+                                    onChange={() => handleFoodCategoriesChange(category)}
+                                />
+                                {category}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="food-category-group">
+                        {categories.slice(4, 8).map((category, index) => (
+                            <div key={category}>
+                                <input
+                                    type="checkbox"
+                                    name="foodCategories"
+                                    checked={store.foodCategories.foodCategories.includes(category)}
+                                    onChange={() => handleFoodCategoriesChange(category)}
+                                />
+                                {category}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="food-category-group">
+                        {categories.slice(8, 12).map((category, index) => (
+                            <div key={category}>
+                                <input
+                                    type="checkbox"
+                                    name="foodCategories"
+                                    checked={store.foodCategories.foodCategories.includes(category)}
+                                    onChange={() => handleFoodCategoriesChange(category)}
+                                />
+                                {category}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="food-category-group">
+                        {categories.slice(12, 17).map((category, index) => (
+                            <div key={category}>
+                                <input
+                                    type="checkbox"
+                                    name="foodCategories"
+                                    checked={store.foodCategories.foodCategories.includes(category)}
+                                    onChange={() => handleFoodCategoriesChange(category)}
+                                />
+                                {category}
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 <button type="button" onClick={handleSubmit}>가게 등록</button>

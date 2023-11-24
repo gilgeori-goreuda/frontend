@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <Review />,
       },
       {
-        path: '/reviewInsert',
+        path: '/reviewInsert/:storeId',
         element: <ReviewInsert />,
       },
       {

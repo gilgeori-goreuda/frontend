@@ -15,7 +15,7 @@ const Login = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '100vh', // 전체 화면 높이
+                height: '95vh', // 전체 화면 높이
                 border: '8px solid transparent', // 테두리 크기 설정
                 backgroundImage: `url(${loginBorder})`, // 테두리 이미지 설정
                 backgroundSize: 'contain',

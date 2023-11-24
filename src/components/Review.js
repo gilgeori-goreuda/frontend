@@ -8,6 +8,7 @@ import ReviewService from "./ReviewService";
 import StarRating from "./StarRating";
 
 const Review = ({storeId}) => {
+    debugger
     const nav = useNavigate();
     const [reviews, setReviews] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
@@ -34,7 +35,7 @@ const Review = ({storeId}) => {
             }
         };
         fetchReviews();
-    }, [currentPage]);
+    }, [currentPage, storeId]);
 
     const handleLoadMore = () => {
         setCurrentPage(prev => prev + 1);
@@ -42,17 +43,17 @@ const Review = ({storeId}) => {
 
     const showLoadMoreButton = currentPage < totalPages;
 
-    const ReviewInsert = () => {
-        nav(`/reviewInsert?`)
+    const handleReviewInsert = () => {
+        nav(`/reviewInsert/${storeId}`)
     }
 
     return (
         <div className='review-bodyBox'>
             <div>
-                <h1 className="center-text">리뷰</h1>
+                <h2 className="center-text">리뷰</h2>
             </div>
             <div className="button_container">
-                <button onClick={ReviewInsert} className="insertButton">✏️ 리뷰 쓰기</button>
+                <button onClick={handleReviewInsert} className="insertButton">✏️ 리뷰 쓰기</button>
             </div>
             <div className="reviews">
                 {Array.isArray(reviews) && reviews.map((review, index) => (

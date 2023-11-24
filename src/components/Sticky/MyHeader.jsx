@@ -49,7 +49,7 @@ const MyHeader = () => {
             <header id='header'>
                 <div className='headerBox'>
                     <div className='LinkBox'>
-                        <Link className='homeNav' to={'/'} >Home</Link>
+                        <Link className='homeNav' to={`/main`} >Home</Link>
                     </div>
                     <div className='LinkBox'>
                         <button className='mapNav' onClick={onClickNowAddressHandler}>Map</button>

@@ -9,7 +9,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import './Main.css'
 import 'swiper/css';
 import 'swiper/css/pagination';
-import './swiperStyle.css';
+import './/mainSwiperStyle.css';
 import 'swiper/css/effect-cube';
 
 import {Autoplay, EffectCube, Pagination} from 'swiper/modules';
@@ -89,7 +89,7 @@ const Main = () => {
                         disableOnInteraction: false,
                     }}
                     modules={[Autoplay, EffectCube, Pagination]}
-                    className="mySwiper"
+                    className="mainSwiper"
                 >
                     {newPlaces && newPlaces.map((newPlace, index) => (
                         <SwiperSlide key={index}>

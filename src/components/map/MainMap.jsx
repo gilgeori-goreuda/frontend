@@ -161,7 +161,7 @@ const MainMap = () => {
                 level={3} // 지도의 확대 레벨
                 draggable={draggable} // 드래그 사용
                 zoomable={zoomable} // 지도 줌 사용
-                onCenterChanged={(map) => {
+                onDragEnd={(map) => {
                     // console.log("Center Changed: ", map.getCenter().getLat(), map.getCenter().getLng());
                     // console.log(map);
                     setState({

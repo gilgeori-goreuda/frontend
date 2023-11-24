@@ -20,7 +20,8 @@
     height: 48px;
     width: 100%;
     background: #fff;
-    border-top: 1px solid #f9f9f9;
+    /* border-top: 1px solid #f9f9f9; */
+    border-top: 2px solid gray;
 }
 
 .FooterBox>.LinkBox {

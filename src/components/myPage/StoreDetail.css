@@ -27,9 +27,44 @@
 
 }
 
-.review-and-rating {
+.store-data-sort {
     display: flex; /* Flex 레이아웃 사용 */
     align-items: center; /* 아이템들을 세로 중앙 정렬 */
     gap: 20px; /* 아이템 간격 */
     justify-content: center; /* 가로 중앙 정렬 */
+}
+
+.menu-box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    padding: 20px; /* 내부 여백 */
+    background-color: white; /* 배경색 */
+    margin: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+}
+
+.menu-box div {
+    margin-bottom: 10px; /* 각 항목 하단에 10px의 여백 추가 */
+    flex-basis: 48%;
+    margin-right: 5px; /* 항목 간 가로 여백 추가 */
+    text-align: center; /* 항목 내용을 가운데 정렬 */
+}
+
+.menu-box h3 {
+    text-align: center; /* 메뉴 제목을 가운데 정렬 */
+    margin-bottom: 20px;
+}
+
+.menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.menu-items div:last-child {
+    margin-right: 0;
 }

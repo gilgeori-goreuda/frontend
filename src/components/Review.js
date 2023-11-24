@@ -8,7 +8,6 @@ import ReviewService from "./ReviewService";
 import StarRating from "./StarRating";
 
 const Review = ({storeId}) => {
-    debugger
     const nav = useNavigate();
     const [reviews, setReviews] = useState([])
     const [currentPage, setCurrentPage] = useState(0);

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './AddressSearch.css';
 import useGeolocation from 'react-hook-geolocation';
+import { useLocation } from "react-router-dom"
 
 const { kakao } = window;
 
 
 const AddressSearch = () => {
 
-    const [InputText, setInputText] = useState('')
+    const location = useLocation().state.search;
+    const [InputText, setInputText] = useState(location || '')
     const [searchPlace, setPlace] = useState('')
 
     const onChange = (e) => {

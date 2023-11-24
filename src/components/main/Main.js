@@ -5,6 +5,7 @@ import Slider from "react-slick"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Main.css'
+import {Link} from "react-router-dom";
 
 const Main = () => {
 
@@ -72,6 +73,7 @@ const Main = () => {
         fetchTopPlace();
     }, []);
 
+
     return (
         <div className={"main"}>
 
@@ -80,7 +82,9 @@ const Main = () => {
                 <Slider {...settings}>
                     {newPlaces && newPlaces.map((newPlace, index) => (
                         <div key={index}>
-                            <div><img src={newPlace.imageUrl}/></div>
+                            <Link to={`http://localhost:3000/storeDetail/${newPlace.id}`}>
+                                <img src={newPlace.imageUrl} alt={newPlace.name}/>
+                            </Link>
                             <div>{newPlace.name}</div>
                             <div>{newPlace.openTime} ~ {newPlace.closeTime}</div>
                             <p>streetAddr: {newPlace.streetAddress}</p>
@@ -89,13 +93,15 @@ const Main = () => {
                     ))}
                 </Slider>
             </div>
-            
+
             <h2> 오늘의 인기 장소 </h2>
             <div className={"place"}>
                 <Slider {...settings}>
                     {hotPlaces && hotPlaces.map((hotPlace, index) => (
                         <div key={index}>
-                            <div><img src={hotPlace.imageUrl}/></div>
+                            <Link to={`http://localhost:3000/storeDetail/${hotPlace.id}`}>
+                                <img src={hotPlace.imageUrl} alt={hotPlace.name}/>
+                            </Link>
                             <div>{hotPlace.name}</div>
                             <div>{hotPlace.openTime} ~ {hotPlace.closeTime}</div>
                             <p>streetAddr: {hotPlace.streetAddress}</p>
@@ -109,7 +115,9 @@ const Main = () => {
             <div className={"top10"}>
                 {topPlaces && topPlaces.map((topPlace, index) => (
                     <div key={index}>
-                        <li>{index + 1} {topPlace.name}</li>
+                        <Link to={"/addressSearch"} state={{search: topPlace.name}}>
+                            <li>{index + 1} {topPlace.name}</li>
+                        </Link>
                     </div>
                 ))}
             </div>

@@ -12,6 +12,11 @@ const StoreDetail = () => {
     const [msg, setMsg] = useState("");
     const param = useParams();
     const storeId = param.storeId; // 스토어 ID 얻기
+
+    useEffect(() => {
+        console.log("Current storeId:", storeId);
+    }, [storeId]);
+
     const translateDay = (day) => {
         const days = {
             sunday: "일",

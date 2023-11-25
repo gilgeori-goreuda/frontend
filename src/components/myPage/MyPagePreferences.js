@@ -9,7 +9,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 
-import './swiperStyle.css';
+import './myPageSwiperStyle.css';
 
 // import required modules
 import {EffectCards} from 'swiper/modules';
@@ -69,7 +69,7 @@ const MyPagePreferences = () => {
                         effect={'cards'}
                         grabCursor={true}
                         modules={[EffectCards]}
-                        className="mySwiper"
+                        className="myPageSwiper"
                     >
                         {preferencesList.map((item, index) => (
                             <>

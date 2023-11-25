@@ -43,7 +43,7 @@ const MyFooter = () => {
                         <Link className='AddStoreNav' to={'/centerMap'} >AddStore</Link>
                     </div> */}
                     <div className='LinkBox'>
-                        <Link className='MyPageNav' to={'/'} >MyPage</Link>
+                        <Link className='MyPageNav' to={'/myPage'} >MyPage</Link>
                     </div>
                 </div>
             </footer>

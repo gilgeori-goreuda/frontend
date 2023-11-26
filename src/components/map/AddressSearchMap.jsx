@@ -225,6 +225,10 @@ const AddressSearchMap = () => {
     const visitDynamicPath = (storeId) => {
         return `/visit?storeId=${storeId}&mLat=${getMlat}&mLng=${getMlng}`;
     };
+    const reportDynamicPath = (storeId) => {
+        return `/report?storeId=${storeId}&mLat=${getMlat}&mLng=${getMlng}`;
+    };
+
 
     return (
         <>
@@ -377,7 +381,9 @@ const AddressSearchMap = () => {
                                                 <div className="title">
                                                     <div>{position.name}</div>
                                                     <div className='report'>
-                                                        <button className='reportButton'>신고하기</button>
+                                                        <Link className='reportInfo' to={reportDynamicPath(position.id)}>
+                                                            <button className='reportButton'>신고하기</button>
+                                                        </Link>
                                                     </div>
                                                     <div
                                                         className="close"

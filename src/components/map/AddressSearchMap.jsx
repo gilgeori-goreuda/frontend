@@ -377,7 +377,7 @@ const AddressSearchMap = () => {
                                                 <div className="title">
                                                     <div>{position.name}</div>
                                                     <div className='report'>
-                                                        <button className='reportButton'></button>
+                                                        <button className='reportButton'>신고하기</button>
                                                     </div>
                                                     <div
                                                         className="close"

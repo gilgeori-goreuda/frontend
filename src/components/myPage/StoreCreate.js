@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 import uploadPhoto from "../../img/uploadPhoto.png";
 import './StoreCreate.css'
 
 const StoreCreate = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [getStreet_address, setGetStreet_address] = useState(decodeURIComponent(searchParams.get('street_address')));
+    const [getLat, setGetLat] = useState(parseFloat(decodeURIComponent(searchParams.get('lat'))));
+    const [getLng, setGetLng] = useState(parseFloat(decodeURIComponent(searchParams.get('lng'))));
+
+    // console.log(getStreet_address, getLat, getLng);
+
     const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null); // 이미지 파일 하나만 선택하도록 수정
 
@@ -16,13 +23,31 @@ const StoreCreate = () => {
         closeTime: "",
         purchaseType: "현금, 카드, 계좌이체",
         imageUrl: "",
-        lat: 11.2187,
-        lng: 11.2996,
-        streetAddress: "서울특별시 서초구 서초3동",
+        lat: 0,
+        lng: 0,
+        streetAddress: "",
         foodCategories: {
             foodCategories: []
         }
     });
+    // console.log(getStreet_address, getLat, getLng);
+
+    useEffect(() => {
+        setStore((prevStore) => ({
+            ...prevStore,
+            streetAddress: getStreet_address,
+        }));
+        setStore((prevStore) => ({
+            ...prevStore,
+            lat: getLat,
+        }));
+        setStore((prevStore) => ({
+            ...prevStore,
+            lng: getLng,
+        }));
+    }, [getStreet_address]); // getStreet_address가 변경될 때만 실행
+
+
 
     const categories = ["붕어빵", "호떡", "와플", "김밥", "순대", "오뎅", "타코야끼", "떡볶이", "꼬치", "땅콩빵", "군고구마", "토스트", "달고나", "군옥수수", "탕후루", "튀김"];
     const daysOfWeek = [
@@ -79,31 +104,30 @@ const StoreCreate = () => {
             };
         });
     };
-    console.log(store)
-    const makeBusinessDate=(isDayIncluded,prevStore,day)=>{
-        return isDayIncluded? prevStore.businessDates
+    const makeBusinessDate = (isDayIncluded, prevStore, day) => {
+        return isDayIncluded ? prevStore.businessDates
             .split(',')
             .map(d => d.trim())
             .filter(d => d !== day)
-            .join(','): prevStore.businessDates
+            .join(',') : prevStore.businessDates
             ? `${prevStore.businessDates.trim()}, ${day}`
             : day;
     }
     const handleBusinessDatesChange = (day) => {
         setStore((prevStore) => {
             const isDayIncluded = prevStore.businessDates.includes(day);
-            let updatedBusinessDates= makeBusinessDate(isDayIncluded, prevStore, day);
+            let updatedBusinessDates = makeBusinessDate(isDayIncluded, prevStore, day);
 
             // if (isDayIncluded) {
-                // 요일이 이미 선택된 경우 제거
-                // updatedBusinessDates = makeBusinessDate(isDayIncluded, prevStore, day);
-                    // isDayIncluded? prevStore.businessDates
-                    // .split(',')
-                    // .map(d => d.trim())
-                    // .filter(d => d !== day)
-                    // .join(','): prevStore.businessDates
-                    // ? `${prevStore.businessDates.trim()}, ${day}`
-                    // : day;
+            // 요일이 이미 선택된 경우 제거
+            // updatedBusinessDates = makeBusinessDate(isDayIncluded, prevStore, day);
+            // isDayIncluded? prevStore.businessDates
+            // .split(',')
+            // .map(d => d.trim())
+            // .filter(d => d !== day)
+            // .join(','): prevStore.businessDates
+            // ? `${prevStore.businessDates.trim()}, ${day}`
+            // : day;
             // } else {
             //     // 요일이 선택되지 않은 경우 추가
             //     updatedBusinessDates = prevStore.businessDates
@@ -224,14 +248,14 @@ const StoreCreate = () => {
 
                 <div className="input-wrap block">
                     <label>가게형태</label>
-                        <div className="input-radio mgt-10">
-                            <input
-                                type="radio"
-                                name="storeType"
-                                value="푸드트럭"
-                                checked={store.storeType === "푸드트럭"}
-                                onChange={handleStoreTypeChange}
-                            />
+                    <div className="input-radio mgt-10">
+                        <input
+                            type="radio"
+                            name="storeType"
+                            value="푸드트럭"
+                            checked={store.storeType === "푸드트럭"}
+                            onChange={handleStoreTypeChange}
+                        />
                         <div>푸드트럭
                             <input type="radio"
                                 name="storeType"
@@ -239,7 +263,7 @@ const StoreCreate = () => {
                                 checked={store.storeType === "포장마차"}
                                 onChange={handleStoreTypeChange}
                             />
-                        포장마차
+                            포장마차
                         </div>
                     </div>
                 </div>
@@ -247,18 +271,18 @@ const StoreCreate = () => {
                 <div className="input-wrap block">
                     <label>출몰시기(선택)</label>
                     <div className="input-radio">
-                    {daysOfWeek.map((day) => (
-                        <div key={day.eng}>
-                            <input
-                                type="checkbox"
-                                name="businessDates"
-                                checked={store.businessDates.includes(day.eng)}
-                                onChange={() => handleBusinessDatesChange(day.eng)}
-                            />
-                            {day.kor}
-                        </div>
+                        {daysOfWeek.map((day) => (
+                            <div key={day.eng}>
+                                <input
+                                    type="checkbox"
+                                    name="businessDates"
+                                    checked={store.businessDates.includes(day.eng)}
+                                    onChange={() => handleBusinessDatesChange(day.eng)}
+                                />
+                                {day.kor}
+                            </div>
 
-                    ))}
+                        ))}
 
                     </div>
                 </div>

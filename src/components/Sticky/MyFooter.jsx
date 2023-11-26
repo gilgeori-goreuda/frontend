@@ -34,7 +34,7 @@ const MyFooter = () => {
                         <Link className='SearchNav' to={`/addressSearch`} >Search</Link>
                     </div>
                     <div className='LinkBox'>
-                        <Link className='CommunityNav' to={'/'} >Community</Link>
+                        <Link className='CommunityNav' to={'/community'} >Community</Link>
                     </div>
                     <div className='LinkBox'>
                         <button className='AddStoreNav' onClick={onClickNowAddressHandler}>AddStore</button>

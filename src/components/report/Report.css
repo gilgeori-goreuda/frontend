@@ -1,0 +1,64 @@
+.ReportBox {
+    text-align: center;
+}
+
+.ReportBox .ReportH {
+    padding: 10px;
+    text-align: center;
+    color: #9b6e6e;
+    font-size: 24px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    display: flex;
+}
+
+.reportBoxCss {
+    background-color: rgb(219, 55, 52);
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reportCancelCss {
+    background-color: #84b2d0;
+    color: #ffffff;
+    padding: 1px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reportTable table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.reportTable th,
+.reportTable td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+}
+
+.reportCreate {
+    font-size: 12px;
+}
+
+.cancelReportBox {
+    width: 20%;
+}
+
+.reportTable th {
+    background-color: #f2f2f2;
+}

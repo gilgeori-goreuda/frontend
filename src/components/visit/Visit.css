@@ -1,0 +1,28 @@
+.visitBox {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.visitBox h2 {
+    color: #9b6e6e;
+    font-size: 24px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.visitBox button {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.visitBox button:hover {
+    background-color: #2980b9;
+}

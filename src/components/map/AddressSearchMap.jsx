@@ -36,20 +36,17 @@ const AddressSearchMap = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [getLat, setGetLat] = useState(decodeURIComponent(searchParams.get('lat')));
     const [getLng, setGetLng] = useState(decodeURIComponent(searchParams.get('lng')));
-    const [getMlat, setGetMlat] = useState(decodeURIComponent(searchParams.get('m_lat')));
-    const [getMlng, setGetMlng] = useState(decodeURIComponent(searchParams.get('m_lng')));
+    const [getMlat, setGetMlat] = useState(decodeURIComponent(searchParams.get('lat')));
+    const [getMlng, setGetMlng] = useState(decodeURIComponent(searchParams.get('lng')));
     const [getStreet_address, setGetStreet_address] = useState(decodeURIComponent(searchParams.get('street_address')));
 
     const [addressLat, setaddressLat] = useState(getLat);
     const [addressLng, setaddressLng] = useState(getLng);
     // 37.46617739234813, 126.88947364725837 독산역
 
-
-    // const geolocation = useGeolocation(); // 현재 위치 좌표
-    // const geolocation = useGeolocation({}, () => { }, true);
     const [nowAddress, setNowAddress] = useState(false);
     const geolocation = useGeolocation({}, (location) => {
-        // console.log(location);
+        console.log(location);
         setaddressLat(location.latitude);
         setaddressLng(location.longitude);
         setGetMlat(location.latitude);
@@ -146,10 +143,14 @@ const AddressSearchMap = () => {
     }, [addressLat, addressLng, nowAddress, searchCategory]);
 
     const [isCustomOpen, setIsCustomOpen] = useState(false); // 커스텀마커 정보
-    const onClickCustomInfoHandler = (state, index) => {
+    const onClickCustomInfoHandler = (state, index, lat, lng) => {
         setMarkerIdx(index);
         if (state == "open") {
             setIsCustomOpen("true")
+            setaddressLat(lat);
+            setaddressLng(lng);
+            // setChgAdLat(lat);
+            // setChgAdLng(lng);
         } else if (state == "open") {
             setIsCustomOpen("false")
         }
@@ -219,11 +220,15 @@ const AddressSearchMap = () => {
         ]
     };
     const createDynamicPath = (storeId) => {
-        return `/storeDetail?storeId=${storeId}`;
+        return `/storeDetail/${storeId}`;
     };
     const visitDynamicPath = (storeId) => {
         return `/visit?storeId=${storeId}&mLat=${getMlat}&mLng=${getMlng}`;
     };
+    const reportDynamicPath = (storeId) => {
+        return `/report?storeId=${storeId}&mLat=${getMlat}&mLng=${getMlng}`;
+    };
+
 
     return (
         <>
@@ -366,7 +371,7 @@ const AddressSearchMap = () => {
                                     clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
                                     onClick={() => {
                                         // console.log(position.lat, position.lng);
-                                        onClickCustomInfoHandler("open", index);
+                                        onClickCustomInfoHandler("open", index, position.lat, position.lng);
                                     }}
                                 />
                                 {isCustomOpen && markerIdx == index && (
@@ -374,7 +379,12 @@ const AddressSearchMap = () => {
                                         <div className="wrap">
                                             <div className="info">
                                                 <div className="title">
-                                                    {position.name}
+                                                    <div>{position.name}</div>
+                                                    <div className='report'>
+                                                        <Link className='reportInfo' to={reportDynamicPath(position.id)}>
+                                                            <button className='reportButton'>신고하기</button>
+                                                        </Link>
+                                                    </div>
                                                     <div
                                                         className="close"
                                                         onClick={() => setIsCustomOpen(false)}
@@ -406,17 +416,16 @@ const AddressSearchMap = () => {
                                                             <span className='starInfo'>
                                                                 별점 : {position.averageRating}점
                                                             </span>
-                                                            &nbsp;
-                                                            <Link className='visitInfo' to={visitDynamicPath(position.id)}>
-                                                                <span className='storeDetailInfo'>
-                                                                    <button className='visitNav'>visit</button>
-                                                                </span>
-                                                            </Link>
                                                         </div>
-                                                        <div>
+                                                        <div className='linkBoxs'>
                                                             <Link className='detailInfo' to={createDynamicPath(position.id)}>
                                                                 <span className='storeDetailInfo'>
                                                                     상세페이지
+                                                                </span>
+                                                            </Link>
+                                                            <Link className='visitInfo' to={visitDynamicPath(position.id)}>
+                                                                <span className='visitNav'>
+                                                                    방문하기
                                                                 </span>
                                                             </Link>
                                                         </div>

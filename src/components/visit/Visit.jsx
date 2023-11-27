@@ -49,7 +49,7 @@ const Visit = () => {
             // console.log(error.response?.data.errorCode, 132);
             if (error.response?.data.errorCode === "S007") {
                 // 인증 가능 범위가 아닌 경우
-                alert("방문인증 가능 범위가 아닙니다.");
+                alert("방문인증이 가능한 거리가 아닙니다.");
             } else {
                 // 다른 에러 처리
                 console.log(error.response?.data);
@@ -63,10 +63,10 @@ const Visit = () => {
 
     return (
         <div>
-            <div>
-                <h2>방문인증 페이지</h2>
+            <div className='visitBox'>
+                <h2 className='visitH'>방문하기 버튼을 누르고 사용자 근처의<br />가게를 방문 인증하기를 할 수 있어요</h2>
                 <button onClick={() => visitSubmit()}>방문하기</button>
-                <button onClick={() => certifySubmit()}>인증하기</button>
+                <button onClick={() => certifySubmit()}>방문 인증하기</button>
             </div>
         </div>
     );

@@ -26,7 +26,7 @@
     text-align: center;
 }
 
-.reportButton {
+.reportContainerButton {
     width: 40%;
     margin: 0 auto;
     /* 가운데 정렬을 위해 사용 */
@@ -39,6 +39,6 @@
     font-size: 16px;
 }
 
-.reportButton:hover {
+.reportContainerButton:hover {
     background-color: #77c77b;
 }

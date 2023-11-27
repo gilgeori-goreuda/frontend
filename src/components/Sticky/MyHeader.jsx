@@ -18,7 +18,7 @@ const MyHeader = () => {
         // 로그아웃 로직을 여기에 추가
         console.log('로그아웃되었습니다.');
         closeModal(); // 모달 닫기
-        nav('/')
+        nav('/login')
         // history.push('/'); // 로그아웃 후 이동할 페이지 경로
     };
     const [nowAddress, setNowAddress] = useState(true);

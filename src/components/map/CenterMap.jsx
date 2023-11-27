@@ -44,6 +44,9 @@ const CenterMap = () => {
     const onClickNowAddressHandler = () => {
         nav(`/storeCreate?lat=${chgAdLat}&lng=${chgAdLng}&street_address=${addressName}`)
     }
+    useEffect(() => {
+        // console.log("addressName이 변경되었습니다.", addressName);
+    }, [addressName, state]);
     return (
         <>
             <Map
@@ -84,6 +87,7 @@ const CenterMap = () => {
                             setRoadAddressName("주소정보가 유효하지 않습니다.");
                         }
                     }
+                    // console.log(addressName);
                     geocoder.coord2Address(coord.getLng(), coord.getLat(), callback); // 
                 }
                 } // 중심좌표 이동시 이벤트 사용
@@ -122,7 +126,7 @@ const CenterMap = () => {
                         ) : (
                             <>
                                 <div className='reportButtonContainer'>
-                                    <button className='reportButton' onClick={onClickNowAddressHandler}>제보하기</button>
+                                    <button className='reportContainerButton' onClick={onClickNowAddressHandler}>제보하기</button>
                                 </div>
                             </>
                         )}

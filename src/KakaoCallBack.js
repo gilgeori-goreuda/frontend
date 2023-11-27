@@ -22,7 +22,7 @@ const KakaoCallBack = () => {
             // 여기서 res로 받은 액세스 토큰 저장
             localStorage.setItem('accessToken', res.data.accessToken)
             console.log(res.data);
-            window.location.href = '/StoreCreate'
+            window.location.href = '/main'
         } catch (error) {
             console.error("로그인 오류", error);
         }

@@ -37,12 +37,12 @@
 .homeNav {
     cursor: pointer;
     border: none;
-    height: 3.8vh;
     background: url(https://cdn-icons-png.flaticon.com/128/3405/3405771.png) 50% 50% no-repeat;
     background-position: center;
     background-size: contain;
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
+
     margin-top: 1vh;
     /* 텍스트를 화면 밖으로 숨김 */
     text-indent: -999em;
@@ -80,15 +80,20 @@
 }
 
 .logoutModal {
+    /* max-width: 480px; */
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    min-height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    z-index: 99999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #888;
     background-color: rgba(0, 0, 0, 0.4);
 }
 

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './AddressSearch.css';
 import useGeolocation from 'react-hook-geolocation';
-import { useLocation } from "react-router-dom"
+//  import { useLocation } from "react-router-dom"
 
 const { kakao } = window;
 
 
 const AddressSearch = () => {
-
-    const location = useLocation().state.search;
-    const [InputText, setInputText] = useState(location || '')
+    const location = useLocation();
+    const searchValue = location.state ? location.state.search : '';
+    const [InputText, setInputText] = useState(searchValue);
+    // const [InputText, setInputText] = useState('')
     const [searchPlace, setPlace] = useState('')
 
     const onChange = (e) => {

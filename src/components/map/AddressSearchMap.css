@@ -124,3 +124,199 @@
 .categoryButton {
     width: 0%;
 }
+
+.storeBox {
+    padding: 5px;
+    color: #000;
+}
+
+.wrap {
+    position: absolute;
+    left: 0;
+    bottom: 40px;
+    width: 288px;
+    height: 132px;
+    margin-left: -144px;
+    text-align: left;
+    overflow: hidden;
+    font-size: 12px;
+    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+    line-height: 1.5;
+}
+
+.wrap * {
+    padding: 0;
+    margin: 0;
+}
+
+.wrap .info {
+    width: 286px;
+    height: 120px;
+    border-radius: 5px;
+    border-bottom: 2px solid #ccc;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+    border: 0;
+    box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+    padding: 5px 0 0 10px;
+    height: 30px;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info .report {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: #888;
+    width: 17px;
+    height: 17px;
+}
+
+.reportButton {
+    cursor: pointer;
+    border: none;
+    height: 3.8vh;
+    background: url(https://cdn-icons-png.flaticon.com/128/1320/1320548.png) 50% 50% no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    text-indent: -999em;
+    overflow: hidden;
+    position: absolute;
+    left: 8%;
+    top: 4%;
+    transform: translateY(-30%);
+}
+
+.info .report:hover {
+    cursor: pointer;
+}
+
+.info .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #888;
+    width: 17px;
+    height: 17px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info .close:hover {
+    cursor: pointer;
+}
+
+.info .body {
+    position: relative;
+    overflow: hidden;
+}
+
+.info .desc {
+    position: relative;
+    margin: 13px 0 0 90px;
+    height: 75px;
+}
+
+.desc .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.storeInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.info .img {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    width: 73px;
+    height: 71px;
+    border: 1px solid #ddd;
+    color: #888;
+    overflow: hidden;
+}
+
+.foodtypeBox {
+    display: flex;
+}
+
+/* .foodtypeImg {
+    width: 20%;
+    height: 80%;
+    background: url(https://cdn-icons-png.flaticon.com/128/1046/1046849.png) 50% 50% no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    display: block;
+    text-indent: -999em;
+    overflow: hidden;
+    margin-right: 6px;
+    flex: none;
+} */
+
+.visitInfo {
+    cursor: pointer;
+}
+
+.storeDetailInfo {
+    cursor: pointer;
+}
+
+.linkBoxs {
+    display: flex;
+}
+
+
+.linkBoxs a {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+}
+
+.detailInfo {
+    background-color: #3498db;
+    color: #ffffff;
+    border-radius: 5px;
+    height: 90%;
+    margin-top: 2%;
+    padding-top: 2%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.visitInfo {
+    background-color: #27ae60;
+    color: #ffffff;
+    border-radius: 5px;
+    height: 90%;
+    margin-top: 2%;
+    padding-top: 2%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.detailInfo:hover,
+.visitInfo:hover {
+    background-color: #2980b9;
+}
+
+.storeDetailInfo,
+.visitNav {
+    font-size: 1em;
+    font-weight: bold;
+}

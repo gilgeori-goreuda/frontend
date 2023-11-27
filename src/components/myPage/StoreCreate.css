@@ -66,6 +66,7 @@ label {
     margin-top: 10px;
 }
 
+
 .buttonCss2 {
     flex: 1;
     padding: 10px;
@@ -76,11 +77,12 @@ label {
     cursor: pointer;
     font-size: 15px;
     margin-bottom: 10px;
-}
+} 
+
 
 .buttonCss2:hover {
     background-color: #0056b3;
-}
+} 
 
 .image-preview img {
     max-width: 100%;
@@ -130,7 +132,7 @@ input[type="checkbox"] {
 .food-category-group div {
     display: inline-block;
     align-items: center;
-    width :115px;
+    width: 115px;
     height: 30px;
     flex-wrap: wrap;
     gap: 10px;

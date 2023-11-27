@@ -14,6 +14,8 @@ import AddressSearchMap from './components/map/AddressSearchMap';
 import AddressSearch from "./components/Search/AddressSearch";
 import Template from "./components/Sticky/Template";
 import CenterMap from "./components/map/CenterMap";
+import Visit from "./components/visit/Visit";
+import Report from "./components/report/Report";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +87,14 @@ const router = createBrowserRouter([
       {
         path: '/centerMap',
         element: <CenterMap />,
+      },
+      {
+        path: '/visit',
+        element: <Visit />,
+      },
+      {
+        path: '/report',
+        element: <Report />,
       },
     ]
   }

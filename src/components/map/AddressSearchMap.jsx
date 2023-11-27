@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Map, MapMarker, useMap } from "react-kakao-maps-sdk"
+import { CustomOverlayMap, Map, MapMarker, useMap } from "react-kakao-maps-sdk"
 import useKakaoLoader from "./useKakaoLoader"
 import useGeolocation from "react-hook-geolocation";
-import { ApiNoToken } from '../../common/api/ApiSearch';
+import { Api, ApiNoToken } from '../../common/api/ApiSearch';
 import { Link, useSearchParams } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -36,20 +36,17 @@ const AddressSearchMap = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [getLat, setGetLat] = useState(decodeURIComponent(searchParams.get('lat')));
     const [getLng, setGetLng] = useState(decodeURIComponent(searchParams.get('lng')));
-    const [getMlat, setGetMlat] = useState(decodeURIComponent(searchParams.get('m_lat')));
-    const [getMlng, setGetMlng] = useState(decodeURIComponent(searchParams.get('m_lng')));
+    const [getMlat, setGetMlat] = useState(decodeURIComponent(searchParams.get('lat')));
+    const [getMlng, setGetMlng] = useState(decodeURIComponent(searchParams.get('lng')));
     const [getStreet_address, setGetStreet_address] = useState(decodeURIComponent(searchParams.get('street_address')));
 
     const [addressLat, setaddressLat] = useState(getLat);
     const [addressLng, setaddressLng] = useState(getLng);
     // 37.46617739234813, 126.88947364725837 독산역
 
-
-    // const geolocation = useGeolocation(); // 현재 위치 좌표
-    // const geolocation = useGeolocation({}, () => { }, true);
     const [nowAddress, setNowAddress] = useState(false);
     const geolocation = useGeolocation({}, (location) => {
-        // console.log(location);
+        console.log(location);
         setaddressLat(location.latitude);
         setaddressLng(location.longitude);
         setGetMlat(location.latitude);
@@ -61,6 +58,36 @@ const AddressSearchMap = () => {
         setNowAddress(true);
         console.log(nowAddress);
     }
+
+    // 변환 매핑 정보
+    const categoryMapping = {
+        BUNGEOPPANG: "붕어빵",
+        HOTTEOK: "호떡",
+        TACOYAKI: "타코야끼",
+        EGGBREAD: "계란빵",
+        TTEOKBOKKI: "떡볶이",
+        SUNDAE: "순대",
+        ODENG: "오뎅",
+        WAFFLE: "와플",
+        GIMBAP: "김밥",
+        KKOCHI: "꼬치",
+        TTAKONGPPANG: "땅콩빵",
+        KUNGOGUMA: "군고구마",
+        TOAST: "토스트",
+        DALGONA: "달고나",
+        KUNOKSUSU: "군옥수수",
+        TANGHURU: "탕후루",
+        FIRED: "튀김",
+    };
+
+    // 변환 함수
+    const convertCategoryToKorean = (englishCategory) => {
+        const koreanCategory = categoryMapping[englishCategory];
+        return koreanCategory || englishCategory; // 변환이 불가능하면 원래 값 사용
+    };
+
+
+
     const [category, setCategory] = useState({
         '': "전체",
         붕어빵: "붕어빵",
@@ -96,7 +123,7 @@ const AddressSearchMap = () => {
     const [all, setAll] = useState([]);
     const getAll = async () => {
         try {
-            const data = await ApiNoToken(`/api/v1/search/address`
+            const data = await Api(`/api/v1/search/address`
                 + `?m_lat=${getMlat}&m_lng=${getMlng}&r_lat=${addressLat}&r_lng=${addressLng}&street_address=${getStreet_address}&food_type=${searchCategory}`
                 , "GET"
             );
@@ -115,16 +142,20 @@ const AddressSearchMap = () => {
         getAll();
     }, [addressLat, addressLng, nowAddress, searchCategory]);
 
-    const [isOpen, setIsOpen] = useState(false); // 마커 정보
-    const [markerIdx, setMarkerIdx] = useState(); // 마커인덱스 정보
-    const onClickInfoHandler = (state, index) => {
+    const [isCustomOpen, setIsCustomOpen] = useState(false); // 커스텀마커 정보
+    const onClickCustomInfoHandler = (state, index, lat, lng) => {
         setMarkerIdx(index);
         if (state == "open") {
-            setIsOpen("true")
+            setIsCustomOpen("true")
+            setaddressLat(lat);
+            setaddressLng(lng);
+            // setChgAdLat(lat);
+            // setChgAdLng(lng);
         } else if (state == "open") {
-            setIsOpen("false")
+            setIsCustomOpen("false")
         }
     }
+    const [markerIdx, setMarkerIdx] = useState(); // 마커인덱스 정보
 
 
     // 주소-좌표 변환 객체를 생성합니다
@@ -188,6 +219,16 @@ const AddressSearchMap = () => {
             }
         ]
     };
+    const createDynamicPath = (storeId) => {
+        return `/storeDetail/${storeId}`;
+    };
+    const visitDynamicPath = (storeId) => {
+        return `/visit?storeId=${storeId}&mLat=${getMlat}&mLng=${getMlng}`;
+    };
+    const reportDynamicPath = (storeId) => {
+        return `/report?storeId=${storeId}&mLat=${getMlat}&mLng=${getMlng}`;
+    };
+
 
     return (
         <>
@@ -228,7 +269,6 @@ const AddressSearchMap = () => {
                         </div>
                     ))}
                 </Slider>
-
 
 
                 <Map    // 지도를 표시할 Container
@@ -303,8 +343,10 @@ const AddressSearchMap = () => {
 
                     {console.log(all)}
 
+
                     {all.map((position, index) => {
-                        // console.log(position);
+                        console.log(position);
+                        // console.log(position.storeCategories.categories[0]);
                         let imgType = "";
                         if (position.storeType == "FOOD_STALL") {
                             imgType = "https://cdn-icons-png.flaticon.com/128/5977/5977373.png";
@@ -312,47 +354,93 @@ const AddressSearchMap = () => {
                             imgType = "https://cdn-icons-png.flaticon.com/128/7566/7566122.png";
                         }
                         return (
-                            <MapMarker
-                                key={index}
-                                // position={position.latlng} // 마커를 표시할 위치
-                                position={{ lat: position.lat, lng: position.lng }} // 위와 같은코드
+                            <>
+                                <MapMarker
+                                    key={index}
+                                    // position={position.latlng} // 마커를 표시할 위치
+                                    position={{ lat: position.lat, lng: position.lng }} // 위와 같은코드
 
-                                image={{
-                                    src: imgType,
-                                    size: {
-                                        width: 25,  // 뷰포트 너비의 10%
-                                        height: 25, // 뷰포트 높이의 10%
-                                    },
-                                }}
-                                title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                                clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-                                onClick={() => {
-                                    // console.log(position.lat, position.lng);
-                                    onClickInfoHandler("open", index);
-                                }}
-                            >
-                                {isOpen && markerIdx == index && (
-                                    <div style={{ minWidth: "150px" }}>
-                                        <img
-                                            alt="close"
-                                            width="14"
-                                            height="13"
-                                            src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
-                                            style={{
-                                                position: "absolute",
-                                                right: "5px",
-                                                top: "5px",
-                                                cursor: "pointer",
-                                            }}
-                                            onClick={() => setIsOpen(false)}
-                                        />
-                                        <div style={{ padding: "5px", color: "#000" }}> {position.name}</div>
-                                    </div>
+                                    image={{
+                                        src: imgType,
+                                        size: {
+                                            width: 25,  // 뷰포트 너비의 10%
+                                            height: 25, // 뷰포트 높이의 10%
+                                        },
+                                    }}
+                                    title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                                    clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+                                    onClick={() => {
+                                        // console.log(position.lat, position.lng);
+                                        onClickCustomInfoHandler("open", index, position.lat, position.lng);
+                                    }}
+                                />
+                                {isCustomOpen && markerIdx == index && (
+                                    <CustomOverlayMap position={{ lat: position.lat, lng: position.lng }}>
+                                        <div className="wrap">
+                                            <div className="info">
+                                                <div className="title">
+                                                    <div>{position.name}</div>
+                                                    <div className='report'>
+                                                        <Link className='reportInfo' to={reportDynamicPath(position.id)}>
+                                                            <button className='reportButton'>신고하기</button>
+                                                        </Link>
+                                                    </div>
+                                                    <div
+                                                        className="close"
+                                                        onClick={() => setIsCustomOpen(false)}
+                                                        title="닫기"
+                                                    ></div>
+                                                </div>
+                                                <div className="body">
+                                                    <div className="img">
+                                                        <img
+                                                            src={position.imageUrl}
+                                                            width="73"
+                                                            height="70"
+                                                            alt="가게 대표이미지"
+                                                        />
+                                                    </div>
+                                                    <div className="desc storeInfo">
+                                                        <div className='foodtypeBox'>
+                                                            <span className='foodtypeImg'>대표 메뉴 : </span>
+                                                            <span>
+                                                                {convertCategoryToKorean(position.storeCategories.categories[0]?.foodType) || '정보 없음'}
+                                                            </span>
+                                                        </div>
+
+                                                        <div>
+                                                            <span className='distanceInfo'>
+                                                                거리 : {position.distanceFromStore}m
+                                                            </span>
+                                                            &nbsp;
+                                                            <span className='starInfo'>
+                                                                별점 : {position.averageRating}점
+                                                            </span>
+                                                        </div>
+                                                        <div className='linkBoxs'>
+                                                            <Link className='detailInfo' to={createDynamicPath(position.id)}>
+                                                                <span className='storeDetailInfo'>
+                                                                    상세페이지
+                                                                </span>
+                                                            </Link>
+                                                            <Link className='visitInfo' to={visitDynamicPath(position.id)}>
+                                                                <span className='visitNav'>
+                                                                    방문하기
+                                                                </span>
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        ;
+                                    </CustomOverlayMap>
                                 )
                                 }
-                            </MapMarker>
+                            </>
                         );
                     })}
+
                 </Map >
 
             </div>

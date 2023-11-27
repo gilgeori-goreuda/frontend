@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Review from "../Review";
-import {Api} from "../../common/api/ApiSearch";
+import { Api } from "../../common/api/ApiSearch";
 import './StoreDetail.css'
 import storeImage from './storeImg/fishBread.jpeg'
 import emptyHeart from './img/emptyHeart.png'; // 빈 하트 이미지 파일 경로
@@ -58,7 +58,7 @@ const StoreDetail = () => {
         const fetchData = async () => {
             try {
                 const storeResponse = await Api(`/api/v1/stores/`
-                    + `${param.storeId}?lat=37.123123&lng=127.123123`
+                    + `${param.storeId}?lat=0&lng=0`
                     , "GET"
                 );
                 console.log(storeResponse)
@@ -107,17 +107,17 @@ const StoreDetail = () => {
         checkIfLiked();
     }, [storeId]);
 
-    const StoreImage = ({imageUrl}) => {
+    const StoreImage = ({ imageUrl }) => {
         const defaultImageUrl = storeImage;
         const backgroundImageUrl = imageUrl || defaultImageUrl;
         return (
             <div
                 className="store-image"
-                style={{backgroundImage: `url(${backgroundImageUrl})`, height: '200px'}}>
+                style={{ backgroundImage: `url(${backgroundImageUrl})`, height: '200px' }}>
             </div>
         );
     };
-    const StoreInfo = ({name, categories, reviewCount, rating}) => (
+    const StoreInfo = ({ name, categories, reviewCount, rating }) => (
         <div className="store-info">
             <h1>{name}</h1>
             <div className="store-data-sort">
@@ -125,13 +125,13 @@ const StoreDetail = () => {
                     <h4>제보자: {store.owner && store.owner.nickname}</h4>
                 </div>
             </div>
-            <div style={{margin: '15px'}}></div>
+            <div style={{ margin: '15px' }}></div>
             <div className="store-data-sort">
                 <div>
                     카테고리: {translateStoreType(store.storeType)}
                 </div>
             </div>
-            <div style={{margin: '30px'}}></div>
+            <div style={{ margin: '30px' }}></div>
             <div className="store-data-sort">
                 <div className="review-count">
                     리뷰: {reviewCount}
@@ -153,28 +153,28 @@ const StoreDetail = () => {
                     </div>
                 </div>
             </div>
-            <div style={{margin: '20px'}}></div>
+            <div style={{ margin: '20px' }}></div>
         </div>
     );
-    const StoreDetails = ({address, openingHours}) => (
+    const StoreDetails = ({ address, openingHours }) => (
         <div className="store-details">
             <h3>상세정보</h3>
-            <div style={{margin: '20px'}}></div>
+            <div style={{ margin: '20px' }}></div>
             <div>주소 : {address}</div>
-            <div style={{margin: '20px'}}></div>
+            <div style={{ margin: '20px' }}></div>
             <div>영업시간 : {openingHours}</div>
-            <div style={{margin: '20px'}}></div>
+            <div style={{ margin: '20px' }}></div>
             <div>영업일 : {getKoreanDays(store.businessDates)}</div>
-            <div style={{margin: '20px'}}></div>
+            <div style={{ margin: '20px' }}></div>
             <div>결제방식 : {translatePurchaseType(store.purchaseType)}</div>
-            <div style={{margin: '20px'}}></div>
+            <div style={{ margin: '20px' }}></div>
         </div>
     );
 
-    const MenuComponent = ({categories}) => {
+    const MenuComponent = ({ categories }) => {
         if (!categories || categories.length === 0) {
             return <div className='menu-box'>
-                <p style={{textAlign: "center"}}>메뉴 정보가 없습니다.</p>
+                <p style={{ textAlign: "center" }}>메뉴 정보가 없습니다.</p>
             </div>;
         }
 
@@ -194,22 +194,22 @@ const StoreDetail = () => {
         <div className="App">
             {loading && <h1>로딩중</h1>}
             {msg && <h1>{msg}</h1>}{!msg && !loading && <>
-            <StoreImage imageUrl={store.imageUrl}/>
-            <StoreInfo
-                name={store.name}
-                categories={store.foodCategories || []}
-                reviewCount={store.totalVisitCount}
-                rating={store.averageRating}
-            />
-            <StoreDetails
-                address={store.streetAddress}
-                openingHours={store.openTime + ' - ' + store.closeTime}
-            />
+                <StoreImage imageUrl={store.imageUrl} />
+                <StoreInfo
+                    name={store.name}
+                    categories={store.foodCategories || []}
+                    reviewCount={store.totalVisitCount}
+                    rating={store.averageRating}
+                />
+                <StoreDetails
+                    address={store.streetAddress}
+                    openingHours={store.openTime + ' - ' + store.closeTime}
+                />
 
-            <MenuComponent
-                categories={store.foodCategories}
-            />
-            <Review storeId={param.storeId}/></>}
+                <MenuComponent
+                    categories={store.foodCategories}
+                />
+                <Review storeId={param.storeId} /></>}
         </div>
     );
 };

@@ -4,6 +4,8 @@ import Review from "../Review";
 import {Api} from "../../common/api/ApiSearch";
 import './StoreDetail.css'
 import storeImage from './storeImg/fishBread.jpeg'
+import emptyHeart from './img/emptyHeart.png'; // 빈 하트 이미지 파일 경로
+import filledHeart from './img/filledHeart.png';
 
 const StoreDetail = () => {
     const navigate = useNavigate();
@@ -12,6 +14,12 @@ const StoreDetail = () => {
     const [msg, setMsg] = useState("");
     const param = useParams();
     const storeId = param.storeId; // 스토어 ID 얻기
+    const [isLiked, setIsLiked] = useState(false);
+
+    useEffect(() => {
+        console.log("Current storeId:", storeId);
+    }, [storeId]);
+
     const translateDay = (day) => {
         const days = {
             sunday: "일",
@@ -53,6 +61,7 @@ const StoreDetail = () => {
                     + `${param.storeId}?lat=37.123123&lng=127.123123`
                     , "GET"
                 );
+                console.log(storeResponse)
                 setStore(storeResponse);
                 setLoading(false);
             } catch (error) {
@@ -64,6 +73,40 @@ const StoreDetail = () => {
         if (param.storeId)
             fetchData();
     }, [param]);
+
+    const handleLikeClick = async () => {
+        const apiEndpoint =
+            isLiked ? `/api/v1/preferences/stores/${storeId}/hate` : `/api/v1/preferences/stores/${storeId}/like`;
+        try {
+            await Api(apiEndpoint, "POST");
+            setIsLiked(!isLiked)
+        } catch (error) {
+            console.error("찜하기 오류", error);
+            alert("찜하기 처리 중 오류가 발생했습니다.");
+        }
+    };
+
+    useEffect(() => {
+        const checkIfLiked = async () => {
+            try {
+                const res = await Api(`/api/v1/members/preferences`, "GET");
+
+                if (res && res.preferences) {
+                    const currentStoreId = parseInt(storeId);
+
+                    const isStoreLiked = res.preferences.some(pref => pref.preferredStoreInfo
+                        .storeId === currentStoreId);
+
+                    setIsLiked(isStoreLiked);
+                }
+            } catch (error) {
+                console.error("찜 목록 조회 오류", error);
+            }
+        };
+
+        checkIfLiked();
+    }, [storeId]);
+
     const StoreImage = ({imageUrl}) => {
         const defaultImageUrl = storeImage;
         const backgroundImageUrl = imageUrl || defaultImageUrl;
@@ -99,6 +142,16 @@ const StoreDetail = () => {
                 <div className="review-count">
                     방문일: {store.totalVisitCount}
                 </div>
+                <div className="store-like-section">
+                    <div className="like-text">찜</div>
+                    <div className="store-like-button">
+                        <img
+                            src={isLiked ? filledHeart : emptyHeart}
+                            alt="찜하기"
+                            onClick={handleLikeClick}
+                        />
+                    </div>
+                </div>
             </div>
             <div style={{margin: '20px'}}></div>
         </div>
@@ -127,7 +180,7 @@ const StoreDetail = () => {
 
         return (
             <div className='menu-box'>
-                    <h3> 메 뉴 </h3>
+                <h3> 메 뉴 </h3>
                 <div className="menu-items">
                     {categories.map((category, index) => (
                         <div key={index}> {category}</div>
@@ -139,25 +192,24 @@ const StoreDetail = () => {
 
     return (
         <div className="App">
-            <div className="container">
-                {loading && <h1>로딩중</h1>}
-                {msg && <h1>{msg}</h1>}{!msg && !loading && <>
-                <StoreImage imageUrl={store.imageUrl}/>
-                <StoreInfo
-                    name={store.name}
-                    categories={store.foodCategories || []}
-                    reviewCount={store.totalVisitCount}
-                    rating={store.averageRating}
-                />
-                <StoreDetails
-                    address={store.streetAddress}
-                    openingHours={store.openTime + ' - ' + store.closeTime}
-                />
+            {loading && <h1>로딩중</h1>}
+            {msg && <h1>{msg}</h1>}{!msg && !loading && <>
+            <StoreImage imageUrl={store.imageUrl}/>
+            <StoreInfo
+                name={store.name}
+                categories={store.foodCategories || []}
+                reviewCount={store.totalVisitCount}
+                rating={store.averageRating}
+            />
+            <StoreDetails
+                address={store.streetAddress}
+                openingHours={store.openTime + ' - ' + store.closeTime}
+            />
 
-                <MenuComponent
-                    categories={store.foodCategories}
-                />
-                <Review storeId={param.storeId}/></>}</div>
+            <MenuComponent
+                categories={store.foodCategories}
+            />
+            <Review storeId={param.storeId}/></>}
         </div>
     );
 };

@@ -24,16 +24,16 @@ const MyPageReviews = () => {
         <div className="App">
             <div className="reviews-container">
                 {/*<h1>{member.nickname ? `${member.nickname}님의 리뷰` : '리뷰 목록'}</h1>*/}
-                <ul className="reviews-list">
+                <div className="reviews-list">
                     {reviewsList.map((item, index) => (
-                        <li key={item.reviewId + " " + index} className="review-item">
+                        <div key={item.reviewId + " " + index} className="review-item">
                             <p>가게 이름 : {item.storeInfo.storeName}</p>
                             <p>작성한 리뷰 : {item.content}</p>
                             <p>작성 날짜 : {item.createdAt}</p>
                             <p>제 점수는요 : {item.reviewRating}</p>
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
         </div>
     );

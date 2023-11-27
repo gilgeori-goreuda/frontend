@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 import uploadPhoto from "../../img/uploadPhoto.png";
 import './StoreCreate.css';
@@ -14,8 +14,8 @@ const StoreCreate = () => {
     // console.log(getStreet_address, getLat, getLng);
 
 
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
+    // const location = useLocation();
+    // const searchParams = new URLSearchParams(location.search);
 
     useEffect(() => {
         const lat = searchParams.get("lat");
@@ -32,7 +32,7 @@ const StoreCreate = () => {
             lng: lng || '',
             streetAddress: streetAddress || '',
         }));
-    }, [location.search]);
+    }, [getStreet_address]);
 
 
     const navigate = useNavigate();
@@ -240,7 +240,7 @@ const StoreCreate = () => {
                     'Content-Type': 'application/json'
                 }
             });
-            if(response.headers['location']) {
+            if (response.headers['location']) {
                 const headerLocation = response.headers['location'];
                 const lastSlashIndex = headerLocation.lastIndexOf('/');
                 const parsedValue = headerLocation.substring(lastSlashIndex + 1);

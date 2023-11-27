@@ -1,14 +1,36 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import uploadPhoto from "../../img/uploadPhoto.png";
-import './StoreCreate.css'
+import './StoreCreate.css';
 
 const StoreCreate = () => {
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
+    useEffect(() => {
+        const lat = searchParams.get("lat");
+        const lng = searchParams.get("lng");
+        const streetAddress = searchParams.get("street_address");
+
+        console.log("좌표:", lat, lng);
+        console.log("주소:", streetAddress);
+
+        // 받은 좌표 및 주소로 상태 업데이트
+        setStore((prevStore) => ({
+            ...prevStore,
+            lat: lat || '',
+            lng: lng || '',
+            streetAddress: streetAddress || '',
+        }));
+    }, [location.search]);
+
     const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null); // 이미지 파일 하나만 선택하도록 수정
 
     const [store, setStore] = useState({
+        detailLocation: "",
         name: "",
         storeType: "",
         businessDates: "",
@@ -16,9 +38,9 @@ const StoreCreate = () => {
         closeTime: "",
         purchaseType: "현금, 카드, 계좌이체",
         imageUrl: "",
-        lat: 11.2187,
-        lng: 11.2996,
-        streetAddress: "서울특별시 서초구 서초3동",
+        lat: "",
+        lng: "",
+        streetAddress: "",
         foodCategories: {
             foodCategories: []
         }
@@ -94,23 +116,6 @@ const StoreCreate = () => {
             const isDayIncluded = prevStore.businessDates.includes(day);
             let updatedBusinessDates= makeBusinessDate(isDayIncluded, prevStore, day);
 
-            // if (isDayIncluded) {
-                // 요일이 이미 선택된 경우 제거
-                // updatedBusinessDates = makeBusinessDate(isDayIncluded, prevStore, day);
-                    // isDayIncluded? prevStore.businessDates
-                    // .split(',')
-                    // .map(d => d.trim())
-                    // .filter(d => d !== day)
-                    // .join(','): prevStore.businessDates
-                    // ? `${prevStore.businessDates.trim()}, ${day}`
-                    // : day;
-            // } else {
-            //     // 요일이 선택되지 않은 경우 추가
-            //     updatedBusinessDates = prevStore.businessDates
-            //         ? `${prevStore.businessDates.trim()}, ${day}`
-            //         : day;
-            // }
-
             // 모든 요일 선택 또는 해제
             const allDaysSelected = daysOfWeek.every(({ kor }) => updatedBusinessDates.includes(kor));
             if (allDaysSelected) {
@@ -175,7 +180,32 @@ const StoreCreate = () => {
 
             const dataToSend = {
                 ...store,
-                imageUrl: imageUrl
+                imageUrl: imageUrl,
+                lat: store.lat,
+                lng: store.lng,
+                streetAddress: store.streetAddress,
+            };
+
+            const sendLocationToServer = async (lat, lng, streetAddress) => {
+                try {
+                    // 서버로 전송할 데이터 구성
+                    const locationData = {
+                        lat: lat,
+                        lng: lng,
+                        streetAddress: streetAddress,
+                    };
+
+                    // 서버에 데이터 전송
+                    const response = await axios.post('http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080/api/v1/location', locationData, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    console.log("위치 데이터 전송 성공:", response.data);
+                } catch (error) {
+                    console.error("위치 데이터 전송 실패:", error);
+                }
             };
 
             const accessToken = localStorage.getItem('accessToken');
@@ -185,9 +215,15 @@ const StoreCreate = () => {
                     'Content-Type': 'application/json'
                 }
             });
-
+            if(response.headers['location']) {
+                const headerLocation = response.headers['location'];
+                const lastSlashIndex = headerLocation.lastIndexOf('/');
+                const parsedValue = headerLocation.substring(lastSlashIndex + 1);
+                console.log(parsedValue);
+                navigate(`/StoreDetail/${parsedValue}`);
+            }
             console.log("Store 등록 성공:", response.data);
-            // navigate('/success'); // 예시: 등록 성공 시 success 페이지로 이동
+
         } catch (error) {
             console.error("Store 등록 실패:", error);
         }

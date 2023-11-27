@@ -15,6 +15,11 @@ const StoreDetail = () => {
     const param = useParams();
     const storeId = param.storeId; // 스토어 ID 얻기
     const [isLiked, setIsLiked] = useState(false);
+
+    useEffect(() => {
+        console.log("Current storeId:", storeId);
+    }, [storeId]);
+
     const translateDay = (day) => {
         const days = {
             sunday: "일",

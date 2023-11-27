@@ -25,3 +25,7 @@
     margin: 5px 0;
     color: #666;
 }
+
+.review-item:first-child {
+    border-top: 1px solid #eee;
+}

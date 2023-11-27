@@ -27,6 +27,7 @@ const MyPagePreferences = ({}) => {
         const fetchData = async () => {
             try {
                 const res = await Api(`/api/v1/members/preferences`, "GET");
+                console.log(res.preferences)
                 setPreferencesList(res.preferences);
             } catch (error) {
                 console.log(error.response?.data);
@@ -65,7 +66,8 @@ const MyPagePreferences = ({}) => {
                                         display: 'flex',
                                         flexDirection: 'column',
                                         justifyContent: 'center',
-                                        alignItems: 'center'
+                                        alignItems: 'center',
+                                        color: "black"
                                     }}>
                                         <div className="store-name-box">
                                             {item.preferredStoreInfo.storeName}
@@ -82,15 +84,15 @@ const MyPagePreferences = ({}) => {
                                             <div style={{
                                                 fontSize: '15px',
                                                 marginTop: '10px',
-                                                textShadow: '2px 2px 2px rgba(0, 0, 0, 0.8)',
-                                                textAlign: 'center'
+                                                textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)',
+                                                textAlign: 'center',
                                             }}>
                                                 가게 평점: {item.preferredStoreInfo.averageRating}
                                             </div>
                                             <div style={{
                                                 fontSize: '15px',
                                                 marginTop: '10px',
-                                                textShadow: '2px 2px 2px rgba(0, 0, 0, 0.8)',
+                                                textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)',
                                                 textAlign: 'center'
                                             }}>
                                                 {formatCategories(item.preferredStoreInfo.categories)}
@@ -98,10 +100,10 @@ const MyPagePreferences = ({}) => {
                                             <div style={{
                                                 fontSize: '10px',
                                                 marginTop: '10px',
-                                                textShadow: '2px 2px 2px rgba(0, 0, 0, 0.8)',
+                                                textShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)',
                                                 textAlign: 'center'
                                             }}>
-                                                찜한 날: {item.preferredStoreInfo.createdAt}
+                                                찜한 날: {item.createdAt}
                                             </div>
                                         </div>
                                     </div>

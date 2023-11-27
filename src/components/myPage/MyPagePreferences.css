@@ -4,7 +4,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px; /* 모서리를 둥글게 설정 */
     padding: 5px;
-    text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.8);
+    text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.3);
     overflow-wrap: break-word; /* 긴 단어나 주소가 박스 밖으로 넘어가지 않도록 설정 */
     word-wrap: break-word; /* 구형 브라우저 지원을 위해 추가 */
     text-align: center; /* 텍스트를 중앙 정렬 */

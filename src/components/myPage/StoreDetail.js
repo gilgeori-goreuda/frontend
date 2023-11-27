@@ -140,7 +140,7 @@ const StoreDetail = () => {
                     평점: {rating}
                 </div>
                 <div className="review-count">
-                    방문일: {store.totalVisitCount}
+                    방문수: {store.totalVisitCount}
                 </div>
                 <div className="store-like-section">
                     <div className="like-text">찜</div>

@@ -27,6 +27,10 @@ const router = createBrowserRouter([
     element: <Template />,
     children: [
       {
+        path: '',
+        element: <Login />, // 기본 경로에 해당하는 리디렉션
+      },
+      {
         path: '/review',
         element: <Review />,
       },

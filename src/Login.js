@@ -22,14 +22,24 @@ const Login = () => {
                 backgroundRepeat: 'no-repeat',
                 position: 'relative'
             }}>
-                <div style={{background: '#fff', width: '80%', height: '70%', position: 'absolute', top : '50%', left: '50%', transform: 'translate(-50%, -55%)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <div>
+                <div style={{
+                    background: '#fff',
+                    width: '80%',
+                    height: '70%',
+                    position: 'absolute',
+                    top : '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -55%)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'}}>
+                    <div style={{ textAlign: 'center' }}>
                         <div>
                             <img src={logo} style={{width: '200px', height: 'auto'}}/>
                         </div>
-                        <div style={{margin: '30px'}}></div>
+                        <div style={{margin: '70px'}}></div>
                         <div>
-                            <img src={login} onClick={() => window.location.href = kakao_URL}/>
+                            <img src={login} onClick={() => window.location.href = kakao_URL} style={{ cursor: 'pointer' }}/>
                         </div>
                         <div style={{margin: '30px'}}></div>
                     </div>

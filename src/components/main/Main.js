@@ -168,8 +168,9 @@ const Main = () => {
                 </Swiper>
             </div>
 
-            <h2 style={{ textAlign: "center" }}> 실시간 인기 장소 </h2>
-            <div className={"top10"}>
+            <h2 style={{textAlign : "center"}}> 실시간 인기 장소 </h2>
+            <div className="top10">
+
                 {topPlaces && topPlaces.map((topPlace, index) => (
                     <div key={index}>
                         <Link to={`/addressSearch?topPlaceName=${topPlace.name}`} state={{ search: topPlace.name }}>

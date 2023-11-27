@@ -136,7 +136,7 @@ const Main = () => {
                         disableOnInteraction: false,
                     }}
                     modules={[Autoplay, EffectCube, Pagination]}
-                    className="mySwiper"
+                    className="mainSwiper"
                 >
                     {hotPlaces && hotPlaces.map((hotPlace, index) => (
                         <SwiperSlide key={index}>

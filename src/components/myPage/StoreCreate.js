@@ -432,7 +432,7 @@ const StoreCreate = () => {
                     </div>
                 </div>
 
-                <button type="button" onClick={handleSubmit}>가게 등록</button>
+                <button className="buttonCss2" type="button" onClick={handleSubmit}>가게 등록</button>
             </form>
         </div>
     );

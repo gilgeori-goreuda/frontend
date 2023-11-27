@@ -66,7 +66,8 @@ label {
     margin-top: 10px;
 }
 
-/* button {
+
+.buttonCss2 {
     flex: 1;
     padding: 10px;
     background-color: #007bff;
@@ -76,11 +77,12 @@ label {
     cursor: pointer;
     font-size: 15px;
     margin-bottom: 10px;
-} */
+} 
 
-/* button:hover {
+
+.buttonCss2:hover {
     background-color: #0056b3;
-} */
+} 
 
 .image-preview img {
     max-width: 100%;

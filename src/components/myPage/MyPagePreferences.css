@@ -10,5 +10,16 @@
     text-align: center; /* 텍스트를 중앙 정렬 */
     margin: 0 auto; /* 수평 중앙 정렬 */
     white-space: normal; /* 줄바꿈 허용 */
+    /*border: 1px solid #ccc;*/
 }
 
+.myPage-container {
+    max-width: 800px;
+    max-height: 500px; /* 컨테이너의 최대 높이 설정 */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    text-align: left;
+}

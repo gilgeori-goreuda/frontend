@@ -128,7 +128,7 @@ const ReviewInsert = () => {
                         );
                     })}
                 </div>
-                <div style={{ margin: '30px' }}></div>
+                <div style={{ margin: '5px' }}></div>
                 <div> 가게를 방문한 후기를 남겨주세요 💕</div>
                 <div>
                     <textarea

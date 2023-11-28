@@ -145,10 +145,10 @@ const Report = () => {
         } catch (error) {
             console.log(error.response?.data);
             // console.log(error.response?.data.errorCode, 132);
-            if (error.response?.data.errorCode === "S011") {
+            if (error.response?.data.errorCode === "R003") {
                 // 인증 가능 범위가 아닌 경우
                 alert("신고하려는 가게와 사용자의 위치가 100m를 초과했습니다.");
-            } else if (error.response?.data.errorCode === "S007") {
+            } else if (error.response?.data.errorCode === "R001") {
                 alert("이미 신고한 가게입니다.");
             } else {
                 // 다른 에러 처리

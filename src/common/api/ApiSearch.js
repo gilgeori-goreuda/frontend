@@ -17,4 +17,5 @@ export const Api = async (url, method, data) => {
 }
 
 // axios.defaults.baseURL = 'http://localhost:8080';
-axios.defaults.baseURL = 'http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080';
+// axios.defaults.baseURL = 'http://ec2-43-201-35-43.ap-northeast-2.compute.amazonaws.com:8080';
+axios.defaults.baseURL = 'http://3.38.251.85';

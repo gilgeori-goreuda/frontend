@@ -36,8 +36,8 @@ const AddressSearchMap = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [getLat, setGetLat] = useState(decodeURIComponent(searchParams.get('lat')));
     const [getLng, setGetLng] = useState(decodeURIComponent(searchParams.get('lng')));
-    const [getMlat, setGetMlat] = useState(decodeURIComponent(searchParams.get('lat')));
-    const [getMlng, setGetMlng] = useState(decodeURIComponent(searchParams.get('lng')));
+    const [getMlat, setGetMlat] = useState(decodeURIComponent(searchParams.get('m_lat')));
+    const [getMlng, setGetMlng] = useState(decodeURIComponent(searchParams.get('m_lng')));
     const [getStreet_address, setGetStreet_address] = useState(decodeURIComponent(searchParams.get('street_address')));
 
     const [addressLat, setaddressLat] = useState(getLat);

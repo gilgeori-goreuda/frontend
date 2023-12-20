@@ -24,7 +24,7 @@ const ReviewInsert = () => {
 
         try {
             const res = await axios.post(
-                'http://3.38.251.85/images', formData, {
+                'https://gilgeorigoreuda.store/images', formData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-Type': 'multipart/form-data'
@@ -75,6 +75,18 @@ const ReviewInsert = () => {
             nav(`/StoreDetail/${storeId}`)
         } catch (error) {
             console.log(error.response?.data);
+            if (error.response?.data.errorCode === "NotBlank") {
+                alert("사진, 별점, 내용을 모두 입력해주세요.");
+            } else if(error.response?.data.errorCode === "X001"){
+                alert("사진, 별점, 내용을 모두 입력해주세요.");
+            } else if(error.response?.data.errorCode === "Min"){
+                alert("사진, 별점, 내용을 모두 입력해주세요.");
+            }else if(error.response?.data.errorCode === "V005"){
+                alert("인증되지 않은 방문 기록입니다.");
+            }else {
+                // 다른 에러 처리
+                console.log(error.response?.data);
+            }
         }
     }
 
@@ -113,7 +125,7 @@ const ReviewInsert = () => {
                     </div>
 
                     <div style={{ margin: '30px' }}></div>
-                    <div>평점</div>
+                    <div>별점</div>
                     {[...Array(5)].map((star, index) => {
                         index += 1;
                         return (

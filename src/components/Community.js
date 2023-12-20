@@ -25,7 +25,7 @@ const Community = () => {
     const openModal = async (reviewId) => {
         setSelectedReviewId(reviewId);
         const res = await axios.get(
-            `http://3.38.251.85/api/v1/reviews/${reviewId}/comments`);
+            `https://gilgeorigoreuda.store/api/v1/reviews/${reviewId}/comments`);
         setSelectedComments(res.data.reviewComments);
 
         setShowModal(true);
@@ -47,7 +47,7 @@ const Community = () => {
     const handleLikeOrHateClick = async (reviewId, preferenceType) => {
         try {
             const accessToken = localStorage.getItem('accessToken');
-            const url = `http://3.38.251.85/api/v1/preferences/reviews/${reviewId}/${preferenceType}`;
+            const url = `https://gilgeorigoreuda.store/api/v1/preferences/reviews/${reviewId}/${preferenceType}`;
             const res = await axios.post(url, {}, {
                 headers: { 'Authorization': `Bearer ${accessToken}` }
             });
@@ -108,7 +108,7 @@ const Community = () => {
     }, [page])
 
     useEffect(() => {
-        axios.get('http://3.38.251.85/api/v1/community/reviews', {
+        axios.get('https://gilgeorigoreuda.store/api/v1/community/reviews', {
             headers:
             {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -138,7 +138,7 @@ const Community = () => {
 
     const getPageData = (page, sort = sortOption) => {
         setIsLoading(true);
-        axios.get('http://3.38.251.85/api/v1/community/reviews', {
+        axios.get('https://gilgeorigoreuda.store/api/v1/community/reviews', {
             params: {
                 size: 5,
                 page: page,
@@ -177,7 +177,7 @@ const Community = () => {
 
         try {
             const res = await
-                axios.post(`http://3.38.251.85/api/v1/reviews/${selectedReviewId}/comments`,
+                axios.post(`https://gilgeorigoreuda.store/api/v1/reviews/${selectedReviewId}/comments`,
                     newComment
                     , {
                         headers:
@@ -191,7 +191,7 @@ const Community = () => {
                 setNewComment("");
 
                 //댓글 목록 다시 불러오기
-                axios.get(`http://3.38.251.85/api/v1/reviews/${selectedReviewId}/comments`).then((res) => {
+                axios.get(`https://gilgeorigoreuda.store/api/v1/reviews/${selectedReviewId}/comments`).then((res) => {
 
                     // res.data.reviewComments
                     setSelectedComments(res.data.reviewComments);

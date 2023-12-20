@@ -89,7 +89,7 @@ const StoreCreate = () => {
         formData.append('images', file);
 
         try {
-            const res = await axios.post('http://3.38.251.85/images', formData, {
+            const res = await axios.post('https://gilgeorigoreuda.store/images', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -221,7 +221,7 @@ const StoreCreate = () => {
                     };
 
                     // 서버에 데이터 전송
-                    const response = await axios.post('http://3.38.251.85/api/v1/location', locationData, {
+                    const response = await axios.post('https://gilgeorigoreuda.store/api/v1/location', locationData, {
                         headers: {
                             'Content-Type': 'application/json',
                         },
@@ -234,7 +234,7 @@ const StoreCreate = () => {
             };
 
             const accessToken = localStorage.getItem('accessToken');
-            const response = await axios.post('http://3.38.251.85/api/v1/stores', dataToSend, {
+            const response = await axios.post('https://gilgeorigoreuda.store/api/v1/stores', dataToSend, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'

@@ -16,7 +16,7 @@ const KakaoCallBack = () => {
 
     const sendAuthorizationCode = async (code) => {
         try {
-            const res = await axios.post('http://3.38.251.85/login/kakao', {
+            const res = await axios.post('https://gilgeorigoreuda.store/login/kakao', {
                 code: code
             });
             // 여기서 res로 받은 액세스 토큰 저장

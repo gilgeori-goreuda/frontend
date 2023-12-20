@@ -101,7 +101,8 @@ const Main = () => {
                                 width: '100%'
                             }}>
                                 <div style={{ width: '90%', height: '35vh' }}>
-                                    <Link to={`http://localhost:3000/storeDetail/${newPlace.id}`}>
+                                    {/* <Link to={`http://localhost:3000/storeDetail/${newPlace.id}`}> */}
+                                    <Link to={`https://gilgeorigoreuda.site/storeDetail/${newPlace.id}`}>
                                         <img style={{ borderRadius: '10px' }} src={newPlace.imageUrl}
                                             alt={newPlace.name} />
                                     </Link>
@@ -148,7 +149,8 @@ const Main = () => {
                                 width: '100%'
                             }}>
                                 <div style={{ width: '90%', height: '35vh' }}>
-                                    <Link to={`http://localhost:3000/storeDetail/${hotPlace.id}`}>
+                                    {/* <Link to={`http://localhost:3000/storeDetail/${hotPlace.id}`}> */}
+                                    <Link to={`https://gilgeorigoreuda.site/storeDetail/${hotPlace.id}`}>
                                         <img style={{ borderRadius: '10px' }} src={hotPlace.imageUrl}
                                             alt={hotPlace.name} />
                                     </Link>

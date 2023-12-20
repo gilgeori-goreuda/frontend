@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://3.38.251.85/api/v1/reviews';
+const API_BASE_URL = 'https://gilgeorigoreuda.store/api/v1/reviews';
 
 const ReviewService = {
     getReviewsByStoreId: (storeId, currentPage, pageSize = 5) => {

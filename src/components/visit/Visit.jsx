@@ -45,10 +45,19 @@ const Visit = () => {
             // nav(`/main`)
         } catch (error) {
             console.log(error.response?.data);
-            if (error.response?.data.errorCode === "V006") {
-                // 인증 가능 범위가 아닌 경우
+            if (error.response?.data.errorCode === "V001") {
+                alert("인증 가능 범위가 아닙니다.");
+            } else if(error.response?.data.errorCode === "V002"){
+                alert("존재하지 않는 가게 방문 기록입니다.");
+            } else if(error.response?.data.errorCode === "V003"){
+                alert("인증 시간이 초과되었습니다. 2시간이 지난 방문 기록입니다.");
+            } else if(error.response?.data.errorCode === "V004"){
+                alert("방문하기에 너무 먼 거리에 있습니다. 근처에 가서 다시 시도해주세요.");
+            } else if(error.response?.data.errorCode === "V005"){
+                alert("인증되지 않은 방문 기록입니다.");
+            } else if(error.response?.data.errorCode === "V006"){
                 alert("이미 인증된 방문 기록입니다.");
-            } else {
+            }else {
                 // 다른 에러 처리
                 console.log(error.response?.data);
             }
@@ -72,11 +81,19 @@ const Visit = () => {
             // nav(`/main`)
         } catch (error) {
             console.log(error.response?.data);
-            // console.log(error.response?.data.errorCode, 132);
             if (error.response?.data.errorCode === "V001") {
-                // 인증 가능 범위가 아닌 경우
-                alert("방문인증이 가능한 거리가 아닙니다.");
-            } else {
+                alert("인증 가능 범위가 아닙니다.");
+            } else if(error.response?.data.errorCode === "V002"){
+                alert("존재하지 않는 가게 방문 기록입니다.");
+            } else if(error.response?.data.errorCode === "V003"){
+                alert("인증 시간이 초과되었습니다. 2시간이 지난 방문 기록입니다.");
+            } else if(error.response?.data.errorCode === "V004"){
+                alert("방문하기에 너무 먼 거리에 있습니다. 근처에 가서 다시 시도해주세요.");
+            } else if(error.response?.data.errorCode === "V005"){
+                alert("인증되지 않은 방문 기록입니다.");
+            } else if(error.response?.data.errorCode === "V006"){
+                alert("이미 인증된 방문 기록입니다.");
+            }else {
                 // 다른 에러 처리
                 console.log(error.response?.data);
             }

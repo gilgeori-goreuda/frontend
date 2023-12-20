@@ -36,7 +36,7 @@ const MyHeader = () => {
     const onClickNowAddressHandler = () => {
         setNowAddress(true);
         // nav(`/api/v1/search/address?lat=${getMlat}&lng=${getMlng}`)
-        nav(`/api/v1/search/address?lat=${getMlat}&lng=${getMlng}&street_address=&m_lat=&m_lng=`)
+        nav(`/api/v1/search/address?lat=${getMlat}&lng=${getMlng}&street_address=&m_lat=${getMlat}&m_lng=${getMlng}`)
 
         // console.log(nowAddress);
     }

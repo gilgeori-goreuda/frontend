@@ -83,6 +83,8 @@ const ReviewInsert = () => {
                 alert("사진, 별점, 내용을 모두 입력해주세요.");
             }else if(error.response?.data.errorCode === "V005"){
                 alert("인증되지 않은 방문 기록입니다.");
+            } else if(error.response?.data.errorCode === "V002"){
+                alert("존재하지 않는 가게 방문 기록입니다.");
             }else {
                 // 다른 에러 처리
                 console.log(error.response?.data);

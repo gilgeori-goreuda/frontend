@@ -73,7 +73,7 @@ const Main = () => {
 
     return (
         <div>
-            <h2 style={{ textAlign: "center" }}> 오늘의 신규 장소 </h2>
+            <h2 style={{ textAlign: "center" }}> 오늘의 신규 가게 </h2>
             <div className={"place"}>
                 <Swiper
                     effect={'cube'}
@@ -109,11 +109,13 @@ const Main = () => {
                                 </div>
                                 <div className="main-details"
                                     style={{ width: '50vh', display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                                    <p style={{ margin: '0', padding: '0', fontSize: '15px' }}>가게 이름 : {newPlace.name}</p>
+                                        <Link to={`https://gilgeorigoreuda.site/storeDetail/${newPlace.id}`}>
+                                    <p style={{ margin: '0', padding: '0', fontSize: 'large' , textDecoration: 'underline',color: 'black'}}>{newPlace.name}</p>
+                                    </Link>
                                     <p style={{ margin: '0', padding: '0', fontSize: '15px' }}>주소
                                         : {newPlace.streetAddress}</p>
                                     <p style={{ margin: '0', padding: '0', fontSize: '15px' }}>영업시간
-                                        : {newPlace.openTime} - {newPlace.closeTime}</p>
+                                        : {newPlace.openTime.substr(0, 5)} ~ {newPlace.closeTime.substr(0, 5)}</p>
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -121,7 +123,7 @@ const Main = () => {
                 </Swiper>
             </div>
 
-            <h2 style={{ textAlign: "center" }}> 오늘의 인기 장소 </h2>
+            <h2 style={{ textAlign: "center" }}> 오늘의 인기 가게 </h2>
             <div className={"place"}>
                 <Swiper
                     effect={'cube'}
@@ -157,12 +159,14 @@ const Main = () => {
                                 </div>
                                 <div className="main-details"
                                     style={{ width: '50vh', display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                                    <p style={{ margin: '0', padding: '0', fontSize: '15px' }}>가게 이름
-                                        : {hotPlace.name}</p>
+                                        <Link to={`https://gilgeorigoreuda.site/storeDetail/${hotPlace.id}`}>
+                                    <p style={{ margin: '0', padding: '0', fontSize: 'large' , textDecoration: 'underline',color: 'black' }}>{hotPlace.name}</p>
+                                    </Link>
                                     <p style={{ margin: '0', padding: '0', fontSize: '15px' }}>주소
                                         : {hotPlace.streetAddress}</p>
                                     <p style={{ margin: '0', padding: '0', fontSize: '15px' }}>영업시간
-                                        : {hotPlace.openTime} - {hotPlace.closeTime}</p>
+                                        : {hotPlace.openTime.substr(0, 5)} ~ {hotPlace.closeTime.substr(0, 5)}</p>
+                                        
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -176,7 +180,7 @@ const Main = () => {
                 {topPlaces && topPlaces.map((topPlace, index) => (
                     <div key={index}>
                         <Link to={`/addressSearch?topPlaceName=${topPlace.name}`} state={{ search: topPlace.name }}>
-                            <li>{index + 1} {topPlace.name}</li>
+                            <li><span className="rankNum">{index + 1}</span> {topPlace.name}</li>
                         </Link>
                     </div>
                 ))}

@@ -16,19 +16,20 @@
 }
 
 .top10 {
-    display: flex; /* Flex 레이아웃 사용 */
-    flex-wrap: wrap; /* 내용이 넘치면 다음 줄로 이동 */
+    display: flex; /*Flex 레이아웃 사용 */
+    flex-wrap: wrap; /* 내용이 넘치면 다음 줄로 이동*/
     justify-content: space-between; /* 아이템들을 균등하게 분포 */
     list-style: none; /* 기본 목록 스타일 제거 */
     padding: 0; /* 기본 패딩 제거 */
     gap: 10px;
-    width: 450px;
+    width: 300px;
     margin: 0 auto;
-
+    margin-left: 25%;
+    /* text-align: ; */
 }
 
 .top10 div {
-    width: 48%; /* 각 아이템의 너비 */
+    width: 100%; /* 각 아이템의 너비 */
     margin-bottom: 10px; /* 아이템 간의 수직 간격 */
     font-size: 1rem; /* 폰트 크기 */
     display: flex; /* Flex 레이아웃 사용 */
@@ -39,5 +40,20 @@
     text-decoration: none; /* 링크 밑줄 제거 */
     color: black; /* 텍스트 색상 */
     flex-grow: 1;
+}
 
+.top10 div a :hover{
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: grey; /* 텍스트 색상 */
+    /* font-size: 15px; */
+    flex-grow: 1;
+}
+
+.top10 .rankNum{
+    /* width: 10%; */
+    color: gray;
+    background-color: lightgrey;
+    border: 1px solid lightgray;
+    padding: 0px 5px;
+    border-radius: 5px;
 }

@@ -16,6 +16,22 @@ const ReviewInsert = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [previewImages, setPreviewImages] = useState([]);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+        const openModal = () => {
+            setIsModalOpen(true);
+            console.log(isModalOpen)
+        };
+        const closeModal = () => {
+            setIsModalOpen(false);
+        };
+        const logoutFunction = () => {
+            // 로그아웃 로직을 여기에 추가
+            console.log('로그아웃되었습니다.');
+            closeModal(); // 모달 닫기
+            nav('/login')
+            // history.push('/'); // 로그아웃 후 이동할 페이지 경로
+        };
+
     const uploadImages = async (files) => {
         const formData = new FormData();
         files.forEach(file => {
@@ -33,6 +49,14 @@ const ReviewInsert = () => {
 
             return res.data.imageNames;
         } catch (error) {
+            console.log(error.response?.data);
+            if (error.response?.data.errorCode === "T004") {
+                // alert("로그인시 이용 가능합니다.");
+                setIsModalOpen(true);
+            }else {
+                // 다른 에러 처리
+                console.log(error.response?.data);
+            }
             console.error('Image upload error', error);
             return [];
         }
@@ -74,6 +98,14 @@ const ReviewInsert = () => {
             setSelectedFiles([]);
             nav(`/StoreDetail/${storeId}`)
         } catch (error) {
+            console.log(error.response?.data);
+            if (error.response?.data.errorCode === "T004") {
+                // alert("로그인시 이용 가능합니다.");
+                setIsModalOpen(true);
+            }else {
+                // 다른 에러 처리
+                console.log(error.response?.data);
+            }
             console.log(error.response?.data);
             if (error.response?.data.errorCode === "NotBlank") {
                 alert("사진, 별점, 내용을 모두 입력해주세요.");
@@ -158,6 +190,15 @@ const ReviewInsert = () => {
                 </div>
             </form>
         </div>
+        {isModalOpen && (
+                <div className="logoutModal">
+                    <div className="logoutModal-content">
+                        <span className="logoutClose" onClick={closeModal}>&times;</span>
+                        <p>게스트는 제한되는 기능입니다. <br></br>로그인을 원하시면 버튼을 눌러주세요.</p>
+                        <button onClick={logoutFunction} className='logoutButton'>로그아웃</button>
+                    </div>
+                </div>
+            )}
     </div>
     )
 }

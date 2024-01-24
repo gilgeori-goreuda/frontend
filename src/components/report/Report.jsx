@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./Report.css"
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Api } from '../../common/api/ApiSearch';
 
 
@@ -10,6 +10,22 @@ const Report = () => {
     const [getLat, setGetLat] = useState(parseFloat(decodeURIComponent(searchParams.get('mLat'))));
     const [getLng, setGetLng] = useState(parseFloat(decodeURIComponent(searchParams.get('mLng'))));
     // const [reportContent, setreportContent] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+        const nav = useNavigate();
+        const openModal = () => {
+            setIsModalOpen(true);
+            console.log(isModalOpen)
+        };
+        const closeModal = () => {
+            setIsModalOpen(false);
+        };
+        const logoutFunction = () => {
+            // 로그아웃 로직을 여기에 추가
+            console.log('로그아웃되었습니다.');
+            closeModal(); // 모달 닫기
+            nav('/login')
+            // history.push('/'); // 로그아웃 후 이동할 페이지 경로
+        };
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const openReportModal = () => {
         setIsReportModalOpen(true);
@@ -145,6 +161,14 @@ const Report = () => {
         } catch (error) {
             console.log(error.response?.data);
             // console.log(error.response?.data.errorCode, 132);
+            console.log(error.response?.data);
+            if (error.response?.data.errorCode === "T004") {
+                // alert("로그인시 이용 가능합니다.");
+                setIsModalOpen(true);
+            }else {
+                // 다른 에러 처리
+                console.log(error.response?.data);
+            }
             if (error.response?.data.errorCode === "R003") {
                 // 인증 가능 범위가 아닌 경우
                 alert("신고하려는 가게와 사용자의 위치가 100m를 초과했습니다.");
@@ -168,6 +192,14 @@ const Report = () => {
 
             // nav(`/main`)
         } catch (error) {
+            console.log(error.response?.data);
+            if (error.response?.data.errorCode === "T004") {
+                // alert("로그인시 이용 가능합니다.");
+                setIsModalOpen(true);
+            }else {
+                // 다른 에러 처리
+                console.log(error.response?.data);
+            }
             if (error.response?.data.errorCode === "S006") {
                 // 인증 가능 범위가 아닌 경우
                 alert("해당 가게의 신고자가 아닙니다. 본인이 신고한 가게만 신고 취소가 가능합니다.");
@@ -188,6 +220,14 @@ const Report = () => {
             );
             setAll(data.results);
         } catch (error) {
+            console.log(error.response?.data);
+            if (error.response?.data.errorCode === "T004") {
+                // alert("로그인시 이용 가능합니다.");
+                setIsModalOpen(true);
+            }else {
+                // 다른 에러 처리
+                console.log(error.response?.data);
+            }
             console.log(error.response?.data);
         }
     }
@@ -242,6 +282,15 @@ const Report = () => {
                     </table>
                 </div>
             </div>
+            {isModalOpen && (
+                <div className="logoutModal">
+                    <div className="logoutModal-content">
+                        <span className="logoutClose" onClick={closeModal}>&times;</span>
+                        <p>게스트는 제한되는 기능입니다. <br></br>로그인을 원하시면 버튼을 눌러주세요.</p>
+                        <button onClick={logoutFunction} className='logoutButton'>로그아웃</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

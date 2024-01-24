@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./Visit.css";
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Api } from '../../common/api/ApiSearch';
 const Visit = () => {
 
@@ -8,6 +8,24 @@ const Visit = () => {
     const [getStoreId, setGetStoreId] = useState(decodeURIComponent(searchParams.get('storeId')));
     const [getLat, setGetLat] = useState(decodeURIComponent(searchParams.get('mLat')));
     const [getLng, setGetLng] = useState(decodeURIComponent(searchParams.get('mLng')));
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+        const nav = useNavigate();
+        const openModal = () => {
+            setIsModalOpen(true);
+            console.log(isModalOpen)
+        };
+        const closeModal = () => {
+            setIsModalOpen(false);
+        };
+        const logoutFunction = () => {
+            // 로그아웃 로직을 여기에 추가
+            console.log('로그아웃되었습니다.');
+            closeModal(); // 모달 닫기
+            nav('/login')
+            // history.push('/'); // 로그아웃 후 이동할 페이지 경로
+        };
+
 
     const [isVisitModalOpen, setIsVisitModalOpen] = useState(false);
 
@@ -45,6 +63,14 @@ const Visit = () => {
             // nav(`/main`)
         } catch (error) {
             console.log(error.response?.data);
+            if (error.response?.data.errorCode === "T004") {
+                // alert("로그인시 이용 가능합니다.");
+                setIsModalOpen(true);
+            }else {
+                // 다른 에러 처리
+                console.log(error.response?.data);
+            }
+            console.log(error.response?.data);
             if (error.response?.data.errorCode === "V001") {
                 alert("인증 가능 범위가 아닙니다.");
             } else if(error.response?.data.errorCode === "V002"){
@@ -80,6 +106,14 @@ const Visit = () => {
             openCertifyModal();
             // nav(`/main`)
         } catch (error) {
+            console.log(error.response?.data);
+            if (error.response?.data.errorCode === "T004") {
+                // alert("로그인시 이용 가능합니다.");
+                setIsModalOpen(true);
+            }else {
+                // 다른 에러 처리
+                console.log(error.response?.data);
+            }
             console.log(error.response?.data);
             if (error.response?.data.errorCode === "V001") {
                 alert("인증 가능 범위가 아닙니다.");
@@ -138,6 +172,15 @@ const Visit = () => {
                             <img className='smileImg' src='https://cdn-icons-png.flaticon.com/128/3404/3404134.png' />
                             <br></br>가게 리뷰를 남겨보세요
                         </p>
+                    </div>
+                </div>
+            )}
+            {isModalOpen && (
+                <div className="logoutModal">
+                    <div className="logoutModal-content">
+                        <span className="logoutClose" onClick={closeModal}>&times;</span>
+                        <p>게스트는 제한되는 기능입니다. <br></br>로그인을 원하시면 버튼을 눌러주세요.</p>
+                        <button onClick={logoutFunction} className='logoutButton'>로그아웃</button>
                     </div>
                 </div>
             )}
